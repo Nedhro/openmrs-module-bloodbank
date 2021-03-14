@@ -17,6 +17,11 @@
 	<!-- <updateURL>https://modules.openmrs.org/modules/download/@MODULE_ID@/update.rdf</updateURL> -->
 	<!-- /Base Module Properties -->
 
+	<require_modules>
+		<require_module>org.openmrs.module.webservices.rest</require_module>
+		<require_module version="${openmrsAtomfeedVersion}">org.ict4h.openmrs.openmrs-atomfeed</require_module>
+	</require_modules>
+
 	<require_version>1.11.6</require_version>
 
 	<!-- Extensions -->
@@ -29,6 +34,9 @@
 		<aware_of_module>org.openmrs.module.legacyui</aware_of_module>
 	</aware_of_modules>
 
+	<mappingFiles>
+		BloodDonor.hbm.xml
+	</mappingFiles>
 
 	<!-- AOP
 	<advice>

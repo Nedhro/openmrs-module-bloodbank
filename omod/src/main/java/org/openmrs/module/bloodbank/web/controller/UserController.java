@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping(value = "module/bloodbank/")
-public class BloodBankController {
+public class UserController {
 	
 	/** Logger for this class and subclasses */
 	protected final Log log = LogFactory.getLog(getClass());
@@ -25,11 +25,18 @@ public class BloodBankController {
 	@Autowired
 	private UserService userService;
 	
-	private final String VIEW = "module/bloodbank/users/users";
+	private final String userView = "module/bloodbank/views/user/users";
+	
+	private final String donorFormView = "module/bloodbank/views/donor/donorForm";
 	
 	@RequestMapping(value = "users", method = RequestMethod.GET)
 	public String onGet() {
-		return VIEW;
+		return userView;
+	}
+	
+	@RequestMapping(value = "donor/info", method = RequestMethod.GET)
+	public String donorForm() {
+		return donorFormView;
 	}
 	
 	@RequestMapping(value = "bloodbank", method = RequestMethod.POST)
@@ -40,7 +47,7 @@ public class BloodBankController {
 			// return error view
 		}
 		
-		return VIEW;
+		return userView;
 	}
 	
 	@ModelAttribute("users")

@@ -50,9 +50,6 @@
             <ref bean="sessionFactory"/>
         </property>
     </bean>
-
-    <!-- Adds BloodBankService to OpenMRS context so it can be accessed
-    calling Context.getService(BloodBankService.class) -->
     <bean parent="serviceContext">
         <property name="moduleService">
             <list>
@@ -61,4 +58,38 @@
             </list>
         </property>
     </bean>
+   <!-- Donor Service-->
+
+    <bean id="bloodDonorService"
+          class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager">
+            <ref bean="transactionManager" />
+        </property>
+        <property name="target">
+            <bean class="org.openmrs.module.bloodbank.api.service.impl.BloodDonorServiceImpl">
+                <property name="bloodDonorDao" ref="bloodDonorDao" />
+            </bean>
+        </property>
+        <property name="preInterceptors">
+            <ref bean="serviceInterceptors" />
+        </property>
+        <property name="transactionAttributeSource">
+            <ref bean="transactionAttributeSource" />
+        </property>
+    </bean>
+
+    <bean id="bloodDonorDao" class="org.openmrs.module.bloodbank.api.dao.impl.BloodDonorDaoImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+    <bean parent="serviceContext">
+        <property name="moduleService">
+            <list>
+                <value>org.openmrs.module.bloodbank.api.service.BloodDonorService</value>
+                <ref bean="bloodDonorService" />
+            </list>
+        </property>
+    </bean>
+
 </beans>
