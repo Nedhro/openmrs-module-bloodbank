@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="org.openmrs.module.bloodbank.api.model">
+    <class name="DonorConcern" table="bloodbank_donor_concern" lazy="false" batch-size="50">
+        <id name="donorConcernId" type="java.lang.Integer" column="donor_concern_id">
+            <generator class="native">
+                <param name="sequence">donor_concern_id_seq</param>
+            </generator>
+        </id>
+        <property name="concernName" type="java.lang.String" column="concern_name"/>
+        <!--        <property name="concernFor" type="java.lang.String" column="concern_for"/>-->
+        <property name="concernFor" column="concern_for">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">org.openmrs.module.bloodbank.api.model.Gender</param>
+                <param name="useNamed">true</param>
+            </type>
+        </property>
+        <!--        <property name="concernStatus" type="java.lang.String" column="concern_status"/>-->
+        <property name="concernStatus" column="concern_status">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">org.openmrs.module.bloodbank.api.model.ConcernStatus</param>
+                <param name="useNamed">true</param>
+            </type>
+        </property>
+        <many-to-one name="bloodDonor" class="org.openmrs.module.bloodbank.api.model.BloodDonor"
+                     column="blood_donor_id"/>
+    </class>
+</hibernate-mapping>

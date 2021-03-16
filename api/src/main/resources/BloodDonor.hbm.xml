@@ -20,15 +20,19 @@
         <property name="donorMobileNo" type="java.lang.String" column="donor_mobile_no" length="255"/>
         <property name="donorLastDonatedDate" type="java.util.Date" column="donor_last_donated_date"/>
         <property name="donorLastDonatedPlace" type="java.lang.String" column="donor_last_donated_place" length="255"/>
+        <set name="concernSet" table="bloodbank_donor_concern" lazy="true" inverse="true" cascade="save-update">
+            <key foreign-key="donor_id" column="blood_donor" not-null="true"/>
+            <one-to-many class="DonorConcern"/>
+        </set>
 
         <property name="dateCreated" type="java.util.Date" column="date_created"/>
         <property name="dateChanged" type="java.util.Date" column="date_changed"/>
         <property name="uuid" type="java.lang.String" column="uuid" length="38" unique="true"/>
-        <property name="voided" type="java.lang.Boolean" column="voided" length="1" not-null="true" />
-        <property name="dateVoided" type="java.util.Date" column="date_voided" length="19" />
-        <property name="voidReason" type="java.lang.String" column="void_reason" length="255" />
-        <many-to-one name="voidedBy" class="org.openmrs.User" column="voided_by" />
-        <many-to-one name="changedBy" class="org.openmrs.User" column="changed_by" />
+        <property name="voided" type="java.lang.Boolean" column="voided" length="1" not-null="true"/>
+        <property name="dateVoided" type="java.util.Date" column="date_voided" length="19"/>
+        <property name="voidReason" type="java.lang.String" column="void_reason" length="255"/>
+        <many-to-one name="voidedBy" class="org.openmrs.User" column="voided_by"/>
+        <many-to-one name="changedBy" class="org.openmrs.User" column="changed_by"/>
         <many-to-one name="creator" class="org.openmrs.User" column="creator" not-null="true"/>
     </class>
 </hibernate-mapping>

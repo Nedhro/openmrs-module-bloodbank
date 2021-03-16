@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
 
     <!--
@@ -12,31 +12,59 @@
         See http://www.liquibase.org/manual/home#available_database_refactorings
         for a list of supported elements and attributes
     -->
-	<changeSet id="bloodbank-donor-test1" author="nidhro">
-		<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="bloodbank_donor"/></not>
-		</preConditions>
-		<comment>
-			Creating the bloodbank_donor table
-		</comment>
-		<createTable tableName="bloodbank_donor">
-			<column name="donor_id" type="int" autoIncrement="true">
-				<constraints primaryKey="true" nullable="false"/>
-			</column>
-			<column name="donor_name" type="varchar(255)" />
-			<column name="donor_age" type="varchar(255)" />
-			<column name="donor_guardian" type="varchar(255)" />
-			<column name="donor_gender" type="varchar(255)" />
-			<column name="donor_marital_status" type="varchar(255)" />
-			<column name="donor_profession" type="varchar(255)" />
-			<column name="donor_present_address" type="varchar(255)" />
-			<column name="donor_parmanent_address" type="varchar(255)" />
-			<column name="donor_mobile_no" type="varchar(255)" />
-			<column name="donor_last_donated_date" type="varchar(255)" />
-			<column name="donor_last_donated_place" type="varchar(255)" />
-		</createTable>
-<!--        <addForeignKeyConstraint constraintName="bloodbank_item_owner_fk" baseTableName="bloodbank_item" baseColumnNames="owner"  referencedTableName="users"-->
-<!--                                 referencedColumnNames="user_id" />-->
+    <changeSet id="bloodbank-donor-test7" author="nidhro">
+        <!--<preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="bloodbank_donor"/></not>
+        </preConditions>-->
+        <comment>
+            Creating the bloodbank_donor table
+        </comment>
+        <createTable tableName="bloodbank_donor">
+            <column name="donor_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="donor_name" type="varchar(255)"/>
+            <column name="donor_age" type="varchar(255)"/>
+            <column name="donor_guardian" type="varchar(255)"/>
+            <column name="donor_gender" type="varchar(255)"/>
+            <column name="donor_marital_status" type="varchar(255)"/>
+            <column name="donor_profession" type="varchar(255)"/>
+            <column name="donor_present_address" type="varchar(255)"/>
+            <column name="donor_parmanent_address" type="varchar(255)"/>
+            <column name="donor_mobile_no" type="varchar(255)"/>
+            <column name="donor_last_donated_date" type="date"/>
+            <column name="donor_last_donated_place" type="varchar(255)"/>
+
+            <column name="date_created" type="datetime"/>
+            <column name="date_changed" type="datetime"/>
+            <column name="uuid" type="varchar(255)"/>
+            <column name="voided" type="tinyint(3)"/>
+            <column name="date_voided" type="datetime"/>
+            <column name="void_reason" type="varchar(255)"/>
+            <column name="voided_by" type="int(10)"/>
+            <column name="changed_by" type="int(10)"/>
+            <column name="creator" type="int(10)"/>
+        </createTable>
+        <!--        <addForeignKeyConstraint constraintName="bloodbank_item_owner_fk" baseTableName="bloodbank_item" baseColumnNames="owner"  referencedTableName="users"-->
+        <!--                                 referencedColumnNames="user_id" />-->
+    </changeSet>
+
+    <changeSet id="bloodbank-donor-concern-test7" author="nidhro">
+        <comment>
+            Creating the bloodbank_donor_concern table
+        </comment>
+        <createTable tableName="bloodbank_donor_concern">
+            <column name="donor_concern_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="concern_name" type="varchar(255)"/>
+            <column name="concern_for" type="varchar(255)"/>
+            <column name="concern_status" type="varchar(255)"/>
+            <column name="blood_donor_id" type="int(11)"/>
+        </createTable>
+        <addForeignKeyConstraint constraintName="bloodbank_donor_concern_fk"
+                                 baseTableName="bloodbank_donor_concern" baseColumnNames="blood_donor_id"
+                                 referencedTableName="bloodbank_donor" referencedColumnNames="donor_id"/>
     </changeSet>
 
 </databaseChangeLog>
