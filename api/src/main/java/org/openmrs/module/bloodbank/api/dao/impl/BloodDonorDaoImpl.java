@@ -29,9 +29,17 @@ public class BloodDonorDaoImpl implements BloodDonorDao {
 	
 	@Override
 	public List<BloodDonor> getAllBloodDonors() {
-		List<BloodDonor> donorList = getSession().createQuery("from BloodDonor").list();
+		Criteria donorList = getSession().createCriteria(BloodDonor.class);
+		//		List<BloodDonor> donorList = getSession().createQuery("from BloodDonor").list();
 		System.out.println("Donor List ::" + donorList);
 		log.info("Donor List ::" + donorList);
-		return donorList;
+		return donorList.list();
+	}
+	
+	@Override
+	public BloodDonor saveDonorInfo(BloodDonor bloodDonor) {
+		getSession().merge(bloodDonor);
+		log.info("Blood Donor Info is saved Successfully :: " + bloodDonor);
+		return bloodDonor;
 	}
 }

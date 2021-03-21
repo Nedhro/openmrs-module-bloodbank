@@ -7,4 +7,6 @@ import java.util.List;
 public interface BloodDonorDao {
 	
 	List<BloodDonor> getAllBloodDonors();
+	
+	BloodDonor saveDonorInfo(BloodDonor bloodDonor);
 }
