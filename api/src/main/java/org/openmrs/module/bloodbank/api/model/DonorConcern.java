@@ -1,5 +1,7 @@
 package org.openmrs.module.bloodbank.api.model;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+
 import java.io.Serializable;
 
 public class DonorConcern implements Serializable {
@@ -12,6 +14,7 @@ public class DonorConcern implements Serializable {
 	
 	private ConcernStatus concernStatus;
 	
+	@JsonBackReference
 	private BloodDonor bloodDonor;
 	
 	public Integer getDonorConcernId() {

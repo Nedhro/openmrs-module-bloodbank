@@ -19,4 +19,9 @@ public class BloodDonorServiceImpl extends BaseOpenmrsService implements BloodDo
 	public List<BloodDonor> getAllBloodDonors() {
 		return bloodDonorDao.getAllBloodDonors();
 	}
+	
+	@Override
+	public BloodDonor saveDonorInfo(BloodDonor bloodDonor) {
+		return bloodDonorDao.saveDonorInfo(bloodDonor);
+	}
 }
