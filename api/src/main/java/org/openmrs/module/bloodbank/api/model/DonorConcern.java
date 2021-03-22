@@ -1,6 +1,8 @@
 package org.openmrs.module.bloodbank.api.model;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
+import org.openmrs.module.bloodbank.api.model.enums.ConcernStatus;
+import org.openmrs.module.bloodbank.api.model.enums.Gender;
 
 import java.io.Serializable;
 
@@ -10,12 +12,14 @@ public class DonorConcern implements Serializable {
 	
 	private String concernName;
 	
-	private Gender concernFor;
-	
 	private ConcernStatus concernStatus;
 	
 	@JsonBackReference
 	private BloodDonor bloodDonor;
+	
+	public DonorConcern() {
+		this.concernStatus = ConcernStatus.Yes;
+	}
 	
 	public Integer getDonorConcernId() {
 		return donorConcernId;
@@ -33,16 +37,8 @@ public class DonorConcern implements Serializable {
 		this.concernName = concernName;
 	}
 	
-	public Gender getConcernFor() {
-		return concernFor;
-	}
-	
-	public void setConcernFor(Gender concernFor) {
-		this.concernFor = concernFor;
-	}
-	
 	public ConcernStatus getConcernStatus() {
-		return concernStatus;
+		return this.concernStatus;
 	}
 	
 	public void setConcernStatus(ConcernStatus concernStatus) {

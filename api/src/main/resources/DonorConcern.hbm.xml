@@ -10,17 +10,9 @@
             </generator>
         </id>
         <property name="concernName" type="java.lang.String" column="concern_name"/>
-        <!--        <property name="concernFor" type="java.lang.String" column="concern_for"/>-->
-        <property name="concernFor" column="concern_for">
-            <type name="org.hibernate.type.EnumType">
-                <param name="enumClass">org.openmrs.module.bloodbank.api.model.Gender</param>
-                <param name="useNamed">true</param>
-            </type>
-        </property>
-        <!--        <property name="concernStatus" type="java.lang.String" column="concern_status"/>-->
         <property name="concernStatus" column="concern_status">
             <type name="org.hibernate.type.EnumType">
-                <param name="enumClass">org.openmrs.module.bloodbank.api.model.ConcernStatus</param>
+                <param name="enumClass">org.openmrs.module.bloodbank.api.model.enums.ConcernStatus</param>
                 <param name="useNamed">true</param>
             </type>
         </property>

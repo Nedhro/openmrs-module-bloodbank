@@ -3,6 +3,7 @@ package org.openmrs.module.bloodbank.web.controller;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.module.bloodbank.api.model.BloodDonor;
+import org.openmrs.module.bloodbank.api.model.Questionnaire;
 import org.openmrs.module.bloodbank.api.service.BloodDonorService;
 import org.openmrs.module.webservices.rest.web.RestConstants;
 import org.openmrs.module.webservices.rest.web.RestUtil;
@@ -27,7 +28,7 @@ public class DonorController {
 	@Autowired
 	private BloodDonorService bloodDonorService;
 	
-	@RequestMapping(method = RequestMethod.GET, value = "all")
+	@RequestMapping(method = RequestMethod.GET, value = "donors")
 	@ResponseBody
 	public List<BloodDonor> getAllBloodDonor() {
 		List<BloodDonor> bloodDonors = bloodDonorService.getAllBloodDonors();
@@ -46,4 +47,24 @@ public class DonorController {
 			return new ResponseEntity<>(RestUtil.wrapErrorResponse(e, e.getMessage()), HttpStatus.BAD_REQUEST);
 		}
     }
+	
+	@RequestMapping(method = RequestMethod.POST, value = "questionnaire/add")
+	@ResponseBody
+	public ResponseEntity<Object> saveDonorInfo(@Valid @RequestBody Questionnaire questionnaire) {
+		try {
+			bloodDonorService.saveQuestionnaire(questionnaire);
+			return new ResponseEntity<>(questionnaire, HttpStatus.OK);
+		} catch (Exception e) {
+			log.error("Runtime error while trying to save questionnaire", e);
+			return new ResponseEntity<>(RestUtil.wrapErrorResponse(e, e.getMessage()), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "questionnaire/list")
+	@ResponseBody
+	public List<Questionnaire> getAllQuestionnaires() {
+		List<Questionnaire> questionnaireList = bloodDonorService.getAllQuestionnaires();
+		log.info("Questionnaire Lists :: " + questionnaireList);
+		return questionnaireList;
+	}
 }

@@ -1,7 +1,7 @@
-package org.openmrs.module.bloodbank.api.model;
+package org.openmrs.module.bloodbank.api.model.enums;
 
 public enum Gender {
-	MALE("male"), FEMALE("female"), OTHER("other"), BOTH("both");
+	Male("Male"), Female("Female"), Other("Other"), Both("Both");
 	
 	private final String value;
 	
