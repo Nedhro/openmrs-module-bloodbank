@@ -37,6 +37,7 @@
 	<mappingFiles>
 		BloodDonor.hbm.xml
 		DonorConcern.hbm.xml
+		Questionnaire.hbm.xml
 	</mappingFiles>
 
 	<!-- AOP

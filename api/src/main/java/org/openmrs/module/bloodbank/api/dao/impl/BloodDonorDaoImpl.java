@@ -1,15 +1,15 @@
 package org.openmrs.module.bloodbank.api.dao.impl;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.openmrs.module.bloodbank.api.dao.BloodDonorDao;
 import org.openmrs.module.bloodbank.api.model.BloodDonor;
+import org.openmrs.module.bloodbank.api.model.Questionnaire;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,17 +29,47 @@ public class BloodDonorDaoImpl implements BloodDonorDao {
 	
 	@Override
 	public List<BloodDonor> getAllBloodDonors() {
-		Criteria donorList = getSession().createCriteria(BloodDonor.class);
+		Criteria donor = getSession().createCriteria(BloodDonor.class);
 		//		List<BloodDonor> donorList = getSession().createQuery("from BloodDonor").list();
-		System.out.println("Donor List ::" + donorList);
-		log.info("Donor List ::" + donorList);
-		return donorList.list();
+		System.out.println("Donor List ::" + donor.list());
+		log.info("Donor List ::" + donor.list());
+		return donor.list();
 	}
 	
+	@Transactional
 	@Override
 	public BloodDonor saveDonorInfo(BloodDonor bloodDonor) {
 		getSession().merge(bloodDonor);
 		log.info("Blood Donor Info is saved Successfully :: " + bloodDonor);
 		return bloodDonor;
 	}
+	
+	@Override
+	public boolean existsByQuestionnaireName(String question) {
+		Criteria criteria = getSession().createCriteria(Questionnaire.class);
+		criteria.add(Restrictions.eq("question", question));
+		Questionnaire result = (Questionnaire) criteria.uniqueResult();
+		if (result == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	@Transactional
+	@Override
+	public Questionnaire saveQuestionnaire(Questionnaire questionnaire) {
+		getSession().persist(questionnaire);
+		log.info("Question has been saved successfully..." + questionnaire);
+		return questionnaire;
+	}
+	
+	@Override
+	public List<Questionnaire> getAllQuestionnaires() {
+		Criteria criteria = getSession().createCriteria(Questionnaire.class);
+		System.out.println("Questionnaire List ::" + criteria.list());
+		log.info("Questionnaire List ::" + criteria.list());
+		return criteria.list();
+	}
+	
 }

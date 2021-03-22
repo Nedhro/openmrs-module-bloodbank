@@ -1,7 +1,7 @@
-package org.openmrs.module.bloodbank.api.model;
+package org.openmrs.module.bloodbank.api.model.enums;
 
 public enum ConcernStatus {
-	YES("yes"), NO("no");
+	Yes("Yes"), No("No");
 	
 	private final String value;
 	
