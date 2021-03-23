@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.module.bloodbank.api.dao.BloodDonorDao;
 import org.openmrs.module.bloodbank.api.model.BloodDonor;
+import org.openmrs.module.bloodbank.api.model.BloodDonorPhysicalSuitability;
 import org.openmrs.module.bloodbank.api.model.Questionnaire;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,6 +70,23 @@ public class BloodDonorDaoImpl implements BloodDonorDao {
 		Criteria criteria = getSession().createCriteria(Questionnaire.class);
 		System.out.println("Questionnaire List ::" + criteria.list());
 		log.info("Questionnaire List ::" + criteria.list());
+		return criteria.list();
+	}
+	
+	@Transactional
+	@Override
+	public BloodDonorPhysicalSuitability saveBloodDonorPhysicalSuitability(
+	        BloodDonorPhysicalSuitability donorPhysicalSuitability) {
+		getSession().persist(donorPhysicalSuitability);
+		log.info("Donor Physical Suitability has been saved successfully..." + donorPhysicalSuitability);
+		return donorPhysicalSuitability;
+	}
+	
+	@Override
+	public List<BloodDonorPhysicalSuitability> getAllBloodDonorPhysicalSuitability() {
+		Criteria criteria = getSession().createCriteria(BloodDonorPhysicalSuitability.class);
+		System.out.println("Blood Donor Physical Suitability List ::" + criteria.list());
+		log.info("Blood Donor Physical Suitability List ::" + criteria.list());
 		return criteria.list();
 	}
 	
