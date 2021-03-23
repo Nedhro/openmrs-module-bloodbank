@@ -38,6 +38,7 @@
 		BloodDonor.hbm.xml
 		DonorConcern.hbm.xml
 		Questionnaire.hbm.xml
+		BloodDonorPhysicalSuitability.hbm.xml
 	</mappingFiles>
 
 	<!-- AOP

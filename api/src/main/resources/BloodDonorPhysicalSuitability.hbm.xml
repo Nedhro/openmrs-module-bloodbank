@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="org.openmrs.module.bloodbank.api.model">
+    <class name="BloodDonorPhysicalSuitability" table="bloodbank_blood_donor_physical_suitability" lazy="false" batch-size="50">
+        <id name="donorPhysicalSuitabilityId" type="java.lang.Integer" column="donor_physical_suitability_id">
+            <generator class="native">
+                <param name="sequence">donor_physical_suitability_id_seq</param>
+            </generator>
+        </id>
+        <property name="donorHemoglobin" type="java.lang.Double" column="donor_hemoglobin"/>
+        <property name="donorWeight" type="java.lang.Double" column="donor_weight"/>
+        <property name="donorBloodPressure" type="java.lang.String" column="donor_blood_pressure"/>
+        <property name="donorPulseRate" type="java.lang.Double" column="donor_pulse_rate"/>
+        <property name="donorTemperature" type="java.lang.Double" column="donor_temperature"/>
+        <property name="donorBloodGroup" type="java.lang.String" column="donor_blood_group"/>
+        <property name="donorBloodGroupRhesus" type="java.lang.String" column="donor_blood_group_rhesus"/>
+        <property name="donorSelection" column="donor_selection">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">org.openmrs.module.bloodbank.api.model.enums.PermissionType</param>
+                <param name="useNamed">true</param>
+            </type>
+        </property>
+    </class>
+</hibernate-mapping>
