@@ -97,4 +97,27 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="bloodbank_blood_donor_physical_suitability_test13" author="jarrin">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="bloodbank_blood_donor_physical_suitability"/>
+            </not>
+        </preConditions>
+        <comment>
+            Creating the bloodbank_blood_donor_physical_suitability table
+        </comment>
+        <createTable tableName="bloodbank_blood_donor_physical_suitability">
+            <column name="donor_physical_suitability_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="donor_hemoglobin" type="float(24)"/>
+            <column name="donor_weight" type="float(24)"/>
+            <column name="donor_blood_pressure" type="varchar(255)"/>
+            <column name="donor_pulse_rate" type="float(24)"/>
+            <column name="donor_temperature" type="float(24)"/>
+            <column name="donor_blood_group" type="varchar(255)"/>
+            <column name="donor_blood_group_rhesus" type="varchar(255)"/>
+            <column name="donor_selection" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>
