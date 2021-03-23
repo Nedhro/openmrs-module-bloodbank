@@ -1,6 +1,7 @@
 package org.openmrs.module.bloodbank.api.dao;
 
 import org.openmrs.module.bloodbank.api.model.BloodDonor;
+import org.openmrs.module.bloodbank.api.model.BloodDonorPhysicalSuitability;
 import org.openmrs.module.bloodbank.api.model.Questionnaire;
 
 import java.util.List;
@@ -16,4 +17,8 @@ public interface BloodDonorDao {
 	Questionnaire saveQuestionnaire(Questionnaire questionnaire);
 	
 	List<Questionnaire> getAllQuestionnaires();
+	
+	BloodDonorPhysicalSuitability saveBloodDonorPhysicalSuitability(BloodDonorPhysicalSuitability donorPhysicalSuitability);
+	
+	List<BloodDonorPhysicalSuitability> getAllBloodDonorPhysicalSuitability();
 }
