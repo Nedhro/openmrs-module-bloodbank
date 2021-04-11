@@ -1,6 +1,5 @@
 package org.openmrs.module.bloodbank.api.service.impl;
 
-import org.openmrs.api.APIException;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.bloodbank.api.dao.BloodDonorDao;
 import org.openmrs.module.bloodbank.api.model.BloodDonor;
@@ -9,7 +8,6 @@ import org.openmrs.module.bloodbank.api.model.Questionnaire;
 import org.openmrs.module.bloodbank.api.service.BloodDonorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -49,6 +47,7 @@ public class BloodDonorServiceImpl extends BaseOpenmrsService implements BloodDo
 		return bloodDonorDao.getAllQuestionnaires();
 	}
 	
+	@Override
 	public boolean existsByQuestionnaireName(String question) {
 		return bloodDonorDao.existsByQuestionnaireName(question);
 	}
