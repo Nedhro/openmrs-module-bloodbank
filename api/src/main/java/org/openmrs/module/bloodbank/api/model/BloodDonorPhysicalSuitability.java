@@ -1,13 +1,6 @@
 package org.openmrs.module.bloodbank.api.model;
 
-import org.codehaus.jackson.annotate.JsonManagedReference;
-import org.openmrs.module.bloodbank.api.model.enums.Gender;
-import org.openmrs.module.bloodbank.api.model.enums.MaritalStatus;
 import org.openmrs.module.bloodbank.api.model.enums.PermissionType;
-
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 public class BloodDonorPhysicalSuitability extends BaseModel {
 	
