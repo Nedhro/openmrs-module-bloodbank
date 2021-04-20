@@ -41,25 +41,32 @@ public class DonorController {
     @ResponseBody
     public ResponseEntity<Object> saveDonorInfo(@Valid @RequestBody BloodDonor bloodDonor) {
         try {
-			bloodDonorService.saveDonorInfo(bloodDonor);
-			return new ResponseEntity<>(bloodDonor, HttpStatus.OK);
-		} catch (Exception e) {
-			log.error("Runtime error while trying to save blood donor info", e);
-			return new ResponseEntity<>(RestUtil.wrapErrorResponse(e, e.getMessage()), HttpStatus.BAD_REQUEST);
-		}
+            bloodDonorService.saveDonorInfo(bloodDonor);
+            log.info("Blood Donor info is saved successfully :: " + bloodDonor);
+            return new ResponseEntity<>(bloodDonor, HttpStatus.CREATED);
+        } catch (Exception e) {
+            log.error("Runtime error while trying to save blood donor info", e);
+            return new ResponseEntity<>(RestUtil.wrapErrorResponse(e, e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
     }
 	
 	@RequestMapping(method = RequestMethod.POST, value = "questionnaire/add")
-	@ResponseBody
-	public ResponseEntity<Object> saveDonorInfo(@Valid @RequestBody Questionnaire questionnaire) {
-		try {
-			bloodDonorService.saveQuestionnaire(questionnaire);
-			return new ResponseEntity<>(questionnaire, HttpStatus.OK);
-		} catch (Exception e) {
-			log.error("Runtime error while trying to save questionnaire", e);
-			return new ResponseEntity<>(RestUtil.wrapErrorResponse(e, e.getMessage()), HttpStatus.BAD_REQUEST);
-		}
-	}
+    @ResponseBody
+    public ResponseEntity<Object> saveDonorInfo(@Valid @RequestBody Questionnaire questionnaire) {
+        try {
+            Boolean existQuestion = bloodDonorService.existsByQuestionnaireName(questionnaire.getQuestion());
+            if (existQuestion) {
+                log.info("Questionnaire exists  :: " + questionnaire);
+                return new ResponseEntity<>(questionnaire, HttpStatus.IM_USED);
+            }
+            bloodDonorService.saveQuestionnaire(questionnaire);
+            log.info("Questionnaire is added successfully :: " + questionnaire);
+            return new ResponseEntity<>(questionnaire, HttpStatus.CREATED);
+        } catch (Exception e) {
+            log.error("Runtime error while trying to save questionnaire", e);
+            return new ResponseEntity<>(RestUtil.wrapErrorResponse(e, e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
 	
 	@RequestMapping(method = RequestMethod.GET, value = "questionnaire/list")
 	@ResponseBody
@@ -70,16 +77,16 @@ public class DonorController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "bloodDonorPhysicalSuitability/add")
-	@ResponseBody
-	public ResponseEntity<Object> saveDonorPhysicalSuitability(@Valid @RequestBody BloodDonorPhysicalSuitability donorPhysicalSuitability) {
-		try {
-			bloodDonorService.saveBloodDonorPhysicalSuitability(donorPhysicalSuitability);
-			return new ResponseEntity<>(donorPhysicalSuitability, HttpStatus.OK);
-		} catch (Exception e) {
-			log.error("Runtime error while trying to save donor physical suitability", e);
-			return new ResponseEntity<>(RestUtil.wrapErrorResponse(e, e.getMessage()), HttpStatus.BAD_REQUEST);
-		}
-	}
+    @ResponseBody
+    public ResponseEntity<Object> saveDonorPhysicalSuitability(@Valid @RequestBody BloodDonorPhysicalSuitability donorPhysicalSuitability) {
+        try {
+            bloodDonorService.saveBloodDonorPhysicalSuitability(donorPhysicalSuitability);
+            return new ResponseEntity<>(donorPhysicalSuitability, HttpStatus.CREATED);
+        } catch (Exception e) {
+            log.error("Runtime error while trying to save donor physical suitability", e);
+            return new ResponseEntity<>(RestUtil.wrapErrorResponse(e, e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
 	
 	@RequestMapping(method = RequestMethod.GET, value = "bloodDonorPhysicalSuitability/list")
 	@ResponseBody

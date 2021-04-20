@@ -1,9 +1,5 @@
 package org.openmrs.module.bloodbank.web.controller;
 
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.User;
@@ -15,19 +11,24 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpSession;
+import java.util.List;
+
 @Controller
 @RequestMapping(value = "module/bloodbank/")
 public class UserController {
 	
-	/** Logger for this class and subclasses */
+	/**
+	 * Logger for this class and subclasses
+	 */
 	protected final Log log = LogFactory.getLog(getClass());
-	
-	@Autowired
-	private UserService userService;
 	
 	private final String userView = "module/bloodbank/views/user/users";
 	
 	private final String donorFormView = "module/bloodbank/views/donor/donorForm";
+	
+	@Autowired
+	private UserService userService;
 	
 	@RequestMapping(value = "users", method = RequestMethod.GET)
 	public String onGet() {

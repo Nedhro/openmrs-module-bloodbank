@@ -10,20 +10,6 @@ import java.util.TimeZone;
 
 public class DateUtil {
 	
-	public enum DateFormatType {
-		UTC("yyyy-MM-dd'T'HH:mm:ss.SSS");
-		
-		private final String dateFormat;
-		
-		DateFormatType(String dateFormat) {
-			this.dateFormat = dateFormat;
-		}
-		
-		public String getDateFormat() {
-			return dateFormat;
-		}
-	}
-	
 	public static Date convertToDate(String dateString, DateFormatType dateFormat) throws ParseException {
 		if (StringUtils.isEmpty(dateString) || dateFormat == null) {
 			return null;
@@ -72,5 +58,19 @@ public class DateUtil {
 		calendar.set(Calendar.SECOND, calendar.getMaximum(Calendar.SECOND));
 		calendar.set(Calendar.MILLISECOND, calendar.getMaximum(Calendar.MILLISECOND));
 		return calendar.getTime();
+	}
+	
+	public enum DateFormatType {
+		UTC("yyyy-MM-dd'T'HH:mm:ss.SSS");
+		
+		private final String dateFormat;
+		
+		DateFormatType(String dateFormat) {
+			this.dateFormat = dateFormat;
+		}
+		
+		public String getDateFormat() {
+			return dateFormat;
+		}
 	}
 }
