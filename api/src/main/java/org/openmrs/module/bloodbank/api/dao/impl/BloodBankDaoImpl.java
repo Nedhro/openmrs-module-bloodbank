@@ -5,17 +5,17 @@ import org.hibernate.SessionFactory;
 import org.openmrs.module.bloodbank.api.dao.BloodBankDao;
 
 public class BloodBankDaoImpl implements BloodBankDao {
-
-    private SessionFactory sessionFactory;
-
-    private Session getSession() {
-        return sessionFactory.getCurrentSession();
-    }
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
+	
+	private SessionFactory sessionFactory;
+	
+	private Session getSession() {
+		return sessionFactory.getCurrentSession();
+	}
+	
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+	
 	/* public Item getItemByUuid(String uuid) {
 	     return (Item) getSession().createCriteria(Item.class).add(Restrictions.eq("uuid", uuid)).uniqueResult();
 	 }

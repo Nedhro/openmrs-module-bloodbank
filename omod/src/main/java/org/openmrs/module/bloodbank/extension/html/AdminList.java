@@ -21,32 +21,32 @@ import java.util.Map;
  * config.xml file.
  */
 public class AdminList extends AdministrationSectionExt {
-
+	
 	/**
 	 * @see org.openmrs.module.web.extension.AdministrationSectionExt#getMediaType()
 	 */
 	public Extension.MEDIA_TYPE getMediaType() {
 		return Extension.MEDIA_TYPE.html;
 	}
-
+	
 	/**
 	 * @see org.openmrs.module.web.extension.AdministrationSectionExt#getTitle()
 	 */
 	public String getTitle() {
 		return "bloodbank.title";
 	}
-
+	
 	/**
 	 * @see org.openmrs.module.web.extension.AdministrationSectionExt#getLinks()
 	 */
 	public Map<String, String> getLinks() {
-
+		
 		Map<String, String> map = new HashMap<String, String>();
-
+		
 		map.put("module/bloodbank/users.form", "All Users");
 		map.put("module/bloodbank/donor/info.form", "Blood Donors");
-
+		
 		return map;
 	}
-
+	
 }
