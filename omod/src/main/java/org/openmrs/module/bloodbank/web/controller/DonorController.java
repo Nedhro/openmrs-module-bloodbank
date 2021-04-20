@@ -55,7 +55,7 @@ public class DonorController {
     public ResponseEntity<Object> saveDonorInfo(@Valid @RequestBody Questionnaire questionnaire) {
         try {
             Boolean existQuestion = bloodDonorService.existsByQuestionnaireName(questionnaire.getQuestion());
-            if(existQuestion){
+            if (existQuestion) {
                 log.info("Questionnaire exists  :: " + questionnaire);
                 return new ResponseEntity<>(questionnaire, HttpStatus.IM_USED);
             }
@@ -81,7 +81,7 @@ public class DonorController {
     public ResponseEntity<Object> saveDonorPhysicalSuitability(@Valid @RequestBody BloodDonorPhysicalSuitability donorPhysicalSuitability) {
         try {
             bloodDonorService.saveBloodDonorPhysicalSuitability(donorPhysicalSuitability);
-            return new ResponseEntity<>(donorPhysicalSuitability, HttpStatus.OK);
+            return new ResponseEntity<>(donorPhysicalSuitability, HttpStatus.CREATED);
         } catch (Exception e) {
             log.error("Runtime error while trying to save donor physical suitability", e);
             return new ResponseEntity<>(RestUtil.wrapErrorResponse(e, e.getMessage()), HttpStatus.BAD_REQUEST);

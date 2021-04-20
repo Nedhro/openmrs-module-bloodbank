@@ -2,7 +2,6 @@ package org.openmrs.module.bloodbank.api.model;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
 import org.openmrs.module.bloodbank.api.model.enums.ConcernStatus;
-import org.openmrs.module.bloodbank.api.model.enums.Gender;
 
 import java.io.Serializable;
 

@@ -50,11 +50,7 @@ public class BloodDonorDaoImpl implements BloodDonorDao {
 		Criteria criteria = getSession().createCriteria(Questionnaire.class);
 		criteria.add(Restrictions.eq("question", question));
 		Questionnaire result = (Questionnaire) criteria.uniqueResult();
-		if (result == null) {
-			return false;
-		} else {
-			return true;
-		}
+		return result != null;
 	}
 	
 	@Transactional
