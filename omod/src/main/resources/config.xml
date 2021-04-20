@@ -9,7 +9,7 @@
 	<package>org.openmrs.module.bloodbank</package>
 	<author>Nidhro</author>
 	<description>
-			${project.parent.description}
+		${project.parent.description}
 	</description>
 
 	<activator>org.openmrs.module.bloodbank.BloodBankActivator</activator>
@@ -42,13 +42,13 @@
 	</mappingFiles>
 
 	<!--<filter>
-		<filter-name>CORSFilter</filter-name>
-		<filter-class>org.openmrs.module.bloodbank.auth.CORSFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>CORSFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>-->
+        <filter-name>CORSFilter</filter-name>
+        <filter-class>org.openmrs.module.bloodbank.auth.CORSFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CORSFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>-->
 
 	<filter>
 		<filter-name>CorsFilter</filter-name>
@@ -59,7 +59,9 @@
 		</init-param>
 		<init-param>
 			<param-name>cors.allowed.headers</param-name>
-			<param-value>Content-Type,X-Requested-With,accept,Origin,Access-Control-Request-Method,Access-Control-Request-Headers</param-value>
+			<param-value>
+				Content-Type,X-Requested-With,accept,Origin,Access-Control-Request-Method,Access-Control-Request-Headers
+			</param-value>
 		</init-param>
 		<init-param>
 			<param-name>cors.exposed.headers</param-name>
@@ -80,58 +82,58 @@
 	</filter-mapping>
 
 	<!-- AOP
-	<advice>
-		<point>org.openmrs.api.FormService</point>
-		<class>@MODULE_PACKAGE@.advice.DuplicateFormAdvisor</class>
-	</advice>
-	 /AOP -->
+    <advice>
+        <point>org.openmrs.api.FormService</point>
+        <class>@MODULE_PACKAGE@.advice.DuplicateFormAdvisor</class>
+    </advice>
+     /AOP -->
 
 
 	<!-- Required Privileges
-	<privilege>
-		<name>Form Entry</name>
-		<description>Allows user to access Form Entry pages/functions</description>
-	</privilege>
-	 /Required Privileges -->
+    <privilege>
+        <name>Form Entry</name>
+        <description>Allows user to access Form Entry pages/functions</description>
+    </privilege>
+     /Required Privileges -->
 
 
 	<!-- Required Global Properties
-	<globalProperty>
-		<property>@MODULE_ID@.someProperty</property>
-		<defaultValue></defaultValue>
-		<description>
-			A description of the global property goes here.  The description
-			should explain enough for administrators to understand the purpose
-			and possible values for the global property.
-		</description>
-	</globalProperty>
-	/Required Global Properties -->
+    <globalProperty>
+        <property>@MODULE_ID@.someProperty</property>
+        <defaultValue></defaultValue>
+        <description>
+            A description of the global property goes here.  The description
+            should explain enough for administrators to understand the purpose
+            and possible values for the global property.
+        </description>
+    </globalProperty>
+    /Required Global Properties -->
 
 	<!--
-	<dwr>
-		<allow>
-			<create creator="new" javascript="DWRFormEntryService">
-				<param name="class" value="org.openmrs.module.@MODULE_ID@.web.DWRFormEntryService"/>
-				<include method="enterForm"/>
-			</create>
-		</allow>
+    <dwr>
+        <allow>
+            <create creator="new" javascript="DWRFormEntryService">
+                <param name="class" value="org.openmrs.module.@MODULE_ID@.web.DWRFormEntryService"/>
+                <include method="enterForm"/>
+            </create>
+        </allow>
 
-		<signatures>
-			<![CDATA[
-			import @MODULE_PACKAGE@.web.DWRFormEntryService;
-			DWRFormEntryService.enterForm(Integer patientId, Integer formId, boolean useEncounter, List<String> fields);
-			]]>
-		</signatures>
-	</dwr>
-	-->
+        <signatures>
+            <![CDATA[
+            import @MODULE_PACKAGE@.web.DWRFormEntryService;
+            DWRFormEntryService.enterForm(Integer patientId, Integer formId, boolean useEncounter, List<String> fields);
+            ]]>
+        </signatures>
+    </dwr>
+    -->
 
 	<!-- Servlets -->
 	<!-- Accessed through the url /pageContext()/moduleServlet/<moduleId>/<servlet-name>
-	<servlet>
-		<servlet-name>formDownload</servlet-name>
-		<servlet-class>@MODULE_PACKAGE@.web.FormDownloadServlet</servlet-class>
-	</servlet>
-	-->
+    <servlet>
+        <servlet-name>formDownload</servlet-name>
+        <servlet-class>@MODULE_PACKAGE@.web.FormDownloadServlet</servlet-class>
+    </servlet>
+    -->
 	<!-- /Servlets -->
 
 

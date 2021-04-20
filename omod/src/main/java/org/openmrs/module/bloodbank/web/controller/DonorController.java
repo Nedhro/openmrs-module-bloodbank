@@ -23,21 +23,21 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/rest/" + RestConstants.VERSION_1 + "/bloodbank")
 public class DonorController {
-	
-	private Log log = LogFactory.getLog(this.getClass());
-	
-	@Autowired
-	private BloodDonorService bloodDonorService;
-	
-	@RequestMapping(method = RequestMethod.GET, value = "donors")
-	@ResponseBody
-	public List<BloodDonor> getAllBloodDonor() {
-		List<BloodDonor> bloodDonors = bloodDonorService.getAllBloodDonors();
-		log.info("Blood Donor Lists :: " + bloodDonors);
-		return bloodDonors;
-	}
-	
-	@RequestMapping(method = RequestMethod.POST, value = "donorForm")
+
+    private Log log = LogFactory.getLog(this.getClass());
+
+    @Autowired
+    private BloodDonorService bloodDonorService;
+
+    @RequestMapping(method = RequestMethod.GET, value = "donors")
+    @ResponseBody
+    public List<BloodDonor> getAllBloodDonor() {
+        List<BloodDonor> bloodDonors = bloodDonorService.getAllBloodDonors();
+        log.info("Blood Donor Lists :: " + bloodDonors);
+        return bloodDonors;
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "donorForm")
     @ResponseBody
     public ResponseEntity<Object> saveDonorInfo(@Valid @RequestBody BloodDonor bloodDonor) {
         try {
@@ -49,13 +49,13 @@ public class DonorController {
             return new ResponseEntity<>(RestUtil.wrapErrorResponse(e, e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
-	
-	@RequestMapping(method = RequestMethod.POST, value = "questionnaire/add")
+
+    @RequestMapping(method = RequestMethod.POST, value = "questionnaire/add")
     @ResponseBody
     public ResponseEntity<Object> saveDonorInfo(@Valid @RequestBody Questionnaire questionnaire) {
         try {
             Boolean existQuestion = bloodDonorService.existsByQuestionnaireName(questionnaire.getQuestion());
-            if(existQuestion){
+            if (existQuestion) {
                 log.info("Questionnaire exists  :: " + questionnaire);
                 return new ResponseEntity<>(questionnaire, HttpStatus.IM_USED);
             }
@@ -67,33 +67,33 @@ public class DonorController {
             return new ResponseEntity<>(RestUtil.wrapErrorResponse(e, e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
-	
-	@RequestMapping(method = RequestMethod.GET, value = "questionnaire/list")
-	@ResponseBody
-	public List<Questionnaire> getAllQuestionnaires() {
-		List<Questionnaire> questionnaireList = bloodDonorService.getAllQuestionnaires();
-		log.info("Questionnaire Lists :: " + questionnaireList);
-		return questionnaireList;
-	}
-	
-	@RequestMapping(method = RequestMethod.POST, value = "bloodDonorPhysicalSuitability/add")
+
+    @RequestMapping(method = RequestMethod.GET, value = "questionnaire/list")
+    @ResponseBody
+    public List<Questionnaire> getAllQuestionnaires() {
+        List<Questionnaire> questionnaireList = bloodDonorService.getAllQuestionnaires();
+        log.info("Questionnaire Lists :: " + questionnaireList);
+        return questionnaireList;
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "bloodDonorPhysicalSuitability/add")
     @ResponseBody
     public ResponseEntity<Object> saveDonorPhysicalSuitability(@Valid @RequestBody BloodDonorPhysicalSuitability donorPhysicalSuitability) {
         try {
             bloodDonorService.saveBloodDonorPhysicalSuitability(donorPhysicalSuitability);
-            return new ResponseEntity<>(donorPhysicalSuitability, HttpStatus.OK);
+            return new ResponseEntity<>(donorPhysicalSuitability, HttpStatus.CREATED);
         } catch (Exception e) {
             log.error("Runtime error while trying to save donor physical suitability", e);
             return new ResponseEntity<>(RestUtil.wrapErrorResponse(e, e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
-	
-	@RequestMapping(method = RequestMethod.GET, value = "bloodDonorPhysicalSuitability/list")
-	@ResponseBody
-	public List<BloodDonorPhysicalSuitability> getAllBloodDonorsPhysicalSuitability() {
-		List<BloodDonorPhysicalSuitability> bloodDonorPhysicalSuitabilityList = bloodDonorService
-		        .getAllBloodDonorPhysicalSuitability();
-		log.info("Blood Donor Physical Suitability Lists :: " + bloodDonorPhysicalSuitabilityList);
-		return bloodDonorPhysicalSuitabilityList;
-	}
+
+    @RequestMapping(method = RequestMethod.GET, value = "bloodDonorPhysicalSuitability/list")
+    @ResponseBody
+    public List<BloodDonorPhysicalSuitability> getAllBloodDonorsPhysicalSuitability() {
+        List<BloodDonorPhysicalSuitability> bloodDonorPhysicalSuitabilityList = bloodDonorService
+                .getAllBloodDonorPhysicalSuitability();
+        log.info("Blood Donor Physical Suitability Lists :: " + bloodDonorPhysicalSuitabilityList);
+        return bloodDonorPhysicalSuitabilityList;
+    }
 }

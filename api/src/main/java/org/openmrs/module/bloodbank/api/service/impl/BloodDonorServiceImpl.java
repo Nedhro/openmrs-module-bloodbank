@@ -12,25 +12,25 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 public class BloodDonorServiceImpl extends BaseOpenmrsService implements BloodDonorService {
-	
+
 	protected final Logger log = LoggerFactory.getLogger(BloodDonorServiceImpl.class);
-	
+
 	private BloodDonorDao bloodDonorDao;
-	
+
 	public void setBloodDonorDao(BloodDonorDao bloodDonorDao) {
 		this.bloodDonorDao = bloodDonorDao;
 	}
-	
+
 	@Override
 	public List<BloodDonor> getAllBloodDonors() {
 		return bloodDonorDao.getAllBloodDonors();
 	}
-	
+
 	@Override
 	public BloodDonor saveDonorInfo(BloodDonor bloodDonor) {
 		return bloodDonorDao.saveDonorInfo(bloodDonor);
 	}
-	
+
 	@Override
 	public Questionnaire saveQuestionnaire(Questionnaire questionnaire) {
 		Boolean exists = this.existsByQuestionnaireName(questionnaire.getQuestion());
@@ -41,26 +41,26 @@ public class BloodDonorServiceImpl extends BaseOpenmrsService implements BloodDo
 			return bloodDonorDao.saveQuestionnaire(questionnaire);
 		}
 	}
-	
+
 	@Override
 	public List<Questionnaire> getAllQuestionnaires() {
 		return bloodDonorDao.getAllQuestionnaires();
 	}
-	
+
 	@Override
 	public boolean existsByQuestionnaireName(String question) {
 		return bloodDonorDao.existsByQuestionnaireName(question);
 	}
-	
+
 	@Override
 	public BloodDonorPhysicalSuitability saveBloodDonorPhysicalSuitability(
-	        BloodDonorPhysicalSuitability donorPhysicalSuitability) {
+			BloodDonorPhysicalSuitability donorPhysicalSuitability) {
 		return bloodDonorDao.saveBloodDonorPhysicalSuitability(donorPhysicalSuitability);
 	}
-	
+
 	@Override
 	public List<BloodDonorPhysicalSuitability> getAllBloodDonorPhysicalSuitability() {
 		return bloodDonorDao.getAllBloodDonorPhysicalSuitability();
 	}
-	
+
 }
