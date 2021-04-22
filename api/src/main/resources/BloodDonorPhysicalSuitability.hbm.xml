@@ -23,7 +23,14 @@
                 <param name="useNamed">true</param>
             </type>
         </property>
-        <one-to-one name="bloodDonor" class="org.openmrs.module.bloodbank.api.model.BloodDonor"
-                    cascade="save-update"></one-to-one>
+        <property name="bloodDonorId" type="java.lang.Integer" column="blood_donor_id"/>
+
+        <property name="uuid" type="java.lang.String" column="uuid" length="38" unique="true"/>
+        <property name="dateCreated" type="java.util.Date" column="date_created"/>
+        <property name="createdBy" type="java.lang.String" column="created_by" length="255"/>
+        <property name="dateChanged" type="java.util.Date" column="date_changed"/>
+        <property name="updatedBy" type="java.lang.String" column="updated_by" length="255"/>
+        <property name="voided" type="java.lang.Boolean" column="voided" length="1" not-null="true"/>
+        <property name="status" type="java.lang.Integer" column="status" length="1" not-null="true"/>
     </class>
 </hibernate-mapping>
