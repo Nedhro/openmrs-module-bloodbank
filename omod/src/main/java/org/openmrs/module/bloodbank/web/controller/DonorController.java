@@ -5,6 +5,7 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.module.bloodbank.api.model.BloodDonor;
 import org.openmrs.module.bloodbank.api.model.BloodDonorPhysicalSuitability;
 import org.openmrs.module.bloodbank.api.model.Questionnaire;
+import org.openmrs.module.bloodbank.api.model.enums.Status;
 import org.openmrs.module.bloodbank.api.service.BloodDonorService;
 import org.openmrs.module.webservices.rest.web.RestConstants;
 import org.openmrs.module.webservices.rest.web.RestUtil;
@@ -20,12 +21,12 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/rest/" + RestConstants.VERSION_1 + "/bloodbank")
 public class DonorController {
-
+	
 	private Log log = LogFactory.getLog(this.getClass());
-
+	
 	@Autowired
 	private BloodDonorService bloodDonorService;
-
+	
 	@RequestMapping(method = RequestMethod.GET, value = "donors")
 	@ResponseBody
 	public List<BloodDonor> getAllBloodDonor() {
@@ -33,7 +34,7 @@ public class DonorController {
 		log.info("Blood Donor Lists :: " + bloodDonors);
 		return bloodDonors;
 	}
-
+	
 	@RequestMapping(method = RequestMethod.POST, value = "donorForm")
     @ResponseBody
     public ResponseEntity<Object> saveDonorInfo(@Valid @RequestBody BloodDonor bloodDonor) {
@@ -46,8 +47,8 @@ public class DonorController {
         log.info("Blood Donor info is updated successfully :: " + bloodDonor);
         return new ResponseEntity<>(bloodDonor, HttpStatus.ACCEPTED);
     }
-
-    @RequestMapping(method = RequestMethod.GET, value = "donorForm/{id}")
+	
+	@RequestMapping(method = RequestMethod.GET, value = "donorForm/{id}")
     @ResponseBody
     public ResponseEntity<Object> getDonorById(@PathVariable Integer id){
 	    try{
@@ -62,7 +63,17 @@ public class DonorController {
         }
 	    return null;
     }
-
+	
+	@RequestMapping(method = RequestMethod.POST, value = "donor/{id}")
+    @ResponseBody
+    public ResponseEntity<Object> deleteDonerById(@PathVariable Integer id){
+        BloodDonor bloodDonor = bloodDonorService.getDonorById(id);
+        bloodDonor.setStatus(Status.DELETE.getValue());
+        bloodDonorService.updateDonorInfo(bloodDonor);
+        log.info("Blood Donor deleted successfully :: " + bloodDonor);
+        return new ResponseEntity<>(bloodDonor, HttpStatus.ACCEPTED);
+    }
+	
 	@RequestMapping(method = RequestMethod.POST, value = "questionnaire/add")
     @ResponseBody
     public ResponseEntity<Object> saveQuestionnaire(@Valid @RequestBody Questionnaire questionnaire) {
@@ -80,16 +91,16 @@ public class DonorController {
         log.info("Questionnaire is updated successfully :: " + questionnaire);
         return new ResponseEntity<>(questionnaire, HttpStatus.ACCEPTED);
     }
-
-    @RequestMapping(method = RequestMethod.GET, value = "questionnaire/list")
-    @ResponseBody
-    public List<Questionnaire> getAllQuestionnaires() {
-        List<Questionnaire> questionnaireList = bloodDonorService.getAllQuestionnaires();
-        log.info("Questionnaire Lists :: " + questionnaireList);
-        return questionnaireList;
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "questionnaire/{id}")
+	
+	@RequestMapping(method = RequestMethod.GET, value = "questionnaire/list")
+	@ResponseBody
+	public List<Questionnaire> getAllQuestionnaires() {
+		List<Questionnaire> questionnaireList = bloodDonorService.getAllQuestionnaires();
+		log.info("Questionnaire Lists :: " + questionnaireList);
+		return questionnaireList;
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "questionnaire/{id}")
     @ResponseBody
     public ResponseEntity<Object> getQuestionnaireById(@PathVariable("id") Integer qid) {
         try {
@@ -105,7 +116,17 @@ public class DonorController {
         return null;
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "bloodDonorPhysicalSuitability/add")
+    @RequestMapping(method = RequestMethod.POST, value = "questionnaire/{id}")
+    @ResponseBody
+    public ResponseEntity<Object> deleteQuestionnaireById(@PathVariable Integer id){
+	    Questionnaire questionnaire = bloodDonorService.getQuestionnaireById(id);
+	    questionnaire.setStatus(Status.DELETE.getValue());
+        bloodDonorService.updateQuestionnaire(questionnaire);
+        log.info("Questionnaire deleted successfully :: " + questionnaire);
+        return new ResponseEntity<>(questionnaire, HttpStatus.ACCEPTED);
+    }
+	
+	@RequestMapping(method = RequestMethod.POST, value = "bloodDonorPhysicalSuitability/add")
     @ResponseBody
     public ResponseEntity<Object> saveDonorPhysicalSuitability(@Valid @RequestBody BloodDonorPhysicalSuitability donorPhysicalSuitability) {
         if (donorPhysicalSuitability.getDonorPhysicalSuitabilityId() == null) {
@@ -117,7 +138,7 @@ public class DonorController {
         log.info("Blood Donor Physical Suitability test is updated successfully :: " + donorPhysicalSuitability);
         return new ResponseEntity<>(donorPhysicalSuitability, HttpStatus.ACCEPTED);
     }
-
+	
 	@RequestMapping(method = RequestMethod.GET, value = "bloodDonorPhysicalSuitability/list")
 	@ResponseBody
 	public List<BloodDonorPhysicalSuitability> getAllBloodDonorsPhysicalSuitability() {
@@ -126,7 +147,7 @@ public class DonorController {
 		log.info("Blood Donor Physical Suitability Lists :: " + bloodDonorPhysicalSuitabilityList);
 		return bloodDonorPhysicalSuitabilityList;
 	}
-
+	
 	@RequestMapping(method = RequestMethod.GET, value = "bloodDonorPhysicalSuitability/{id}")
     @ResponseBody
     public ResponseEntity<Object> getBloodDonorPhysicalSuitabilityById(@PathVariable Integer id){
@@ -144,5 +165,16 @@ public class DonorController {
             return new ResponseEntity<>(RestUtil.wrapErrorResponse(e, e.getMessage()), HttpStatus.BAD_REQUEST);
         }
 	    return null;
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "bloodDonorPhysicalSuitability/{id}")
+    @ResponseBody
+    public ResponseEntity<Object> deleteBloodDonorPhysicalSuitabilityById(@PathVariable Integer id){
+	    BloodDonorPhysicalSuitability donorPhysicalSuitability =
+                bloodDonorService.getBloodDonorPhysicalSuitabilityById(id);
+	    donorPhysicalSuitability.setStatus(Status.DELETE.getValue());
+        bloodDonorService.updateBloodDonorPhysicalSuitability(donorPhysicalSuitability);
+        log.info("Blood Donor Physical Suitability test is deleted successfully :: " + donorPhysicalSuitability);
+        return new ResponseEntity<>(donorPhysicalSuitability, HttpStatus.ACCEPTED);
     }
 }
