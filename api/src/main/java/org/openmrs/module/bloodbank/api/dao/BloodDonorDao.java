@@ -7,9 +7,9 @@ import org.openmrs.module.bloodbank.api.model.Questionnaire;
 import java.util.List;
 
 public interface BloodDonorDao {
-	
+
 	List<BloodDonor> getAllBloodDonors();
-	
+
 	BloodDonor saveDonorInfo(BloodDonor bloodDonor);
 
 	boolean existsByQuestionnaireName(String question);
@@ -23,4 +23,10 @@ public interface BloodDonorDao {
 	List<BloodDonorPhysicalSuitability> getAllBloodDonorPhysicalSuitability();
 
 	Questionnaire getQuestionnaireById(Integer qid);
+
+	Questionnaire updateQuestionnaire(Questionnaire questionnaire);
+
+	BloodDonor updateDonorInfo(BloodDonor bloodDonor);
+
+	BloodDonorPhysicalSuitability updateBloodDonorPhysicalSuitability(BloodDonorPhysicalSuitability donorPhysicalSuitability);
 }
