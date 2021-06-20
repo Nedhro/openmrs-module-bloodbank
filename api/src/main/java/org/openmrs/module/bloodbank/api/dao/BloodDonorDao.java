@@ -11,14 +11,16 @@ public interface BloodDonorDao {
 	List<BloodDonor> getAllBloodDonors();
 	
 	BloodDonor saveDonorInfo(BloodDonor bloodDonor);
-	
+
 	boolean existsByQuestionnaireName(String question);
-	
+
 	Questionnaire saveQuestionnaire(Questionnaire questionnaire);
-	
+
 	List<Questionnaire> getAllQuestionnaires();
-	
+
 	BloodDonorPhysicalSuitability saveBloodDonorPhysicalSuitability(BloodDonorPhysicalSuitability donorPhysicalSuitability);
-	
+
 	List<BloodDonorPhysicalSuitability> getAllBloodDonorPhysicalSuitability();
+
+	Questionnaire getQuestionnaireById(Integer qid);
 }
