@@ -15,19 +15,19 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public class BloodDonorDaoImpl implements BloodDonorDao {
-	
+
 	protected final Logger log = LoggerFactory.getLogger(BloodDonorDaoImpl.class);
-	
+
 	private SessionFactory sessionFactory;
-	
+
 	private Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
-	
+
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	
+
 	@Override
 	public List<BloodDonor> getAllBloodDonors() {
 		Criteria donor = getSession().createCriteria(BloodDonor.class);
@@ -36,7 +36,7 @@ public class BloodDonorDaoImpl implements BloodDonorDao {
 		log.info("Donor List ::" + donor.list());
 		return donor.list();
 	}
-	
+
 	@Transactional
 	@Override
 	public BloodDonor saveDonorInfo(BloodDonor bloodDonor) {
@@ -44,7 +44,7 @@ public class BloodDonorDaoImpl implements BloodDonorDao {
 		log.info("Blood Donor Info is saved Successfully :: " + bloodDonor);
 		return bloodDonor;
 	}
-	
+
 	@Override
 	public boolean existsByQuestionnaireName(String question) {
 		Criteria criteria = getSession().createCriteria(Questionnaire.class);
@@ -52,7 +52,7 @@ public class BloodDonorDaoImpl implements BloodDonorDao {
 		Questionnaire result = (Questionnaire) criteria.uniqueResult();
 		return result != null;
 	}
-	
+
 	@Transactional
 	@Override
 	public Questionnaire saveQuestionnaire(Questionnaire questionnaire) {
@@ -60,7 +60,7 @@ public class BloodDonorDaoImpl implements BloodDonorDao {
 		log.info("Question has been saved successfully..." + questionnaire);
 		return questionnaire;
 	}
-	
+
 	@Override
 	public List<Questionnaire> getAllQuestionnaires() {
 		Criteria criteria = getSession().createCriteria(Questionnaire.class);
@@ -68,16 +68,25 @@ public class BloodDonorDaoImpl implements BloodDonorDao {
 		log.info("Questionnaire List ::" + criteria.list());
 		return criteria.list();
 	}
-	
+
+	@Override
+	@Transactional
+	public Questionnaire getQuestionnaireById(Integer qid) {
+		Criteria criteria = getSession().createCriteria(Questionnaire.class);
+		criteria.add(Restrictions.eq("qid", qid));
+		Questionnaire questionnaire = (Questionnaire) criteria.uniqueResult();
+		return questionnaire;
+	}
+
 	@Transactional
 	@Override
 	public BloodDonorPhysicalSuitability saveBloodDonorPhysicalSuitability(
-	        BloodDonorPhysicalSuitability donorPhysicalSuitability) {
+			BloodDonorPhysicalSuitability donorPhysicalSuitability) {
 		getSession().persist(donorPhysicalSuitability);
 		log.info("Donor Physical Suitability has been saved successfully..." + donorPhysicalSuitability);
 		return donorPhysicalSuitability;
 	}
-	
+
 	@Override
 	public List<BloodDonorPhysicalSuitability> getAllBloodDonorPhysicalSuitability() {
 		Criteria criteria = getSession().createCriteria(BloodDonorPhysicalSuitability.class);
@@ -85,5 +94,5 @@ public class BloodDonorDaoImpl implements BloodDonorDao {
 		log.info("Blood Donor Physical Suitability List ::" + criteria.list());
 		return criteria.list();
 	}
-	
+
 }
