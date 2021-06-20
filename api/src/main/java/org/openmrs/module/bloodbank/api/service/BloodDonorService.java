@@ -10,37 +10,41 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface BloodDonorService extends OpenmrsService {
-
+	
 	@Transactional
 	BloodDonor saveDonorInfo(BloodDonor bloodDonor) throws APIException;
-
+	
 	@Transactional(readOnly = true)
 	List<BloodDonor> getAllBloodDonors();
-
+	
 	boolean existsByQuestionnaireName(String question);
-
+	
 	@Transactional
 	Questionnaire saveQuestionnaire(Questionnaire questionnaire) throws APIException;
-
+	
 	@Transactional(readOnly = true)
 	List<Questionnaire> getAllQuestionnaires();
-
+	
 	@Transactional
 	BloodDonorPhysicalSuitability saveBloodDonorPhysicalSuitability(BloodDonorPhysicalSuitability donorPhysicalSuitability)
-			throws APIException;
-
+	        throws APIException;
+	
 	@Transactional(readOnly = true)
 	List<BloodDonorPhysicalSuitability> getAllBloodDonorPhysicalSuitability();
-
+	
 	@Transactional(readOnly = true)
 	Questionnaire getQuestionnaireById(Integer qid);
-
+	
+	BloodDonorPhysicalSuitability getBloodDonorPhysicalSuitabilityById(Integer id);
+	
+	BloodDonor getDonorById(Integer id);
+	
 	@Transactional
 	Questionnaire updateQuestionnaire(Questionnaire questionnaire);
-
+	
 	@Transactional
 	BloodDonor updateDonorInfo(BloodDonor bloodDonor);
-
+	
 	@Transactional
 	BloodDonorPhysicalSuitability updateBloodDonorPhysicalSuitability(BloodDonorPhysicalSuitability donorPhysicalSuitability);
 }
