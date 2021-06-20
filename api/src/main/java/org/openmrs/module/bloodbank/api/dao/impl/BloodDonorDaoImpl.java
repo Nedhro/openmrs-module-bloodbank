@@ -31,8 +31,7 @@ public class BloodDonorDaoImpl implements BloodDonorDao {
 	@Override
 	public List<BloodDonor> getAllBloodDonors() {
 		Criteria donor = getSession().createCriteria(BloodDonor.class);
-		//		List<BloodDonor> donorList = getSession().createQuery("from BloodDonor").list();
-		System.out.println("Donor List ::" + donor.list());
+		donor.add(Restrictions.eq("status", 1));
 		log.info("Donor List ::" + donor.list());
 		return donor.list();
 	}
@@ -64,7 +63,7 @@ public class BloodDonorDaoImpl implements BloodDonorDao {
 	@Override
 	public List<Questionnaire> getAllQuestionnaires() {
 		Criteria criteria = getSession().createCriteria(Questionnaire.class);
-		System.out.println("Questionnaire List ::" + criteria.list());
+		criteria.add(Restrictions.eq("status", 1));
 		log.info("Questionnaire List ::" + criteria.list());
 		return criteria.list();
 	}
@@ -76,6 +75,30 @@ public class BloodDonorDaoImpl implements BloodDonorDao {
 		criteria.add(Restrictions.eq("qid", qid));
 		Questionnaire questionnaire = (Questionnaire) criteria.uniqueResult();
 		return questionnaire;
+	}
+
+	@Override
+	@Transactional
+	public Questionnaire updateQuestionnaire(Questionnaire questionnaire) {
+		getSession().update(questionnaire);
+		log.info("Question has been updated successfully..." + questionnaire);
+		return questionnaire;
+	}
+
+	@Override
+	@Transactional
+	public BloodDonor updateDonorInfo(BloodDonor bloodDonor) {
+		getSession().update(bloodDonor);
+		log.info("Blood Donor has been updated successfully..." + bloodDonor);
+		return bloodDonor;
+	}
+
+	@Override
+	@Transactional
+	public BloodDonorPhysicalSuitability updateBloodDonorPhysicalSuitability(BloodDonorPhysicalSuitability donorPhysicalSuitability) {
+		getSession().update(donorPhysicalSuitability);
+		log.info("Blood Donor Physical Suitability test is updated successfully..." + donorPhysicalSuitability);
+		return donorPhysicalSuitability;
 	}
 
 	@Transactional
@@ -90,7 +113,7 @@ public class BloodDonorDaoImpl implements BloodDonorDao {
 	@Override
 	public List<BloodDonorPhysicalSuitability> getAllBloodDonorPhysicalSuitability() {
 		Criteria criteria = getSession().createCriteria(BloodDonorPhysicalSuitability.class);
-		System.out.println("Blood Donor Physical Suitability List ::" + criteria.list());
+		criteria.add(Restrictions.eq("status", 1));
 		log.info("Blood Donor Physical Suitability List ::" + criteria.list());
 		return criteria.list();
 	}
