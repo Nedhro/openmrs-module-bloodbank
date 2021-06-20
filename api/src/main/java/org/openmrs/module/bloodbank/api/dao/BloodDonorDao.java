@@ -29,4 +29,8 @@ public interface BloodDonorDao {
 	BloodDonor updateDonorInfo(BloodDonor bloodDonor);
 
 	BloodDonorPhysicalSuitability updateBloodDonorPhysicalSuitability(BloodDonorPhysicalSuitability donorPhysicalSuitability);
+
+    BloodDonorPhysicalSuitability getBloodDonorPhysicalSuitabilityById(Integer id);
+
+	BloodDonor getDonorById(Integer id);
 }

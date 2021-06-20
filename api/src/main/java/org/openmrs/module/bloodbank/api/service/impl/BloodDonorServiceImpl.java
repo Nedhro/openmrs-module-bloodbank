@@ -69,6 +69,16 @@ public class BloodDonorServiceImpl extends BaseOpenmrsService implements BloodDo
 	}
 
 	@Override
+	public BloodDonorPhysicalSuitability getBloodDonorPhysicalSuitabilityById(Integer id) {
+		return bloodDonorDao.getBloodDonorPhysicalSuitabilityById(id);
+	}
+
+	@Override
+	public BloodDonor getDonorById(Integer id) {
+		return bloodDonorDao.getDonorById(id);
+	}
+
+	@Override
 	public Questionnaire updateQuestionnaire(Questionnaire questionnaire) {
 		return bloodDonorDao.updateQuestionnaire(questionnaire);
 	}

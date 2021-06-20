@@ -47,7 +47,23 @@ public class DonorController {
         return new ResponseEntity<>(bloodDonor, HttpStatus.ACCEPTED);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "questionnaire/add")
+    @RequestMapping(method = RequestMethod.GET, value = "donorForm/{id}")
+    @ResponseBody
+    public ResponseEntity<Object> getDonorById(@PathVariable Integer id){
+	    try{
+	        if (id != null){
+	            BloodDonor bloodDonor = bloodDonorService.getDonorById(id);
+                log.info("Blood Donor is retrieved successfully :: " + bloodDonor);
+                return new ResponseEntity<>(bloodDonor, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            log.error("Runtime error while trying to find the Blood Donor", e);
+            return new ResponseEntity<>(RestUtil.wrapErrorResponse(e, e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+	    return null;
+    }
+
+	@RequestMapping(method = RequestMethod.POST, value = "questionnaire/add")
     @ResponseBody
     public ResponseEntity<Object> saveQuestionnaire(@Valid @RequestBody Questionnaire questionnaire) {
         if (questionnaire.getQid() == null) {
@@ -110,4 +126,23 @@ public class DonorController {
 		log.info("Blood Donor Physical Suitability Lists :: " + bloodDonorPhysicalSuitabilityList);
 		return bloodDonorPhysicalSuitabilityList;
 	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "bloodDonorPhysicalSuitability/{id}")
+    @ResponseBody
+    public ResponseEntity<Object> getBloodDonorPhysicalSuitabilityById(@PathVariable Integer id){
+	    try{
+	        if (id != null){
+                BloodDonorPhysicalSuitability bloodDonorPhysicalSuitability = bloodDonorService
+                        .getBloodDonorPhysicalSuitabilityById(id);
+                log.info("Donor physical suitability is retrieved successfully :: "
+                        + bloodDonorPhysicalSuitability);
+                return new ResponseEntity<>(bloodDonorPhysicalSuitability, HttpStatus.OK);
+
+            }
+        } catch (Exception e) {
+            log.error("Runtime error while trying to find the donor physical suitability", e);
+            return new ResponseEntity<>(RestUtil.wrapErrorResponse(e, e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+	    return null;
+    }
 }

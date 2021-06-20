@@ -35,6 +35,10 @@ public interface BloodDonorService extends OpenmrsService {
 	@Transactional(readOnly = true)
 	Questionnaire getQuestionnaireById(Integer qid);
 
+	BloodDonorPhysicalSuitability getBloodDonorPhysicalSuitabilityById(Integer id);
+
+	BloodDonor getDonorById(Integer id);
+
 	@Transactional
 	Questionnaire updateQuestionnaire(Questionnaire questionnaire);
 

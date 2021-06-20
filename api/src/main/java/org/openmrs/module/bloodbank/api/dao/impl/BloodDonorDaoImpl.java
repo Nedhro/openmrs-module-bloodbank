@@ -118,4 +118,23 @@ public class BloodDonorDaoImpl implements BloodDonorDao {
 		return criteria.list();
 	}
 
+	@Override
+	@Transactional
+	public BloodDonorPhysicalSuitability getBloodDonorPhysicalSuitabilityById(Integer id) {
+		Criteria criteria = getSession().createCriteria(BloodDonorPhysicalSuitability.class);
+		criteria.add(Restrictions.eq("donorPhysicalSuitabilityId", id));
+		BloodDonorPhysicalSuitability bloodDonorPhysicalSuitability =
+				(BloodDonorPhysicalSuitability) criteria.uniqueResult();
+		return bloodDonorPhysicalSuitability;
+	}
+
+	@Override
+	@Transactional
+	public BloodDonor getDonorById(Integer id) {
+		Criteria criteria = getSession().createCriteria(BloodDonor.class);
+		criteria.add(Restrictions.eq("donorId", id));
+		BloodDonor bloodDonor = (BloodDonor) criteria.uniqueResult();
+		return bloodDonor;
+	}
+
 }
