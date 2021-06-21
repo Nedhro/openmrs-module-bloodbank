@@ -1,11 +1,11 @@
 package org.openmrs.module.bloodbank.api.model.enums;
 
-public enum Compatibility {
-	Compatible("Compatible"), NonCompatible("NonCompatible");
+public enum StockStatus {
+	Available("Available"), NotAvailable("NotAvailable");
 	
 	private final String value;
 	
-	Compatibility(String value) {
+	StockStatus(String value) {
 		this.value = value;
 	}
 	

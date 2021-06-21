@@ -24,12 +24,16 @@ public class BloodCompatibility extends BaseModel {
 	
 	private Result bloodMalariaTest;
 	
+	private String bloodBagId;
+	
+	private String patient;
+	
 	public BloodCompatibility() {
 	}
 	
 	public BloodCompatibility(Integer bloodCompatibilityId, Compatibility bloodScreening, Compatibility bloodGrouping,
 	    Compatibility bloodCrossMatching, Result bloodHivTest, Result bloodHbvTest, Result bloodHcvTest,
-	    Result bloodSyphilisTest, Result bloodMalariaTest) {
+	    Result bloodSyphilisTest, Result bloodMalariaTest, String bloodBagId, String patient) {
 		this.bloodCompatibilityId = bloodCompatibilityId;
 		this.bloodScreening = bloodScreening;
 		this.bloodGrouping = bloodGrouping;
@@ -39,6 +43,8 @@ public class BloodCompatibility extends BaseModel {
 		this.bloodHcvTest = bloodHcvTest;
 		this.bloodSyphilisTest = bloodSyphilisTest;
 		this.bloodMalariaTest = bloodMalariaTest;
+		this.bloodBagId = bloodBagId;
+		this.patient = patient;
 	}
 	
 	public Integer getBloodCompatibilityId() {
@@ -111,5 +117,21 @@ public class BloodCompatibility extends BaseModel {
 	
 	public void setBloodMalariaTest(Result bloodMalariaTest) {
 		this.bloodMalariaTest = bloodMalariaTest;
+	}
+	
+	public String getBloodBagId() {
+		return bloodBagId;
+	}
+	
+	public void setBloodBagId(String bloodBagId) {
+		this.bloodBagId = bloodBagId;
+	}
+	
+	public String getPatient() {
+		return patient;
+	}
+	
+	public void setPatient(String patient) {
+		this.patient = patient;
 	}
 }
