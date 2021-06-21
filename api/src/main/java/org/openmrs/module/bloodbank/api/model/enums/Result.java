@@ -1,0 +1,15 @@
+package org.openmrs.module.bloodbank.api.model.enums;
+
+public enum Result {
+	Positive("Positive"), Negative("Negative");
+	
+	private final String value;
+	
+	Result(String value) {
+		this.value = value;
+	}
+	
+	public String getValue() {
+		return this.value;
+	}
+}
