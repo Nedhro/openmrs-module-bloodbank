@@ -1,7 +1,7 @@
 package org.openmrs.module.bloodbank.api.model.enums;
 
 public enum Compatibility {
-	Compatible("Compatible"), NonCompatible("Non-Compatible");
+	Compatible("Compatible"), NonCompatible("NonCompatible");
 	
 	private final String value;
 	
