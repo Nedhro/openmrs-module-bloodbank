@@ -11,17 +11,17 @@ import org.openmrs.module.bloodbank.api.model.enums.PermissionType;
 import java.util.List;
 
 public class BloodBankDaoImpl implements BloodBankDao {
-
+	
 	private SessionFactory sessionFactory;
-
+	
 	private Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
-
+	
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-
+	
 	@Override
 	public List<BloodDonorPhysicalSuitability> getAllDonorTestsResult() {
 		Criteria criteria = getSession().createCriteria(BloodDonorPhysicalSuitability.class);

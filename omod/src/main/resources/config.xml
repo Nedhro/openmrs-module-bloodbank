@@ -55,7 +55,7 @@
 		<filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
 		<init-param>
 			<param-name>cors.allowed.methods</param-name>
-			<param-value>GET,POST,HEAD,OPTIONS,PUT,DELETE</param-value>
+			<param-value>GET,POST,PUT,DELETE,HEAD,OPTIONS</param-value>
 		</init-param>
 		<init-param>
 			<param-name>cors.allowed.headers</param-name>
@@ -65,7 +65,7 @@
 		</init-param>
 		<init-param>
 			<param-name>cors.exposed.headers</param-name>
-			<param-value>Access-Control-Allow-Origin,Access-Control-Allow-Credentials</param-value>
+			<param-value>Access-Control-Allow-Origin, Access-Control-Allow-Credentials</param-value>
 		</init-param>
 		<init-param>
 			<param-name>cors.support.credentials</param-name>
