@@ -1,11 +1,11 @@
 package org.openmrs.module.bloodbank.api.model.enums;
 
-public enum Compatibility {
-	Compatible("Compatible"), NonCompatible("NonCompatible");
+public enum SourceOfBlood {
+	NITOR("NITOR"), OutdoorCampaign("OutdoorCampaign"), Outsource("Outsource");
 	
 	private final String value;
 	
-	Compatibility(String value) {
+	SourceOfBlood(String value) {
 		this.value = value;
 	}
 	
