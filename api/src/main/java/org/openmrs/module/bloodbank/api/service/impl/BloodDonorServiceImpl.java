@@ -5,6 +5,7 @@ import org.openmrs.module.bloodbank.api.dao.BloodDonorDao;
 import org.openmrs.module.bloodbank.api.model.BloodDonor;
 import org.openmrs.module.bloodbank.api.model.BloodDonorPhysicalSuitability;
 import org.openmrs.module.bloodbank.api.model.Questionnaire;
+import org.openmrs.module.bloodbank.api.model.dto.PatientDTO;
 import org.openmrs.module.bloodbank.api.service.BloodDonorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -92,6 +93,11 @@ public class BloodDonorServiceImpl extends BaseOpenmrsService implements BloodDo
 	public BloodDonorPhysicalSuitability updateBloodDonorPhysicalSuitability(
 	        BloodDonorPhysicalSuitability donorPhysicalSuitability) {
 		return bloodDonorDao.updateBloodDonorPhysicalSuitability(donorPhysicalSuitability);
+	}
+	
+	@Override
+	public List<PatientDTO> getAllPatients() {
+		return bloodDonorDao.getAllPatients();
 	}
 	
 }
