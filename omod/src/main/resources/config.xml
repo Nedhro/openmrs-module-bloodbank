@@ -39,6 +39,7 @@
 		DonorConcern.hbm.xml
 		Questionnaire.hbm.xml
 		BloodDonorPhysicalSuitability.hbm.xml
+		BloodCompatibility.hbm.xml
 	</mappingFiles>
 
 	<!--<filter>

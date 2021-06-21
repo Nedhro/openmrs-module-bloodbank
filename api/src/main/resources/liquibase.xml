@@ -12,7 +12,7 @@
         See http://www.liquibase.org/manual/home#available_database_refactorings
         for a list of supported elements and attributes
     -->
-    <changeSet id="bloodbank-donor-test22" author="nidhro">
+    <changeSet id="bloodbank-donor-test24" author="nidhro">
         <!--<preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="bloodbank_donor"/>
@@ -49,7 +49,7 @@
         <!--                                 referencedColumnNames="user_id" />-->
     </changeSet>
 
-    <changeSet id="bloodbank-donor-concern-test22" author="nidhro">
+    <changeSet id="bloodbank-donor-concern-test24" author="nidhro">
         <!--<preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="bloodbank_donor_concern"/>
@@ -71,7 +71,7 @@
                                  referencedTableName="bloodbank_donor" referencedColumnNames="donor_id"/>
     </changeSet>
 
-    <changeSet id="bloodbank_questionnaire_test22" author="nidhro">
+    <changeSet id="bloodbank_questionnaire_test24" author="nidhro">
         <!-- <preConditions onFail="MARK_RAN">
              <not>
                  <tableExists tableName="bloodbank_questionnaire"/>
@@ -97,7 +97,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="bloodbank_blood_donor_physical_suitability_test22" author="jarrin">
+    <changeSet id="bloodbank_blood_donor_physical_suitability_test24" author="jarrin">
         <!--<preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="bloodbank_blood_donor_physical_suitability"/>
@@ -119,6 +119,38 @@
             <column name="donor_blood_group_rhesus" type="varchar(255)"/>
             <column name="donor_selection" type="varchar(255)"/>
             <column name="blood_donor_id" type="int(24)"/>
+
+            <column name="uuid" type="varchar(255)"/>
+            <column name="date_created" type="datetime"/>
+            <column name="created_by" type="varchar(255)"/>
+            <column name="date_changed" type="datetime"/>
+            <column name="updated_by" type="varchar(255)"/>
+            <column name="voided" type="tinyint(3)"/>
+            <column name="status" type="int(3)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="bloodbank_blood_compatibility_test24" author="kamrul">
+        <!--<preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="bloodbank_blood_donor_physical_suitability"/>
+            </not>
+        </preConditions>-->
+        <comment>
+            Creating the bloodbank_blood_compatibility table
+        </comment>
+        <createTable tableName="bloodbank_blood_compatibility">
+            <column name="blood_compatibility_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="blood_screening" type="varchar(255)"/>
+            <column name="blood_grouping" type="varchar(255)"/>
+            <column name="blood_cross_matching" type="varchar(255)"/>
+            <column name="blood_hiv_test" type="varchar(255)"/>
+            <column name="blood_hbv_test" type="varchar(255)"/>
+            <column name="blood_hcv_test" type="varchar(255)"/>
+            <column name="blood_syphilis_test" type="varchar(255)"/>
+            <column name="blood_malaria_test" type="varchar(255)"/>
 
             <column name="uuid" type="varchar(255)"/>
             <column name="date_created" type="datetime"/>
