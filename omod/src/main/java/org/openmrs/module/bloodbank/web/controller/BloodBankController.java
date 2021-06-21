@@ -16,12 +16,12 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/rest/" + RestConstants.VERSION_1 + "/bloodbank")
 public class BloodBankController {
-
+	
 	private Log log = LogFactory.getLog(this.getClass());
-
+	
 	@Autowired
 	private BloodBankService bloodBankService;
-
+	
 	@RequestMapping(method = RequestMethod.GET, value = "bloodSelectedFromDonor/list")
 	@ResponseBody
 	public List<BloodDonorPhysicalSuitability> getAllDonorTestsResult() {
