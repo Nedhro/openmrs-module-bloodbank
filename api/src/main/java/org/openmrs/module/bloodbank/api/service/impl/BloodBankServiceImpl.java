@@ -5,6 +5,7 @@ import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.bloodbank.api.dao.BloodBankDao;
 import org.openmrs.module.bloodbank.api.model.BloodCompatibility;
 import org.openmrs.module.bloodbank.api.model.BloodDonorPhysicalSuitability;
+import org.openmrs.module.bloodbank.api.model.BloodStockTracing;
 import org.openmrs.module.bloodbank.api.service.BloodBankService;
 
 import java.util.List;
@@ -29,8 +30,8 @@ public class BloodBankServiceImpl extends BaseOpenmrsService implements BloodBan
 	}
 	
 	@Override
-	public BloodCompatibility saveBloodDonorPhysicalSuitability(BloodCompatibility bloodCompatibility) {
-		return bloodBankDao.saveBloodDonorPhysicalSuitability(bloodCompatibility);
+	public BloodCompatibility saveBloodCompatibility(BloodCompatibility bloodCompatibility) {
+		return bloodBankDao.saveBloodCompatibility(bloodCompatibility);
 	}
 	
 	@Override
@@ -46,5 +47,25 @@ public class BloodBankServiceImpl extends BaseOpenmrsService implements BloodBan
 	@Override
 	public BloodCompatibility getBloodCompatibilityById(Integer id) {
 		return bloodBankDao.getBloodCompatibilityById(id);
+	}
+	
+	@Override
+	public BloodStockTracing saveBloodStockTracing(BloodStockTracing bloodStockTracing) {
+		return bloodBankDao.saveBloodStockTracing(bloodStockTracing);
+	}
+	
+	@Override
+	public BloodStockTracing updateBloodStockTracing(BloodStockTracing bloodStockTracing) {
+		return bloodBankDao.updateBloodStockTracing(bloodStockTracing);
+	}
+	
+	@Override
+	public List<BloodStockTracing> getAllBloodStockTracing() {
+		return bloodBankDao.getAllBloodStockTracing();
+	}
+	
+	@Override
+	public BloodStockTracing getBloodStockTracingById(Integer id) {
+		return bloodBankDao.getBloodStockTracingById(id);
 	}
 }

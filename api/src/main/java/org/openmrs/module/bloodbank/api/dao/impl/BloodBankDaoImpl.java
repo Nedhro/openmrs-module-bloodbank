@@ -7,6 +7,7 @@ import org.hibernate.criterion.Restrictions;
 import org.openmrs.module.bloodbank.api.dao.BloodBankDao;
 import org.openmrs.module.bloodbank.api.model.BloodCompatibility;
 import org.openmrs.module.bloodbank.api.model.BloodDonorPhysicalSuitability;
+import org.openmrs.module.bloodbank.api.model.BloodStockTracing;
 import org.openmrs.module.bloodbank.api.model.Questionnaire;
 import org.openmrs.module.bloodbank.api.model.enums.PermissionType;
 import org.slf4j.Logger;
@@ -39,7 +40,7 @@ public class BloodBankDaoImpl implements BloodBankDao {
 	
 	@Override
 	@Transactional
-	public BloodCompatibility saveBloodDonorPhysicalSuitability(BloodCompatibility bloodCompatibility) {
+	public BloodCompatibility saveBloodCompatibility(BloodCompatibility bloodCompatibility) {
 		getSession().persist(bloodCompatibility);
 		log.info("Blood compatibility has been saved successfully..." + bloodCompatibility);
 		return bloodCompatibility;
@@ -68,5 +69,35 @@ public class BloodBankDaoImpl implements BloodBankDao {
 		criteria.add((Restrictions.eq("bloodCompatibilityId", id)));
 		BloodCompatibility compatibility = (BloodCompatibility) criteria.uniqueResult();
 		return compatibility;
+	}
+	
+	@Override
+	public BloodStockTracing saveBloodStockTracing(BloodStockTracing bloodStockTracing) {
+		getSession().persist(bloodStockTracing);
+		log.info("Blood Stock Tracing info has been saved successfully..." + bloodStockTracing);
+		return bloodStockTracing;
+	}
+	
+	@Override
+	public BloodStockTracing updateBloodStockTracing(BloodStockTracing bloodStockTracing) {
+		getSession().update(bloodStockTracing);
+		log.info("Blood Stock Tracing info has been updated successfully..." + bloodStockTracing);
+		return bloodStockTracing;
+	}
+	
+	@Override
+	public List<BloodStockTracing> getAllBloodStockTracing() {
+		Criteria criteria = getSession().createCriteria(BloodStockTracing.class);
+		criteria.add(Restrictions.eq("status", 1));
+		log.info("Blood Stock Tracing List ::" + criteria.list());
+		return criteria.list();
+	}
+	
+	@Override
+	public BloodStockTracing getBloodStockTracingById(Integer id) {
+		Criteria criteria = getSession().createCriteria(BloodStockTracing.class);
+		criteria.add((Restrictions.eq("bloodStockTracingId", id)));
+		BloodStockTracing bloodStockTracing = (BloodStockTracing) criteria.uniqueResult();
+		return bloodStockTracing;
 	}
 }

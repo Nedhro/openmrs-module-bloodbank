@@ -4,6 +4,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.module.bloodbank.api.model.BloodCompatibility;
 import org.openmrs.module.bloodbank.api.model.BloodDonorPhysicalSuitability;
+import org.openmrs.module.bloodbank.api.model.BloodStockTracing;
 import org.openmrs.module.bloodbank.api.model.Questionnaire;
 import org.openmrs.module.bloodbank.api.model.enums.Status;
 import org.openmrs.module.bloodbank.api.service.BloodBankService;
@@ -39,7 +40,7 @@ public class BloodBankController {
 	@ResponseBody
 	public ResponseEntity<Object> saveBloodCompatibility(@Valid @RequestBody BloodCompatibility bloodCompatibility){
 		if (bloodCompatibility.getBloodCompatibilityId() == null){
-			bloodBankService.saveBloodDonorPhysicalSuitability(bloodCompatibility);
+			bloodBankService.saveBloodCompatibility(bloodCompatibility);
 			log.info("Blood Compatibility is saved successfully :: " + bloodCompatibility);
 			return new ResponseEntity<>(bloodCompatibility, HttpStatus.CREATED);
 		}
@@ -80,5 +81,52 @@ public class BloodBankController {
 		bloodBankService.updateBloodCompatibility(bloodCompatibility);
 		log.info("Blood Compatibility is deleted successfully :: " + bloodCompatibility);
 		return new ResponseEntity<>(bloodCompatibility, HttpStatus.ACCEPTED);
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "bloodStockTracing/add")
+	@ResponseBody
+	public ResponseEntity<Object> saveBloodStockTracing(@Valid @RequestBody BloodStockTracing bloodStockTracing){
+		if (bloodStockTracing.getBloodStockTracingId() == null){
+			bloodBankService.saveBloodStockTracing(bloodStockTracing);
+			log.info("Blood Stock Tracing info is saved successfully :: " + bloodStockTracing);
+			return new ResponseEntity<>(bloodStockTracing, HttpStatus.CREATED);
+		}
+		bloodBankService.updateBloodStockTracing(bloodStockTracing);
+		log.info("Blood Stock Tracing info is updated successfully :: " + bloodStockTracing);
+		return new ResponseEntity<>(bloodStockTracing, HttpStatus.ACCEPTED);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "bloodStockTracing/list")
+	@ResponseBody
+	public List<BloodStockTracing> getAllBloodStockTracing() {
+		List<BloodStockTracing> bloodStockTracings = bloodBankService.getAllBloodStockTracing();
+		log.info("Blood Stock Tracing Lists :: " + bloodStockTracings);
+		return bloodStockTracings;
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "bloodStockTracing/{id}")
+	@ResponseBody
+	public ResponseEntity<Object> getBloodStockTracingById(@PathVariable Integer id){
+		try {
+			if (id != null) {
+				BloodStockTracing bloodStockTracing = bloodBankService.getBloodStockTracingById(id);
+				log.info("Blood Stock Tracing info is retrieved successfully :: " + bloodStockTracing);
+				return new ResponseEntity<>(bloodStockTracing, HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			log.error("Runtime error while trying to find the Blood Stock Tracing", e);
+			return new ResponseEntity<>(RestUtil.wrapErrorResponse(e, e.getMessage()), HttpStatus.BAD_REQUEST);
+		}
+		return null;
+	}
+	
+	@RequestMapping(method = RequestMethod.PUT, value = "bloodStockTracing/delete/{id}")
+	@ResponseBody
+	public ResponseEntity<Object> deleteBloodStockTracingById(@PathVariable Integer id){
+		BloodStockTracing bloodStockTracing = bloodBankService.getBloodStockTracingById(id);
+		bloodStockTracing.setStatus(Status.DELETE.getValue());
+		bloodBankService.updateBloodStockTracing(bloodStockTracing);
+		log.info("Blood Stock Tracing is deleted successfully :: " + bloodStockTracing);
+		return new ResponseEntity<>(bloodStockTracing, HttpStatus.ACCEPTED);
 	}
 }
