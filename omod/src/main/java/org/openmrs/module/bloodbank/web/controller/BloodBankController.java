@@ -5,8 +5,8 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.module.bloodbank.api.model.BloodCompatibility;
 import org.openmrs.module.bloodbank.api.model.BloodDonorPhysicalSuitability;
 import org.openmrs.module.bloodbank.api.model.BloodStockTracing;
-import org.openmrs.module.bloodbank.api.model.Questionnaire;
 import org.openmrs.module.bloodbank.api.model.enums.Status;
+import org.openmrs.module.bloodbank.api.model.enums.StockStatus;
 import org.openmrs.module.bloodbank.api.service.BloodBankService;
 import org.openmrs.module.webservices.rest.web.RestConstants;
 import org.openmrs.module.webservices.rest.web.RestUtil;
@@ -127,6 +127,16 @@ public class BloodBankController {
 		bloodStockTracing.setStatus(Status.DELETE.getValue());
 		bloodBankService.updateBloodStockTracing(bloodStockTracing);
 		log.info("Blood Stock Tracing is deleted successfully :: " + bloodStockTracing);
+		return new ResponseEntity<>(bloodStockTracing, HttpStatus.ACCEPTED);
+	}
+	
+	@RequestMapping(method = RequestMethod.PUT, value = "bloodStockTracing/updateStatus/{bloodBagId}")
+	@ResponseBody
+	public ResponseEntity<Object> updateBloodStockTracingStatus(@PathVariable String bloodBagId){
+		BloodStockTracing bloodStockTracing = bloodBankService.getBloodStockTracingByBloodBagId(bloodBagId);
+		bloodStockTracing.setStockStatus(StockStatus.NotAvailable);
+		bloodBankService.updateBloodStockTracing(bloodStockTracing);
+		log.info("Blood Stock Tracing Stock Status updated successfully :: " + bloodStockTracing);
 		return new ResponseEntity<>(bloodStockTracing, HttpStatus.ACCEPTED);
 	}
 }

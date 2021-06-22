@@ -36,6 +36,8 @@ public interface BloodBankService extends OpenmrsService {
 	
 	BloodStockTracing getBloodStockTracingById(Integer id);
 	
+	BloodStockTracing getBloodStockTracingByBloodBagId(String bloodBagId);
+	
 	/*@Authorized()
 	@Transactional(readOnly = true)
 	Item getItemByUuid(String uuid) throws APIException;

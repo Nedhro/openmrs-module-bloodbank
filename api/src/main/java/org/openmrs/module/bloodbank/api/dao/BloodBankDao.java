@@ -25,4 +25,6 @@ public interface BloodBankDao {
 	List<BloodStockTracing> getAllBloodStockTracing();
 	
 	BloodStockTracing getBloodStockTracingById(Integer id);
+	
+	BloodStockTracing getBloodStockTracingByBloodBagId(String bloodBagId);
 }

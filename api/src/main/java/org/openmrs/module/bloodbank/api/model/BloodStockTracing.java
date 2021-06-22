@@ -3,6 +3,8 @@ package org.openmrs.module.bloodbank.api.model;
 import org.openmrs.module.bloodbank.api.model.enums.SourceOfBlood;
 import org.openmrs.module.bloodbank.api.model.enums.StockStatus;
 
+import javax.persistence.Column;
+
 public class BloodStockTracing extends BaseModel {
 	
 	private Integer bloodStockTracingId;
@@ -17,6 +19,7 @@ public class BloodStockTracing extends BaseModel {
 	
 	private StockStatus stockStatus;
 	
+	@Column(unique = true)
 	private String bloodBagId;
 	
 	public BloodStockTracing() {
@@ -45,7 +48,7 @@ public class BloodStockTracing extends BaseModel {
 		return bloodDonorId;
 	}
 	
-	public void setBloodDonorId(Integer BloodDonorId) {
+	public void setBloodDonorId(Integer bloodDonorId) {
 		this.bloodDonorId = bloodDonorId;
 	}
 	
