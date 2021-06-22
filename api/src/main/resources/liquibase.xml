@@ -12,7 +12,7 @@
         See http://www.liquibase.org/manual/home#available_database_refactorings
         for a list of supported elements and attributes
     -->
-    <changeSet id="bloodbank-donor-test28" author="nidhro">
+    <changeSet id="bloodbank-donor-test30" author="nidhro">
         <!--<preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="bloodbank_donor"/>
@@ -51,7 +51,7 @@
         <!--                                 referencedColumnNames="user_id" />-->
     </changeSet>
 
-    <changeSet id="bloodbank-donor-concern-test28" author="nidhro">
+    <changeSet id="bloodbank-donor-concern-test30" author="nidhro">
         <!--<preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="bloodbank_donor_concern"/>
@@ -73,7 +73,7 @@
                                  referencedTableName="bloodbank_donor" referencedColumnNames="donor_id"/>
     </changeSet>
 
-    <changeSet id="bloodbank_questionnaire_test28" author="nidhro">
+    <changeSet id="bloodbank_questionnaire_test30" author="nidhro">
         <!-- <preConditions onFail="MARK_RAN">
              <not>
                  <tableExists tableName="bloodbank_questionnaire"/>
@@ -99,7 +99,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="bloodbank_blood_donor_physical_suitability_test28" author="jarrin">
+    <changeSet id="bloodbank_blood_donor_physical_suitability_test30" author="jarrin">
         <!--<preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="bloodbank_blood_donor_physical_suitability"/>
@@ -120,7 +120,9 @@
             <column name="donor_blood_group" type="varchar(255)"/>
             <column name="donor_blood_group_rhesus" type="varchar(255)"/>
             <column name="donor_selection" type="varchar(255)"/>
-            <column name="blood_donor_id" type="int(24)"/>
+            <column name="blood_donor_id" type="int(24)">
+                <constraints nullable="false"/>
+            </column>
 
             <column name="uuid" type="varchar(255)"/>
             <column name="date_created" type="datetime"/>
@@ -132,7 +134,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="bloodbank_blood_compatibility_test28" author="kamrul">
+    <changeSet id="bloodbank_blood_compatibility_test30" author="kamrul">
         <!--<preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="bloodbank_blood_donor_physical_suitability"/>
@@ -153,8 +155,12 @@
             <column name="blood_hcv_test" type="varchar(255)"/>
             <column name="blood_syphilis_test" type="varchar(255)"/>
             <column name="blood_malaria_test" type="varchar(255)"/>
-            <column name="blood_bag_id" type="varchar(255)"/>
-            <column name="patient" type="varchar(255)"/>
+            <column name="blood_bag_id" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="patient" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
 
             <column name="uuid" type="varchar(255)"/>
             <column name="date_created" type="datetime"/>
@@ -166,7 +172,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="bloodbank_blood_stock_tracing_test28" author="kamrul">
+    <changeSet id="bloodbank_blood_stock_tracing_test30" author="kamrul">
         <!--<preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="bloodbank_blood_donor_physical_suitability"/>
@@ -179,12 +185,18 @@
             <column name="blood_stock_tracing_id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="blood_donor_id" type="int(24)"/>
+            <column name="blood_donor_id" type="int(24)">
+                <constraints nullable="false"/>
+            </column>
             <column name="blood_storage" type="varchar(255)"/>
             <column name="source_of_blood" type="varchar(255)"/>
-            <column name="blood_group" type="varchar(255)"/>
+            <column name="blood_group" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
             <column name="stock_status" type="varchar(255)"/>
-            <column name="blood_bag_id" type="varchar(255)"/>
+            <column name="blood_bag_id" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
 
             <column name="uuid" type="varchar(255)"/>
             <column name="date_created" type="datetime"/>
