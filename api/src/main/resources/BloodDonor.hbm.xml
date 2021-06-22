@@ -37,7 +37,12 @@
             <key foreign-key="donor_id" column="blood_donor_id" not-null="true" update="true"/>
             <one-to-many class="org.openmrs.module.bloodbank.api.model.DonorConcern"/>
         </set>
-        <property name="typeOfDonor" type="java.lang.String" column="type_of_donor" length="255"/>
+        <property name="typeOfDonor" column="type_of_donor">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">org.openmrs.module.bloodbank.api.model.enums.DonorType</param>
+                <param name="useNamed">true</param>
+            </type>
+        </property>
         <property name="patient" type="java.lang.String" column="patient" length="255"/>
 
         <property name="uuid" type="java.lang.String" column="uuid" length="38" unique="true"/>
