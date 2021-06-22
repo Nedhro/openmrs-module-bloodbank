@@ -1,6 +1,7 @@
 package org.openmrs.module.bloodbank.api.model;
 
 import org.codehaus.jackson.annotate.JsonManagedReference;
+import org.openmrs.module.bloodbank.api.model.enums.DonorType;
 import org.openmrs.module.bloodbank.api.model.enums.Gender;
 import org.openmrs.module.bloodbank.api.model.enums.MaritalStatus;
 
@@ -34,15 +35,19 @@ public class BloodDonor extends BaseModel {
 
     private String donorLastDonatedPlace;
 
+    private DonorType typeOfDonor;
+
+    private String patient;
+
     @JsonManagedReference
     private Set<DonorConcern> concernSet = new HashSet<>();
 
     public BloodDonor() {
     }
 
-    public BloodDonor(String donorName, Integer donorAge, String donorGuardian, Gender donorGender,
-                      MaritalStatus donorMaritalStatus, String donorProfession, String donorPresentAddress, String donorPermanentAddress,
-                      String donorMobileNo, Date donorLastDonatedDate, String donorLastDonatedPlace) {
+
+    public BloodDonor(Integer donorId, String donorName, Integer donorAge, String donorGuardian, Gender donorGender, MaritalStatus donorMaritalStatus, String donorProfession, String donorPresentAddress, String donorPermanentAddress, String donorMobileNo, Date donorLastDonatedDate, String donorLastDonatedPlace, DonorType typeOfDonor, String patient, Set<DonorConcern> concernSet) {
+        this.donorId = donorId;
         this.donorName = donorName;
         this.donorAge = donorAge;
         this.donorGuardian = donorGuardian;
@@ -54,6 +59,9 @@ public class BloodDonor extends BaseModel {
         this.donorMobileNo = donorMobileNo;
         this.donorLastDonatedDate = donorLastDonatedDate;
         this.donorLastDonatedPlace = donorLastDonatedPlace;
+        this.typeOfDonor = typeOfDonor;
+        this.patient = patient;
+        this.concernSet = concernSet;
     }
 
     public Set<DonorConcern> getConcernSet() {
@@ -158,5 +166,21 @@ public class BloodDonor extends BaseModel {
 
     public void setDonorLastDonatedPlace(String donorLastDonatedPlace) {
         this.donorLastDonatedPlace = donorLastDonatedPlace;
+    }
+
+    public DonorType getTypeOfDonor() {
+        return typeOfDonor;
+    }
+
+    public void setTypeOfDonor(DonorType typeOfDonor) {
+        this.typeOfDonor = typeOfDonor;
+    }
+
+    public String getPatient() {
+        return patient;
+    }
+
+    public void setPatient(String patient) {
+        this.patient = patient;
     }
 }
