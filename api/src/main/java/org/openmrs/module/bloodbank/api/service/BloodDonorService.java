@@ -5,6 +5,7 @@ import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.bloodbank.api.model.BloodDonor;
 import org.openmrs.module.bloodbank.api.model.BloodDonorPhysicalSuitability;
 import org.openmrs.module.bloodbank.api.model.Questionnaire;
+import org.openmrs.module.bloodbank.api.model.dto.PatientDTO;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -47,4 +48,6 @@ public interface BloodDonorService extends OpenmrsService {
 	
 	@Transactional
 	BloodDonorPhysicalSuitability updateBloodDonorPhysicalSuitability(BloodDonorPhysicalSuitability donorPhysicalSuitability);
+	
+	List<PatientDTO> getAllPatients();
 }

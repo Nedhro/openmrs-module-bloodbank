@@ -5,8 +5,8 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.module.bloodbank.api.model.BloodDonor;
 import org.openmrs.module.bloodbank.api.model.BloodDonorPhysicalSuitability;
 import org.openmrs.module.bloodbank.api.model.Questionnaire;
+import org.openmrs.module.bloodbank.api.model.dto.PatientDTO;
 import org.openmrs.module.bloodbank.api.model.enums.Status;
-import org.openmrs.module.bloodbank.api.service.BloodBankService;
 import org.openmrs.module.bloodbank.api.service.BloodDonorService;
 import org.openmrs.module.webservices.rest.web.RestConstants;
 import org.openmrs.module.webservices.rest.web.RestUtil;
@@ -21,7 +21,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping(value = "/rest/" + RestConstants.VERSION_1 + "/bloodbank")
-public class DonorController {
+public class BloodDonorController {
 	
 	private Log log = LogFactory.getLog(this.getClass());
 	
@@ -177,4 +177,11 @@ public class DonorController {
         log.info("Blood Donor Physical Suitability test is deleted successfully :: " + donorPhysicalSuitability);
         return new ResponseEntity<>(donorPhysicalSuitability, HttpStatus.ACCEPTED);
     }
+	
+	@RequestMapping(value = "patients", method = RequestMethod.GET)
+	@ResponseBody
+	public List<PatientDTO> getPatientList() {
+		List<PatientDTO> patients = this.bloodDonorService.getAllPatients();
+		return patients;
+	}
 }
