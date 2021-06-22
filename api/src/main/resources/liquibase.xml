@@ -12,7 +12,7 @@
         See http://www.liquibase.org/manual/home#available_database_refactorings
         for a list of supported elements and attributes
     -->
-    <changeSet id="bloodbank-donor-test27" author="nidhro">
+    <changeSet id="bloodbank-donor-test28" author="nidhro">
         <!--<preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="bloodbank_donor"/>
@@ -36,6 +36,8 @@
             <column name="donor_mobile_no" type="varchar(255)"/>
             <column name="donor_last_donated_date" type="date"/>
             <column name="donor_last_donated_place" type="varchar(255)"/>
+            <column name="type_of_donor" type="varchar(255)"/>
+            <column name="patient" type="varchar(255)"/>
 
             <column name="uuid" type="varchar(255)"/>
             <column name="date_created" type="datetime"/>
@@ -49,7 +51,7 @@
         <!--                                 referencedColumnNames="user_id" />-->
     </changeSet>
 
-    <changeSet id="bloodbank-donor-concern-test27" author="nidhro">
+    <changeSet id="bloodbank-donor-concern-test28" author="nidhro">
         <!--<preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="bloodbank_donor_concern"/>
@@ -71,7 +73,7 @@
                                  referencedTableName="bloodbank_donor" referencedColumnNames="donor_id"/>
     </changeSet>
 
-    <changeSet id="bloodbank_questionnaire_test27" author="nidhro">
+    <changeSet id="bloodbank_questionnaire_test28" author="nidhro">
         <!-- <preConditions onFail="MARK_RAN">
              <not>
                  <tableExists tableName="bloodbank_questionnaire"/>
@@ -97,7 +99,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="bloodbank_blood_donor_physical_suitability_test27" author="jarrin">
+    <changeSet id="bloodbank_blood_donor_physical_suitability_test28" author="jarrin">
         <!--<preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="bloodbank_blood_donor_physical_suitability"/>
@@ -130,7 +132,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="bloodbank_blood_compatibility_test27" author="kamrul">
+    <changeSet id="bloodbank_blood_compatibility_test28" author="kamrul">
         <!--<preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="bloodbank_blood_donor_physical_suitability"/>
@@ -164,7 +166,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="bloodbank_blood_stock_tracing_test27" author="kamrul">
+    <changeSet id="bloodbank_blood_stock_tracing_test28" author="kamrul">
         <!--<preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="bloodbank_blood_donor_physical_suitability"/>
