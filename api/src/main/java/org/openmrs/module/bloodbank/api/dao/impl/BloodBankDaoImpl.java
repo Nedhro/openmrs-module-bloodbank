@@ -71,9 +71,13 @@ public class BloodBankDaoImpl implements BloodBankDao {
 	
 	@Override
 	public BloodStockTracing saveBloodStockTracing(BloodStockTracing bloodStockTracing) {
-		getSession().persist(bloodStockTracing);
-		log.info("Blood Stock Tracing info has been saved successfully..." + bloodStockTracing);
-		return bloodStockTracing;
+		if (uniqueBloodBagId(bloodStockTracing.getBloodBagId())) {
+			getSession().persist(bloodStockTracing);
+			log.info("Blood Stock Tracing info has been saved successfully..." + bloodStockTracing);
+			return bloodStockTracing;
+		} else {
+			return null;
+		}
 	}
 	
 	@Override
@@ -81,6 +85,7 @@ public class BloodBankDaoImpl implements BloodBankDao {
 		getSession().update(bloodStockTracing);
 		log.info("Blood Stock Tracing info has been updated successfully..." + bloodStockTracing);
 		return bloodStockTracing;
+		
 	}
 	
 	@Override
@@ -105,5 +110,16 @@ public class BloodBankDaoImpl implements BloodBankDao {
 		criteria.add((Restrictions.eq("bloodBagId", bloodBagId)));
 		BloodStockTracing bloodStockTracing = (BloodStockTracing) criteria.uniqueResult();
 		return bloodStockTracing;
+	}
+	
+	public Boolean uniqueBloodBagId(String bloodBagId) {
+		Criteria criteria = getSession().createCriteria(BloodStockTracing.class);
+		criteria.add((Restrictions.eq("bloodBagId", bloodBagId)));
+		BloodStockTracing bloodStockTracing = (BloodStockTracing) criteria.uniqueResult();
+		if (bloodStockTracing == null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

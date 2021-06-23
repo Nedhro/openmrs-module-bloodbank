@@ -37,17 +37,17 @@ public class BloodBankController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "bloodCompatibilityTest/add")
-	@ResponseBody
-	public ResponseEntity<Object> saveBloodCompatibility(@Valid @RequestBody BloodCompatibility bloodCompatibility){
-		if (bloodCompatibility.getBloodCompatibilityId() == null){
-			bloodBankService.saveBloodCompatibility(bloodCompatibility);
-			log.info("Blood Compatibility is saved successfully :: " + bloodCompatibility);
-			return new ResponseEntity<>(bloodCompatibility, HttpStatus.CREATED);
-		}
-		bloodBankService.updateBloodCompatibility(bloodCompatibility);
-		log.info("Blood Compatibility is updated successfully :: " + bloodCompatibility);
-		return new ResponseEntity<>(bloodCompatibility, HttpStatus.ACCEPTED);
-	}
+    @ResponseBody
+    public ResponseEntity<Object> saveBloodCompatibility(@Valid @RequestBody BloodCompatibility bloodCompatibility) {
+        if (bloodCompatibility.getBloodCompatibilityId() == null) {
+            bloodBankService.saveBloodCompatibility(bloodCompatibility);
+            log.info("Blood Compatibility is saved successfully :: " + bloodCompatibility);
+            return new ResponseEntity<>(bloodCompatibility, HttpStatus.CREATED);
+        }
+        bloodBankService.updateBloodCompatibility(bloodCompatibility);
+        log.info("Blood Compatibility is updated successfully :: " + bloodCompatibility);
+        return new ResponseEntity<>(bloodCompatibility, HttpStatus.ACCEPTED);
+    }
 	
 	@RequestMapping(method = RequestMethod.GET, value = "bloodCompatibilityTest/list")
 	@ResponseBody
@@ -58,43 +58,46 @@ public class BloodBankController {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "bloodCompatibilityTest/{id}")
-	@ResponseBody
-	public ResponseEntity<Object> getBloodCompatibilityById(@PathVariable Integer id){
-		try {
-			if (id != null) {
-				BloodCompatibility bloodCompatibility = bloodBankService.getBloodCompatibilityById(id);
-				log.info("Blood Compatibility is retrieved successfully :: " + bloodCompatibility);
-				return new ResponseEntity<>(bloodCompatibility, HttpStatus.OK);
-			}
-		} catch (Exception e) {
-			log.error("Runtime error while trying to find the Blood Compatibility", e);
-			return new ResponseEntity<>(RestUtil.wrapErrorResponse(e, e.getMessage()), HttpStatus.BAD_REQUEST);
-		}
-		return null;
-	}
+    @ResponseBody
+    public ResponseEntity<Object> getBloodCompatibilityById(@PathVariable Integer id) {
+        try {
+            if (id != null) {
+                BloodCompatibility bloodCompatibility = bloodBankService.getBloodCompatibilityById(id);
+                log.info("Blood Compatibility is retrieved successfully :: " + bloodCompatibility);
+                return new ResponseEntity<>(bloodCompatibility, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            log.error("Runtime error while trying to find the Blood Compatibility", e);
+            return new ResponseEntity<>(RestUtil.wrapErrorResponse(e, e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+        return null;
+    }
 	
 	@RequestMapping(method = RequestMethod.PUT, value = "bloodCompatibilityTest/delete/{id}")
-	@ResponseBody
-	public ResponseEntity<Object> deleteBloodCompatibilityById(@PathVariable Integer id){
-		BloodCompatibility bloodCompatibility = bloodBankService.getBloodCompatibilityById(id);
-		bloodCompatibility.setStatus(Status.DELETE.getValue());
-		bloodBankService.updateBloodCompatibility(bloodCompatibility);
-		log.info("Blood Compatibility is deleted successfully :: " + bloodCompatibility);
-		return new ResponseEntity<>(bloodCompatibility, HttpStatus.ACCEPTED);
-	}
+    @ResponseBody
+    public ResponseEntity<Object> deleteBloodCompatibilityById(@PathVariable Integer id) {
+        BloodCompatibility bloodCompatibility = bloodBankService.getBloodCompatibilityById(id);
+        bloodCompatibility.setStatus(Status.DELETE.getValue());
+        bloodBankService.updateBloodCompatibility(bloodCompatibility);
+        log.info("Blood Compatibility is deleted successfully :: " + bloodCompatibility);
+        return new ResponseEntity<>(bloodCompatibility, HttpStatus.ACCEPTED);
+    }
 	
 	@RequestMapping(method = RequestMethod.POST, value = "bloodStockTracing/add")
-	@ResponseBody
-	public ResponseEntity<Object> saveBloodStockTracing(@Valid @RequestBody BloodStockTracing bloodStockTracing){
-		if (bloodStockTracing.getBloodStockTracingId() == null){
-			bloodBankService.saveBloodStockTracing(bloodStockTracing);
-			log.info("Blood Stock Tracing info is saved successfully :: " + bloodStockTracing);
-			return new ResponseEntity<>(bloodStockTracing, HttpStatus.CREATED);
-		}
-		bloodBankService.updateBloodStockTracing(bloodStockTracing);
-		log.info("Blood Stock Tracing info is updated successfully :: " + bloodStockTracing);
+    @ResponseBody
+    public ResponseEntity<Object> saveBloodStockTracing(@Valid @RequestBody BloodStockTracing bloodStockTracing) {
+        if (bloodStockTracing.getBloodStockTracingId() == null) {
+            BloodStockTracing stockTracing = bloodBankService.saveBloodStockTracing(bloodStockTracing);
+            if (stockTracing == null) {
+                return new ResponseEntity<>(bloodStockTracing, HttpStatus.IM_USED);
+            }
+            log.info("Blood Stock Tracing info is saved successfully :: " + bloodStockTracing);
+            return new ResponseEntity<>(bloodStockTracing, HttpStatus.CREATED);
+        }
+        bloodBankService.updateBloodStockTracing(bloodStockTracing);
+        log.info("Blood Stock Tracing info is updated successfully :: " + bloodStockTracing);
 		return new ResponseEntity<>(bloodStockTracing, HttpStatus.ACCEPTED);
-	}
+    }
 	
 	@RequestMapping(method = RequestMethod.GET, value = "bloodStockTracing/list")
 	@ResponseBody
@@ -105,38 +108,38 @@ public class BloodBankController {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "bloodStockTracing/{id}")
-	@ResponseBody
-	public ResponseEntity<Object> getBloodStockTracingById(@PathVariable Integer id){
-		try {
-			if (id != null) {
-				BloodStockTracing bloodStockTracing = bloodBankService.getBloodStockTracingById(id);
-				log.info("Blood Stock Tracing info is retrieved successfully :: " + bloodStockTracing);
-				return new ResponseEntity<>(bloodStockTracing, HttpStatus.OK);
-			}
-		} catch (Exception e) {
-			log.error("Runtime error while trying to find the Blood Stock Tracing", e);
-			return new ResponseEntity<>(RestUtil.wrapErrorResponse(e, e.getMessage()), HttpStatus.BAD_REQUEST);
-		}
-		return null;
-	}
+    @ResponseBody
+    public ResponseEntity<Object> getBloodStockTracingById(@PathVariable Integer id) {
+        try {
+            if (id != null) {
+                BloodStockTracing bloodStockTracing = bloodBankService.getBloodStockTracingById(id);
+                log.info("Blood Stock Tracing info is retrieved successfully :: " + bloodStockTracing);
+                return new ResponseEntity<>(bloodStockTracing, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            log.error("Runtime error while trying to find the Blood Stock Tracing", e);
+            return new ResponseEntity<>(RestUtil.wrapErrorResponse(e, e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+        return null;
+    }
 	
 	@RequestMapping(method = RequestMethod.PUT, value = "bloodStockTracing/delete/{id}")
-	@ResponseBody
-	public ResponseEntity<Object> deleteBloodStockTracingById(@PathVariable Integer id){
-		BloodStockTracing bloodStockTracing = bloodBankService.getBloodStockTracingById(id);
-		bloodStockTracing.setStatus(Status.DELETE.getValue());
-		bloodBankService.updateBloodStockTracing(bloodStockTracing);
-		log.info("Blood Stock Tracing is deleted successfully :: " + bloodStockTracing);
-		return new ResponseEntity<>(bloodStockTracing, HttpStatus.ACCEPTED);
-	}
+    @ResponseBody
+    public ResponseEntity<Object> deleteBloodStockTracingById(@PathVariable Integer id) {
+        BloodStockTracing bloodStockTracing = bloodBankService.getBloodStockTracingById(id);
+        bloodStockTracing.setStatus(Status.DELETE.getValue());
+        bloodBankService.updateBloodStockTracing(bloodStockTracing);
+        log.info("Blood Stock Tracing is deleted successfully :: " + bloodStockTracing);
+        return new ResponseEntity<>(bloodStockTracing, HttpStatus.ACCEPTED);
+    }
 	
 	@RequestMapping(method = RequestMethod.PUT, value = "bloodStockTracing/updateStatus/{bloodBagId}")
-	@ResponseBody
-	public ResponseEntity<Object> updateBloodStockTracingStatus(@PathVariable String bloodBagId){
-		BloodStockTracing bloodStockTracing = bloodBankService.getBloodStockTracingByBloodBagId(bloodBagId);
-		bloodStockTracing.setStockStatus(StockStatus.NotAvailable);
-		bloodBankService.updateBloodStockTracing(bloodStockTracing);
-		log.info("Blood Stock Tracing Stock Status updated successfully :: " + bloodStockTracing);
-		return new ResponseEntity<>(bloodStockTracing, HttpStatus.ACCEPTED);
-	}
+    @ResponseBody
+    public ResponseEntity<Object> updateBloodStockTracingStatus(@PathVariable String bloodBagId) {
+        BloodStockTracing bloodStockTracing = bloodBankService.getBloodStockTracingByBloodBagId(bloodBagId);
+        bloodStockTracing.setStockStatus(StockStatus.NotAvailable);
+        bloodBankService.updateBloodStockTracing(bloodStockTracing);
+        log.info("Blood Stock Tracing Stock Status updated successfully :: " + bloodStockTracing);
+        return new ResponseEntity<>(bloodStockTracing, HttpStatus.ACCEPTED);
+    }
 }
