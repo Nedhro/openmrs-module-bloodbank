@@ -8,12 +8,10 @@ import org.openmrs.module.bloodbank.api.dao.BloodBankDao;
 import org.openmrs.module.bloodbank.api.model.BloodCompatibility;
 import org.openmrs.module.bloodbank.api.model.BloodDonorPhysicalSuitability;
 import org.openmrs.module.bloodbank.api.model.BloodStockTracing;
-import org.openmrs.module.bloodbank.api.model.Questionnaire;
 import org.openmrs.module.bloodbank.api.model.enums.PermissionType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
-import sun.rmi.runtime.Log;
 
 import java.util.List;
 
@@ -97,6 +95,14 @@ public class BloodBankDaoImpl implements BloodBankDao {
 	public BloodStockTracing getBloodStockTracingById(Integer id) {
 		Criteria criteria = getSession().createCriteria(BloodStockTracing.class);
 		criteria.add((Restrictions.eq("bloodStockTracingId", id)));
+		BloodStockTracing bloodStockTracing = (BloodStockTracing) criteria.uniqueResult();
+		return bloodStockTracing;
+	}
+	
+	@Override
+	public BloodStockTracing getBloodStockTracingByBloodBagId(String bloodBagId) {
+		Criteria criteria = getSession().createCriteria(BloodStockTracing.class);
+		criteria.add((Restrictions.eq("bloodBagId", bloodBagId)));
 		BloodStockTracing bloodStockTracing = (BloodStockTracing) criteria.uniqueResult();
 		return bloodStockTracing;
 	}
