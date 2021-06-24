@@ -93,7 +93,7 @@ public class BloodBankDaoImpl implements BloodBankDao {
     public List<BloodStockTracing> getAllBloodStockTracing() {
         Criteria criteria = getSession().createCriteria(BloodStockTracing.class);
         criteria.add(Restrictions.eq("status", 1));
-//		criteria.add(Restrictions.eq("stockStatus", StockStatus.Available));
+        criteria.add(Restrictions.eq("stockStatus", StockStatus.Available));
         log.info("Blood Stock Tracing List ::" + criteria.list());
         return criteria.list();
     }
@@ -111,6 +111,7 @@ public class BloodBankDaoImpl implements BloodBankDao {
         Criteria criteria = getSession().createCriteria(BloodStockTracing.class);
         criteria.add(Restrictions.eq("bloodBagId", bloodBagId));
         criteria.add(Restrictions.eq("status", 1));
+        criteria.add(Restrictions.eq("stockStatus", StockStatus.Available));
         BloodStockTracing bloodStockTracing = (BloodStockTracing) criteria.uniqueResult();
         return bloodStockTracing;
     }
@@ -119,7 +120,7 @@ public class BloodBankDaoImpl implements BloodBankDao {
         Criteria criteria = getSession().createCriteria(BloodStockTracing.class);
         criteria.add(Restrictions.eq("bloodBagId", bloodBagId));
         criteria.add(Restrictions.eq("status", 1));
-//      criteria.add(Restrictions.eq("stockStatus", StockStatus.Available));
+        criteria.add(Restrictions.eq("stockStatus", StockStatus.Available));
         BloodStockTracing bloodStockTracing = (BloodStockTracing) criteria.uniqueResult();
         if (bloodStockTracing == null) {
             return true;
