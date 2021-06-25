@@ -96,7 +96,7 @@ public class BloodBankController {
         }
         bloodBankService.updateBloodStockTracing(bloodStockTracing);
         log.info("Blood Stock Tracing info is updated successfully :: " + bloodStockTracing);
-		return new ResponseEntity<>(bloodStockTracing, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(bloodStockTracing, HttpStatus.ACCEPTED);
     }
 	
 	@RequestMapping(method = RequestMethod.GET, value = "bloodStockTracing/list")
@@ -137,9 +137,13 @@ public class BloodBankController {
     @ResponseBody
     public ResponseEntity<Object> updateBloodStockTracingStatus(@PathVariable String bloodBagId) {
         BloodStockTracing bloodStockTracing = bloodBankService.getBloodStockTracingByBloodBagId(bloodBagId);
-        bloodStockTracing.setStockStatus(StockStatus.NotAvailable);
-        bloodBankService.updateBloodStockTracing(bloodStockTracing);
-        log.info("Blood Stock Tracing Stock Status updated successfully :: " + bloodStockTracing);
-        return new ResponseEntity<>(bloodStockTracing, HttpStatus.ACCEPTED);
+        if (bloodStockTracing != null) {
+            bloodStockTracing.setStockStatus(StockStatus.NotAvailable);
+            bloodBankService.updateBloodStockTracing(bloodStockTracing);
+            log.info("Blood Stock Tracing Stock Status updated successfully :: " + bloodStockTracing);
+            return new ResponseEntity<>(bloodStockTracing, HttpStatus.ACCEPTED);
+        }
+        log.info("Blood is not available in the stock :: " + bloodStockTracing);
+        return new ResponseEntity<>(bloodBagId, HttpStatus.IM_USED);
     }
 }
