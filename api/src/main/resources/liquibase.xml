@@ -12,7 +12,7 @@
         See http://www.liquibase.org/manual/home#available_database_refactorings
         for a list of supported elements and attributes
     -->
-    <changeSet id="bloodbank-donor-test33" author="nidhro">
+    <changeSet id="bloodbank-donor-test41" author="nidhro">
         <!--<preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="bloodbank_donor"/>
@@ -51,7 +51,7 @@
         <!--                                 referencedColumnNames="user_id" />-->
     </changeSet>
 
-    <changeSet id="bloodbank-donor-concern-test33" author="nidhro">
+    <changeSet id="bloodbank-donor-concern-test41" author="nidhro">
         <!--<preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="bloodbank_donor_concern"/>
@@ -73,7 +73,7 @@
                                  referencedTableName="bloodbank_donor" referencedColumnNames="donor_id"/>
     </changeSet>
 
-    <changeSet id="bloodbank_questionnaire_test33" author="nidhro">
+    <changeSet id="bloodbank_questionnaire_test41" author="nidhro">
         <!-- <preConditions onFail="MARK_RAN">
              <not>
                  <tableExists tableName="bloodbank_questionnaire"/>
@@ -99,7 +99,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="bloodbank_blood_donor_physical_suitability_test33" author="jarrin">
+    <changeSet id="bloodbank_blood_donor_physical_suitability_test41" author="nidhro, jarrin">
         <!--<preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="bloodbank_blood_donor_physical_suitability"/>
@@ -120,7 +120,7 @@
             <column name="donor_blood_group" type="varchar(255)"/>
             <column name="donor_blood_group_rhesus" type="varchar(255)"/>
             <column name="donor_selection" type="varchar(255)"/>
-            <column name="blood_donor_id" type="int(24)">
+            <column name="blood_donor_id" type="int(11)">
                 <constraints nullable="false"/>
             </column>
 
@@ -132,9 +132,14 @@
             <column name="voided" type="tinyint(3)"/>
             <column name="status" type="int(3)"/>
         </createTable>
+        <addForeignKeyConstraint
+                constraintName="bloodbank_blood_donor_physical_suitability_fk" onDelete="CASCADE"
+                baseTableName="bloodbank_blood_donor_physical_suitability" baseColumnNames="blood_donor_id"
+                referencedTableName="bloodbank_donor" referencedColumnNames="donor_id"
+        />
     </changeSet>
 
-    <changeSet id="bloodbank_blood_compatibility_test33" author="kamrul">
+    <changeSet id="bloodbank_blood_compatibility_test41" author="kamrul">
         <!--<preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="bloodbank_blood_donor_physical_suitability"/>
@@ -172,7 +177,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="bloodbank_blood_stock_tracing_test33" author="kamrul">
+    <changeSet id="bloodbank_blood_stock_tracing_test41" author="kamrul">
         <!--<preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="bloodbank_blood_donor_physical_suitability"/>
@@ -185,7 +190,6 @@
             <column name="blood_stock_tracing_id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="blood_donor_id" type="int(24)"/>
             <column name="blood_storage" type="varchar(255)"/>
             <column name="source_of_blood" type="varchar(255)"/>
             <column name="blood_group" type="varchar(255)">
@@ -194,6 +198,9 @@
             <column name="stock_status" type="varchar(255)"/>
             <column name="blood_bag_id" type="varchar(255)">
                 <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="blood_donor_id" type="int(11)">
+                <constraints nullable="true"/>
             </column>
 
             <column name="uuid" type="varchar(255)"/>
@@ -204,5 +211,10 @@
             <column name="voided" type="tinyint(3)"/>
             <column name="status" type="int(3)"/>
         </createTable>
+        <addForeignKeyConstraint
+                constraintName="bloodbank_blood_stock_tracing_fk" onDelete="CASCADE"
+                baseTableName="bloodbank_blood_stock_tracing" baseColumnNames="blood_donor_id"
+                referencedTableName="bloodbank_donor" referencedColumnNames="donor_id"
+        />
     </changeSet>
 </databaseChangeLog>
