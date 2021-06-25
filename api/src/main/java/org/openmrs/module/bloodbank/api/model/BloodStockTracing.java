@@ -9,7 +9,7 @@ public class BloodStockTracing extends BaseModel {
 	
 	private Integer bloodStockTracingId;
 	
-	private Integer bloodDonorId;
+	private BloodDonor bloodDonor;
 	
 	private String bloodStorage;
 	
@@ -25,10 +25,10 @@ public class BloodStockTracing extends BaseModel {
 	public BloodStockTracing() {
 	}
 	
-	public BloodStockTracing(Integer bloodStockTracingId, Integer bloodDonorId, String bloodStorage,
+	public BloodStockTracing(Integer bloodStockTracingId, BloodDonor bloodDonor, String bloodStorage,
 	    SourceOfBlood sourceOfBlood, String bloodGroup, StockStatus stockStatus, String bloodBagId) {
 		this.bloodStockTracingId = bloodStockTracingId;
-		this.bloodDonorId = bloodDonorId;
+		this.bloodDonor = bloodDonor;
 		this.bloodStorage = bloodStorage;
 		this.sourceOfBlood = sourceOfBlood;
 		this.bloodGroup = bloodGroup;
@@ -44,12 +44,12 @@ public class BloodStockTracing extends BaseModel {
 		this.bloodStockTracingId = bloodStockTracingId;
 	}
 	
-	public Integer getBloodDonorId() {
-		return bloodDonorId;
+	public BloodDonor getBloodDonor() {
+		return bloodDonor;
 	}
 	
-	public void setBloodDonorId(Integer bloodDonorId) {
-		this.bloodDonorId = bloodDonorId;
+	public void setBloodDonor(BloodDonor bloodDonor) {
+		this.bloodDonor = bloodDonor;
 	}
 	
 	public String getBloodStorage() {

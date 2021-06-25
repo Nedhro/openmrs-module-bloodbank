@@ -22,14 +22,14 @@ public class BloodDonorPhysicalSuitability extends BaseModel {
 	
 	private PermissionType donorSelection;
 	
-	private Integer bloodDonorId;
+	private BloodDonor bloodDonor;
 	
 	public BloodDonorPhysicalSuitability() {
 	}
 	
 	public BloodDonorPhysicalSuitability(Integer donorPhysicalSuitabilityId, Double donorHemoglobin, Double donorWeight,
 	    String donorBloodPressure, Double donorPulseRate, Double donorTemperature, String donorBloodGroup,
-	    String donorBloodGroupRhesus, PermissionType donorSelection, Integer bloodDonorId) {
+	    String donorBloodGroupRhesus, PermissionType donorSelection, BloodDonor bloodDonor) {
 		this.donorPhysicalSuitabilityId = donorPhysicalSuitabilityId;
 		this.donorHemoglobin = donorHemoglobin;
 		this.donorWeight = donorWeight;
@@ -39,7 +39,7 @@ public class BloodDonorPhysicalSuitability extends BaseModel {
 		this.donorBloodGroup = donorBloodGroup;
 		this.donorBloodGroupRhesus = donorBloodGroupRhesus;
 		this.donorSelection = donorSelection;
-		this.bloodDonorId = bloodDonorId;
+		this.bloodDonor = bloodDonor;
 	}
 	
 	public Integer getDonorPhysicalSuitabilityId() {
@@ -114,11 +114,11 @@ public class BloodDonorPhysicalSuitability extends BaseModel {
 		this.donorSelection = donorSelection;
 	}
 	
-	public Integer getBloodDonorId() {
-		return bloodDonorId;
+	public BloodDonor getBloodDonor() {
+		return bloodDonor;
 	}
 	
-	public void setBloodDonorId(Integer bloodDonorId) {
-		this.bloodDonorId = bloodDonorId;
+	public void setBloodDonor(BloodDonor bloodDonor) {
+		this.bloodDonor = bloodDonor;
 	}
 }
