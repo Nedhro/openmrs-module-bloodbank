@@ -14,6 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class BloodBankDaoImpl implements BloodBankDao {
@@ -57,6 +59,7 @@ public class BloodBankDaoImpl implements BloodBankDao {
 	public List<BloodCompatibility> getAllBloodCompatibility() {
 		Criteria criteria = getSession().createCriteria(BloodCompatibility.class);
 		criteria.add(Restrictions.eq("status", 1));
+		criteria.add(Restrictions.between("dateCreated", getdateBefore30Days(), new Date()));
 		log.info("Blood Compatibility List ::" + criteria.list());
 		return criteria.list();
 	}
@@ -111,9 +114,17 @@ public class BloodBankDaoImpl implements BloodBankDao {
 		Criteria criteria = getSession().createCriteria(BloodStockTracing.class);
 		criteria.add(Restrictions.eq("bloodBagId", bloodBagId));
 		criteria.add(Restrictions.eq("status", 1));
-		criteria.add(Restrictions.eq("stockStatus", StockStatus.Available));
 		BloodStockTracing bloodStockTracing = (BloodStockTracing) criteria.uniqueResult();
 		return bloodStockTracing;
+	}
+	
+	@Override
+	public BloodCompatibility getCompatibilityByBagId(String bloodBagId) {
+		Criteria criteria = getSession().createCriteria(BloodCompatibility.class);
+		criteria.add(Restrictions.eq("bloodBagId", bloodBagId));
+		criteria.add(Restrictions.eq("status", 1));
+		BloodCompatibility bloodCompatibility = (BloodCompatibility) criteria.uniqueResult();
+		return bloodCompatibility;
 	}
 	
 	public Boolean uniqueBloodBagId(String bloodBagId) {
@@ -123,5 +134,16 @@ public class BloodBankDaoImpl implements BloodBankDao {
 		criteria.add(Restrictions.eq("stockStatus", StockStatus.Available));
 		BloodStockTracing bloodStockTracing = (BloodStockTracing) criteria.uniqueResult();
 		return bloodStockTracing == null;
+	}
+	
+	public Date getdateBefore30Days() {
+		Date currentDate = new Date();
+		
+		Calendar c = Calendar.getInstance();
+		c.setTime(currentDate);
+		c.add(Calendar.DATE, -30);
+		
+		Date dateBefore30Days = c.getTime();
+		return dateBefore30Days;
 	}
 }
