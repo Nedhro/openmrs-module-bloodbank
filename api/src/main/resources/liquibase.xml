@@ -12,12 +12,12 @@
         See http://www.liquibase.org/manual/home#available_database_refactorings
         for a list of supported elements and attributes
     -->
-    <changeSet id="bloodbank-donor-test51" author="nidhro">
-        <!--<preConditions onFail="MARK_RAN">
+    <changeSet id="bloodbank-donor-alpha4" author="nidhro">
+        <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="bloodbank_donor"/>
             </not>
-        </preConditions>-->
+        </preConditions>
         <comment>
             Creating the bloodbank_donor table
         </comment>
@@ -49,12 +49,12 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="bloodbank-donor-concern-test51" author="nidhro">
-        <!--<preConditions onFail="MARK_RAN">
+    <changeSet id="bloodbank-donor-concern-alpha4" author="nidhro">
+        <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="bloodbank_donor_concern"/>
             </not>
-        </preConditions>-->
+        </preConditions>
         <comment>
             Creating the bloodbank_donor_concern table
         </comment>
@@ -71,12 +71,12 @@
                                  referencedTableName="bloodbank_donor" referencedColumnNames="donor_id"/>
     </changeSet>
 
-    <changeSet id="bloodbank_questionnaire_test51" author="nidhro">
-        <!--<preConditions onFail="MARK_RAN">
+    <changeSet id="bloodbank_questionnaire_alpha4" author="nidhro">
+        <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="bloodbank_questionnaire"/>
             </not>
-        </preConditions>-->
+        </preConditions>
         <comment>
             Creating the bloodbank_questionnaire table
         </comment>
@@ -97,12 +97,12 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="bloodbank_blood_donor_physical_suitability_test51" author="nidhro, jarrin">
-        <!--<preConditions onFail="MARK_RAN">
+    <changeSet id="bloodbank_blood_donor_physical_suitability_alpha4" author="nidhro, jarrin">
+        <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="bloodbank_blood_donor_physical_suitability"/>
             </not>
-        </preConditions>-->
+        </preConditions>
         <comment>
             Creating the bloodbank_blood_donor_physical_suitability table
         </comment>
@@ -137,12 +137,12 @@
         />
     </changeSet>
 
-    <changeSet id="bloodbank_blood_compatibility_test51" author="kamrul">
-        <!--<preConditions onFail="MARK_RAN">
+    <changeSet id="bloodbank_blood_compatibility_alpha4" author="kamrul">
+        <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="bloodbank_blood_donor_physical_suitability"/>
             </not>
-        </preConditions>-->
+        </preConditions>
         <comment>
             Creating the bloodbank_blood_compatibility table
         </comment>
@@ -176,12 +176,12 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="bloodbank_blood_stock_tracing_test51" author="kamrul">
-        <!--<preConditions onFail="MARK_RAN">
+    <changeSet id="bloodbank_blood_stock_tracing_alpha4" author="kamrul">
+        <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="bloodbank_blood_donor_physical_suitability"/>
             </not>
-        </preConditions>-->
+        </preConditions>
         <comment>
             Creating the bloodbank_blood_stock_tracing table
         </comment>
