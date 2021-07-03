@@ -138,12 +138,50 @@ public class BloodBankController {
     public ResponseEntity<Object> updateBloodStockTracingStatus(@PathVariable String bloodBagId) {
         BloodStockTracing bloodStockTracing = bloodBankService.getBloodStockTracingByBloodBagId(bloodBagId);
         if (bloodStockTracing != null) {
-            bloodStockTracing.setStockStatus(StockStatus.NotAvailable);
-            bloodBankService.updateBloodStockTracing(bloodStockTracing);
+            if(bloodStockTracing.getStockStatus() == StockStatus.Available){
+                bloodStockTracing.setStockStatus(StockStatus.NotAvailable);
+                bloodBankService.updateBloodStockTracing(bloodStockTracing);
+            }
+            else if(bloodStockTracing.getStockStatus() == StockStatus.NotAvailable){
+                bloodStockTracing.setStockStatus(StockStatus.Available);
+                bloodBankService.updateBloodStockTracing(bloodStockTracing);
+            }
             log.info("Blood Stock Tracing Stock Status updated successfully :: " + bloodStockTracing);
             return new ResponseEntity<>(bloodStockTracing, HttpStatus.ACCEPTED);
         }
         log.info("Blood is not available in the stock :: " + bloodStockTracing);
         return new ResponseEntity<>(bloodBagId, HttpStatus.IM_USED);
+    }
+	
+	@RequestMapping(method = RequestMethod.GET, value = "bloodStockTracing/bloodBag/{bloodBagId}")
+    @ResponseBody
+    public ResponseEntity<Object> getBloodStockByBagId(@PathVariable String bloodBagId){
+        try {
+            if (bloodBagId != null) {
+                BloodStockTracing bloodStockTracing = bloodBankService.getBloodStockTracingByBloodBagId(bloodBagId);
+                log.info("Blood Stock Tracing info is retrieved successfully :: " + bloodStockTracing);
+                return new ResponseEntity<>(bloodStockTracing, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            log.error("Runtime error while trying to find the Blood Stock Tracing", e);
+            return new ResponseEntity<>(RestUtil.wrapErrorResponse(e, e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+        return null;
+    }
+	
+	@RequestMapping(method = RequestMethod.GET, value = "bloodCompatibilityTest/bloodBag/{bloodBagId}")
+    @ResponseBody
+    public ResponseEntity<Object> getCompatibilityByBagId(@PathVariable String bloodBagId){
+        try {
+            if (bloodBagId != null) {
+                BloodCompatibility bloodCompatibility = bloodBankService.getCompatibilityByBagId(bloodBagId);
+                log.info("Blood Compatibility info is retrieved successfully :: " + bloodCompatibility);
+                return new ResponseEntity<>(bloodCompatibility, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            log.error("Runtime error while trying to find the Blood Compatibility", e);
+            return new ResponseEntity<>(RestUtil.wrapErrorResponse(e, e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+        return null;
     }
 }
