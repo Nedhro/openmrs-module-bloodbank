@@ -11,176 +11,180 @@ import java.util.Set;
 
 public class BloodDonor extends BaseModel {
 
-    private Integer donorId;
+  private Integer donorId;
 
-    private String donorName;
+  private String donorName;
 
-    private Integer donorAge;
+  private Integer donorAge;
 
-    private String donorGuardian;
+  private String donorGuardian;
 
-    private Gender donorGender;
+  private Gender donorGender;
 
-    private MaritalStatus donorMaritalStatus;
+  private MaritalStatus donorMaritalStatus;
 
-    private String donorProfession;
+  private String donorProfession;
 
-    private String donorPresentAddress;
+  private String donorPresentAddress;
 
-    private String donorPermanentAddress;
+  private String donorPermanentAddress;
 
-    private String donorMobileNo;
+  private String donorMobileNo;
 
-    private Date donorLastDonatedDate;
+  private Date donorLastDonatedDate;
 
-    private String donorLastDonatedPlace;
+  private String donorLastDonatedPlace;
 
-    private DonorType typeOfDonor;
+  private DonorType typeOfDonor;
 
-    private String patient;
+  private String patient;
 
-    @JsonManagedReference
-    private Set<DonorConcern> concernSet = new HashSet<>();
+  @JsonManagedReference
+  private Set<DonorConcern> concernSet = new HashSet<>();
 
-    public BloodDonor() {
-    }
+  public BloodDonor() {
+  }
 
 
-    public BloodDonor(Integer donorId, String donorName, Integer donorAge, String donorGuardian, Gender donorGender, MaritalStatus donorMaritalStatus, String donorProfession, String donorPresentAddress, String donorPermanentAddress, String donorMobileNo, Date donorLastDonatedDate, String donorLastDonatedPlace, DonorType typeOfDonor, String patient, Set<DonorConcern> concernSet) {
-        this.donorId = donorId;
-        this.donorName = donorName;
-        this.donorAge = donorAge;
-        this.donorGuardian = donorGuardian;
-        this.donorGender = donorGender;
-        this.donorMaritalStatus = donorMaritalStatus;
-        this.donorProfession = donorProfession;
-        this.donorPresentAddress = donorPresentAddress;
-        this.donorPermanentAddress = donorPermanentAddress;
-        this.donorMobileNo = donorMobileNo;
-        this.donorLastDonatedDate = donorLastDonatedDate;
-        this.donorLastDonatedPlace = donorLastDonatedPlace;
-        this.typeOfDonor = typeOfDonor;
-        this.patient = patient;
-        this.concernSet = concernSet;
-    }
+  public BloodDonor(Integer donorId, String donorName, Integer donorAge, String donorGuardian,
+      Gender donorGender, MaritalStatus donorMaritalStatus, String donorProfession,
+      String donorPresentAddress, String donorPermanentAddress, String donorMobileNo,
+      Date donorLastDonatedDate, String donorLastDonatedPlace, DonorType typeOfDonor,
+      String patient, Set<DonorConcern> concernSet) {
+    this.donorId = donorId;
+    this.donorName = donorName;
+    this.donorAge = donorAge;
+    this.donorGuardian = donorGuardian;
+    this.donorGender = donorGender;
+    this.donorMaritalStatus = donorMaritalStatus;
+    this.donorProfession = donorProfession;
+    this.donorPresentAddress = donorPresentAddress;
+    this.donorPermanentAddress = donorPermanentAddress;
+    this.donorMobileNo = donorMobileNo;
+    this.donorLastDonatedDate = donorLastDonatedDate;
+    this.donorLastDonatedPlace = donorLastDonatedPlace;
+    this.typeOfDonor = typeOfDonor;
+    this.patient = patient;
+    this.concernSet = concernSet;
+  }
 
-    public Set<DonorConcern> getConcernSet() {
-        return concernSet;
-    }
+  public Set<DonorConcern> getConcernSet() {
+    return concernSet;
+  }
 
-    public void setConcernSet(Set<DonorConcern> concernSet) {
-        this.concernSet = concernSet;
-    }
+  public void setConcernSet(Set<DonorConcern> concernSet) {
+    this.concernSet = concernSet;
+  }
 
-    public Integer getDonorId() {
-        return donorId;
-    }
+  public Integer getDonorId() {
+    return donorId;
+  }
 
-    public void setDonorId(Integer donorId) {
-        this.donorId = donorId;
-    }
+  public void setDonorId(Integer donorId) {
+    this.donorId = donorId;
+  }
 
-    public String getDonorName() {
-        return donorName;
-    }
+  public String getDonorName() {
+    return donorName;
+  }
 
-    public void setDonorName(String donorName) {
-        this.donorName = donorName;
-    }
+  public void setDonorName(String donorName) {
+    this.donorName = donorName;
+  }
 
-    public Integer getDonorAge() {
-        return donorAge;
-    }
+  public Integer getDonorAge() {
+    return donorAge;
+  }
 
-    public void setDonorAge(Integer donorAge) {
-        this.donorAge = donorAge;
-    }
+  public void setDonorAge(Integer donorAge) {
+    this.donorAge = donorAge;
+  }
 
-    public String getDonorGuardian() {
-        return donorGuardian;
-    }
+  public String getDonorGuardian() {
+    return donorGuardian;
+  }
 
-    public void setDonorGuardian(String donorGuardian) {
-        this.donorGuardian = donorGuardian;
-    }
+  public void setDonorGuardian(String donorGuardian) {
+    this.donorGuardian = donorGuardian;
+  }
 
-    public Gender getDonorGender() {
-        return donorGender;
-    }
+  public Gender getDonorGender() {
+    return donorGender;
+  }
 
-    public void setDonorGender(Gender donorGender) {
-        this.donorGender = donorGender;
-    }
+  public void setDonorGender(Gender donorGender) {
+    this.donorGender = donorGender;
+  }
 
-    public MaritalStatus getDonorMaritalStatus() {
-        return donorMaritalStatus;
-    }
+  public MaritalStatus getDonorMaritalStatus() {
+    return donorMaritalStatus;
+  }
 
-    public void setDonorMaritalStatus(MaritalStatus donorMaritalStatus) {
-        this.donorMaritalStatus = donorMaritalStatus;
-    }
+  public void setDonorMaritalStatus(MaritalStatus donorMaritalStatus) {
+    this.donorMaritalStatus = donorMaritalStatus;
+  }
 
-    public String getDonorProfession() {
-        return donorProfession;
-    }
+  public String getDonorProfession() {
+    return donorProfession;
+  }
 
-    public void setDonorProfession(String donorProfession) {
-        this.donorProfession = donorProfession;
-    }
+  public void setDonorProfession(String donorProfession) {
+    this.donorProfession = donorProfession;
+  }
 
-    public String getDonorPresentAddress() {
-        return donorPresentAddress;
-    }
+  public String getDonorPresentAddress() {
+    return donorPresentAddress;
+  }
 
-    public void setDonorPresentAddress(String donorPresentAddress) {
-        this.donorPresentAddress = donorPresentAddress;
-    }
+  public void setDonorPresentAddress(String donorPresentAddress) {
+    this.donorPresentAddress = donorPresentAddress;
+  }
 
-    public String getDonorPermanentAddress() {
-        return donorPermanentAddress;
-    }
+  public String getDonorPermanentAddress() {
+    return donorPermanentAddress;
+  }
 
-    public void setDonorPermanentAddress(String donorPermanentAddress) {
-        this.donorPermanentAddress = donorPermanentAddress;
-    }
+  public void setDonorPermanentAddress(String donorPermanentAddress) {
+    this.donorPermanentAddress = donorPermanentAddress;
+  }
 
-    public String getDonorMobileNo() {
-        return donorMobileNo;
-    }
+  public String getDonorMobileNo() {
+    return donorMobileNo;
+  }
 
-    public void setDonorMobileNo(String donorMobileNo) {
-        this.donorMobileNo = donorMobileNo;
-    }
+  public void setDonorMobileNo(String donorMobileNo) {
+    this.donorMobileNo = donorMobileNo;
+  }
 
-    public Date getDonorLastDonatedDate() {
-        return donorLastDonatedDate;
-    }
+  public Date getDonorLastDonatedDate() {
+    return donorLastDonatedDate;
+  }
 
-    public void setDonorLastDonatedDate(Date donorLastDonatedDate) {
-        this.donorLastDonatedDate = donorLastDonatedDate;
-    }
+  public void setDonorLastDonatedDate(Date donorLastDonatedDate) {
+    this.donorLastDonatedDate = donorLastDonatedDate;
+  }
 
-    public String getDonorLastDonatedPlace() {
-        return donorLastDonatedPlace;
-    }
+  public String getDonorLastDonatedPlace() {
+    return donorLastDonatedPlace;
+  }
 
-    public void setDonorLastDonatedPlace(String donorLastDonatedPlace) {
-        this.donorLastDonatedPlace = donorLastDonatedPlace;
-    }
+  public void setDonorLastDonatedPlace(String donorLastDonatedPlace) {
+    this.donorLastDonatedPlace = donorLastDonatedPlace;
+  }
 
-    public DonorType getTypeOfDonor() {
-        return typeOfDonor;
-    }
+  public DonorType getTypeOfDonor() {
+    return typeOfDonor;
+  }
 
-    public void setTypeOfDonor(DonorType typeOfDonor) {
-        this.typeOfDonor = typeOfDonor;
-    }
+  public void setTypeOfDonor(DonorType typeOfDonor) {
+    this.typeOfDonor = typeOfDonor;
+  }
 
-    public String getPatient() {
-        return patient;
-    }
+  public String getPatient() {
+    return patient;
+  }
 
-    public void setPatient(String patient) {
-        this.patient = patient;
-    }
+  public void setPatient(String patient) {
+    this.patient = patient;
+  }
 }
