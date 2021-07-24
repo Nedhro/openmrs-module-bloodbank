@@ -29,4 +29,6 @@ public interface BloodBankDao {
 	BloodStockTracing getBloodStockTracingByBloodBagId(String bloodBagId);
 	
 	BloodCompatibility getCompatibilityByBagId(String bloodBagId);
+	
+	String getNextBloodBagId(String bloodSource);
 }

@@ -78,4 +78,10 @@ public class BloodBankServiceImpl extends BaseOpenmrsService implements BloodBan
 	public BloodCompatibility getCompatibilityByBagId(String bloodBagId) {
 		return bloodBankDao.getCompatibilityByBagId(bloodBagId);
 	}
+	
+	@Override
+	public String getNextBloodBagId(String bloodSource) {
+		return bloodBankDao.getNextBloodBagId(bloodSource);
+	}
+	
 }
