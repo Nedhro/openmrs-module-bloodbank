@@ -1,22 +1,24 @@
 package org.openmrs.module.bloodbank.api.dao.impl;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.module.bloodbank.api.dao.BloodBankDao;
 import org.openmrs.module.bloodbank.api.model.BloodCompatibility;
 import org.openmrs.module.bloodbank.api.model.BloodDonorPhysicalSuitability;
 import org.openmrs.module.bloodbank.api.model.BloodStockTracing;
 import org.openmrs.module.bloodbank.api.model.enums.PermissionType;
+import org.openmrs.module.bloodbank.api.model.enums.SourceOfBlood;
 import org.openmrs.module.bloodbank.api.model.enums.StockStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 public class BloodBankDaoImpl implements BloodBankDao {
 	
@@ -125,6 +127,41 @@ public class BloodBankDaoImpl implements BloodBankDao {
 		criteria.add(Restrictions.eq("status", 1));
 		BloodCompatibility bloodCompatibility = (BloodCompatibility) criteria.uniqueResult();
 		return bloodCompatibility;
+	}
+	
+	@Override
+	public String getNextBloodBagId(String bloodSource) {
+		SourceOfBlood sourceOfBlood;
+		String initialValue;
+		String prefix = "";
+		switch (bloodSource) {
+			case "NITOR":
+				sourceOfBlood = SourceOfBlood.NITOR;
+				prefix = "NTR";
+				break;
+			case "OutdoorCampaign":
+				sourceOfBlood = SourceOfBlood.OutdoorCampaign;
+				prefix = "CAM";
+				break;
+			default:
+				sourceOfBlood = SourceOfBlood.Outsource;
+		}
+		Criteria criteria = getSession().createCriteria(BloodStockTracing.class);
+		criteria.add(Restrictions.eq("sourceOfBlood", sourceOfBlood));
+		criteria.addOrder(Order.desc("bloodBagId"));
+		criteria.setMaxResults(1);
+		List<BloodStockTracing> tracing = criteria.list();
+		if (tracing.size() > 0) {
+			int nextId = Integer.parseInt(tracing.get(0).getBloodBagId().trim().substring(3));
+			nextId = nextId + 1;
+			log.info("Next Blood Bag Id :: " + nextId);
+			if (String.valueOf(nextId).length() > 3)
+				return prefix.concat(String.valueOf(nextId));
+			return prefix.concat(StringUtils.leftPad(String.valueOf(nextId), 3, "0"));
+		}
+		initialValue = prefix.concat("001");
+		log.info("No Blood Bag Id. Initial Value :: " + initialValue);
+		return initialValue;
 	}
 	
 	public Boolean uniqueBloodBagId(String bloodBagId) {

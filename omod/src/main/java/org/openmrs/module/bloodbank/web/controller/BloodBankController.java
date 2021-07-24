@@ -1,5 +1,7 @@
 package org.openmrs.module.bloodbank.web.controller;
 
+import java.util.List;
+import javax.validation.Valid;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.module.bloodbank.api.model.BloodCompatibility;
@@ -14,10 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.util.List;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping(value = "/rest/" + RestConstants.VERSION_1 + "/bloodbank")
@@ -135,6 +138,16 @@ public class BloodBankController {
     bloodBankService.updateBloodStockTracing(bloodStockTracing);
     log.info("Blood Stock Tracing is deleted successfully :: " + bloodStockTracing);
     return new ResponseEntity<>(bloodStockTracing, HttpStatus.ACCEPTED);
+  }
+	
+	@RequestMapping(method = RequestMethod.GET, value = "bloodStockTracing/nextBloodBagId/{bloodSource}")
+  @ResponseBody
+  public ResponseEntity<Object> checkBloodBagID(@PathVariable String bloodSource) {
+    String bagId = bloodBankService.getNextBloodBagId(bloodSource);
+    if (bagId.isEmpty())
+      return new ResponseEntity<>(bagId, HttpStatus.BAD_REQUEST);
+    log.info("Next Blood Bag Id:: " + bagId);
+    return new ResponseEntity<>(bagId, HttpStatus.ACCEPTED);
   }
 	
 	@RequestMapping(method = RequestMethod.PUT, value = "bloodStockTracing/updateStatus/{bloodBagId}")

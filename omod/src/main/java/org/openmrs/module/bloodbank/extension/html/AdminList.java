@@ -21,21 +21,21 @@ import java.util.Map;
  * config.xml file.
  */
 public class AdminList extends AdministrationSectionExt {
-
+	
 	/**
 	 * @see org.openmrs.module.web.extension.AdministrationSectionExt#getMediaType()
 	 */
 	public Extension.MEDIA_TYPE getMediaType() {
 		return Extension.MEDIA_TYPE.html;
 	}
-
+	
 	/**
 	 * @see org.openmrs.module.web.extension.AdministrationSectionExt#getTitle()
 	 */
 	public String getTitle() {
 		return "bloodbank.title";
 	}
-
+	
 	/**
 	 * @see org.openmrs.module.web.extension.AdministrationSectionExt#getLinks()
 	 */
@@ -48,5 +48,4 @@ public class AdminList extends AdministrationSectionExt {
 
 		return map;
 	}
-
 }
