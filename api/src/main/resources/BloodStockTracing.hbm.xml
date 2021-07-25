@@ -7,12 +7,12 @@
     batch-size="50">
     <id name="bloodStockTracingId" type="java.lang.Integer" column="blood_stock_tracing_id">
       <generator class="native">
-        <param name="sequence">blood_compatibility_id_seq</param>
+        <param name="sequence">blood_stock_tracing_id_seq</param>
       </generator>
     </id>
     <!--        <one-to-one name="bloodDonorId" fetch="join" cascade="merge" class="org.openmrs.module.bloodbank.api.model.BloodDonor" constrained="true"/>-->
     <many-to-one name="bloodDonor" class="org.openmrs.module.bloodbank.api.model.BloodDonor"
-      column="blood_donor_id" not-null="false" />
+      column="blood_donor_id" not-null="false"/>
     <property name="bloodStorage" type="java.lang.String" column="blood_storage" length="255"/>
     <property name="sourceOfBlood" column="source_of_blood">
       <type name="org.hibernate.type.EnumType">
@@ -29,8 +29,7 @@
       </type>
     </property>
     <property name="bloodBagId" type="java.lang.String" column="blood_bag_id" length="255"
-      not-null="true"
-      unique="true"/>
+      not-null="true" unique="true"/>
 
     <property name="uuid" type="java.lang.String" column="uuid" length="38" unique="true"/>
     <property name="dateCreated" type="java.util.Date" column="date_created"/>
