@@ -37,6 +37,7 @@ public class BloodBankDaoImpl implements BloodBankDao {
 	@Override
 	public List<BloodDonorPhysicalSuitability> getAllDonorTestsResult() {
 		Criteria criteria = getSession().createCriteria(BloodDonorPhysicalSuitability.class);
+		criteria.add(Restrictions.eq("voided", Boolean.FALSE));
 		criteria.add(Restrictions.eq("donorSelection", PermissionType.Selected));
 		return criteria.list();
 	}
@@ -56,14 +57,9 @@ public class BloodBankDaoImpl implements BloodBankDao {
 	@Override
 	@Transactional
 	public BloodCompatibility updateBloodCompatibility(BloodCompatibility bloodCompatibility) {
-		if (bloodCompatibility.getUpdatedBy() != null) {
-			bloodCompatibility.setDateChanged(new Date());
-			getSession().update(bloodCompatibility);
-			log.info("Blood compatibility has been updated successfully..." + bloodCompatibility);
-			return bloodCompatibility;
-		}
-		log.info("No valid user found to update the Blood Compatibility Test");
-		return null;
+		getSession().update(bloodCompatibility);
+		log.info("Blood compatibility has been updated successfully..." + bloodCompatibility);
+		return bloodCompatibility;
 	}
 	
 	@Override
@@ -98,20 +94,17 @@ public class BloodBankDaoImpl implements BloodBankDao {
 	
 	@Override
 	public BloodStockTracing updateBloodStockTracing(BloodStockTracing bloodStockTracing) {
-		if (bloodStockTracing.getUpdatedBy() != null) {
-			bloodStockTracing.setDateChanged(new Date());
-			getSession().update(bloodStockTracing);
-			log.info("Blood Stock Tracing info has been updated successfully..." + bloodStockTracing);
-			return bloodStockTracing;
-		}
-		log.info("No valid user found to update the Blood Compatibility Test");
-		return null;
+		bloodStockTracing.setDateChanged(new Date());
+		getSession().update(bloodStockTracing);
+		log.info("Blood Stock Tracing info has been updated successfully..." + bloodStockTracing);
+		return bloodStockTracing;
 	}
 	
 	@Override
 	public List<BloodStockTracing> getAllBloodStockTracing() {
 		Criteria criteria = getSession().createCriteria(BloodStockTracing.class);
 		criteria.add(Restrictions.eq("status", 1));
+		criteria.add(Restrictions.eq("voided", Boolean.FALSE));
 		criteria.add(Restrictions.eq("stockStatus", StockStatus.Available));
 		log.info("Blood Stock Tracing List ::" + criteria.list());
 		return criteria.list();
@@ -129,6 +122,7 @@ public class BloodBankDaoImpl implements BloodBankDao {
 	public BloodStockTracing getBloodStockTracingByBloodBagId(String bloodBagId) {
 		Criteria criteria = getSession().createCriteria(BloodStockTracing.class);
 		criteria.add(Restrictions.eq("bloodBagId", bloodBagId));
+		criteria.add(Restrictions.eq("voided", Boolean.FALSE));
 		criteria.add(Restrictions.eq("status", 1));
 		BloodStockTracing bloodStockTracing = (BloodStockTracing) criteria.uniqueResult();
 		return bloodStockTracing;
@@ -138,6 +132,7 @@ public class BloodBankDaoImpl implements BloodBankDao {
 	public BloodCompatibility getCompatibilityByBagId(String bloodBagId) {
 		Criteria criteria = getSession().createCriteria(BloodCompatibility.class);
 		criteria.add(Restrictions.eq("bloodBagId", bloodBagId));
+		criteria.add(Restrictions.eq("voided", Boolean.FALSE));
 		criteria.add(Restrictions.eq("status", 1));
 		BloodCompatibility bloodCompatibility = (BloodCompatibility) criteria.uniqueResult();
 		return bloodCompatibility;
@@ -182,6 +177,7 @@ public class BloodBankDaoImpl implements BloodBankDao {
 		Criteria criteria = getSession().createCriteria(BloodStockTracing.class);
 		criteria.add(Restrictions.eq("bloodBagId", bloodBagId));
 		criteria.add(Restrictions.eq("status", 1));
+		criteria.add(Restrictions.eq("voided", Boolean.FALSE));
 		criteria.add(Restrictions.eq("stockStatus", StockStatus.Available));
 		BloodStockTracing bloodStockTracing = (BloodStockTracing) criteria.uniqueResult();
 		return bloodStockTracing == null;
