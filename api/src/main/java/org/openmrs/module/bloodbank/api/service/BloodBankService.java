@@ -1,13 +1,12 @@
 package org.openmrs.module.bloodbank.api.service;
 
+import java.util.List;
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.bloodbank.api.model.BloodCompatibility;
 import org.openmrs.module.bloodbank.api.model.BloodDonorPhysicalSuitability;
 import org.openmrs.module.bloodbank.api.model.BloodStockTracing;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 public interface BloodBankService extends OpenmrsService {
 	

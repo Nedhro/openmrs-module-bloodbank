@@ -1,9 +1,8 @@
 package org.openmrs.module.bloodbank.api.model;
 
+import java.io.Serializable;
 import org.codehaus.jackson.annotate.JsonBackReference;
 import org.openmrs.module.bloodbank.api.model.enums.ConcernStatus;
-
-import java.io.Serializable;
 
 public class DonorConcern implements Serializable {
 	
@@ -51,5 +50,4 @@ public class DonorConcern implements Serializable {
 	public void setBloodDonor(BloodDonor bloodDonor) {
 		this.bloodDonor = bloodDonor;
 	}
-	
 }

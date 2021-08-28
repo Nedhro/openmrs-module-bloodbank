@@ -11,11 +11,9 @@ package org.openmrs.module.bloodbank;
 
 import org.springframework.stereotype.Component;
 
-/**
- * Contains module's config.
- */
+/** Contains module's config. */
 @Component("bloodbank.BloodBankConfig")
 public class BloodBankConfig {
 	
-	public final static String MODULE_PRIVILEGE = "BloodBank Privilege";
+	public static final String MODULE_PRIVILEGE = "BloodBank Privilege";
 }

@@ -1,13 +1,12 @@
 package org.openmrs.module.bloodbank.api.model;
 
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.openmrs.module.bloodbank.api.model.enums.DonorType;
 import org.openmrs.module.bloodbank.api.model.enums.Gender;
 import org.openmrs.module.bloodbank.api.model.enums.MaritalStatus;
-
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 public class BloodDonor extends BaseModel {
 
@@ -39,18 +38,26 @@ public class BloodDonor extends BaseModel {
 
   private String patient;
 
-  @JsonManagedReference
-  private Set<DonorConcern> concernSet = new HashSet<>();
+  @JsonManagedReference private Set<DonorConcern> concernSet = new HashSet<>();
 
-  public BloodDonor() {
-  }
+  public BloodDonor() {}
 
-
-  public BloodDonor(Integer donorId, String donorName, Integer donorAge, String donorGuardian,
-      Gender donorGender, MaritalStatus donorMaritalStatus, String donorProfession,
-      String donorPresentAddress, String donorPermanentAddress, String donorMobileNo,
-      Date donorLastDonatedDate, String donorLastDonatedPlace, DonorType typeOfDonor,
-      String patient, Set<DonorConcern> concernSet) {
+  public BloodDonor(
+      Integer donorId,
+      String donorName,
+      Integer donorAge,
+      String donorGuardian,
+      Gender donorGender,
+      MaritalStatus donorMaritalStatus,
+      String donorProfession,
+      String donorPresentAddress,
+      String donorPermanentAddress,
+      String donorMobileNo,
+      Date donorLastDonatedDate,
+      String donorLastDonatedPlace,
+      DonorType typeOfDonor,
+      String patient,
+      Set<DonorConcern> concernSet) {
     this.donorId = donorId;
     this.donorName = donorName;
     this.donorAge = donorAge;

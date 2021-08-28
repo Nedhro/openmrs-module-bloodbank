@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value = "module/bloodbank/")
 public class UserController {
 	
-	/**
-	 * Logger for this class and subclasses
-	 */
+	/** Logger for this class and subclasses */
 	protected final Log log = LogFactory.getLog(getClass());
 	
 	private final String userView = "module/bloodbank/views/user/users";
@@ -38,21 +36,20 @@ public class UserController {
 	}
 	
 	/*  @RequestMapping(value = "bloodbank", method = RequestMethod.POST)
-	  public String onPost(HttpSession httpSession,
-	      @ModelAttribute("anyRequestObject") Object anyRequestObject,
-	      BindingResult errors) {
+	public String onPost(HttpSession httpSession,
+	    @ModelAttribute("anyRequestObject") Object anyRequestObject,
+	    BindingResult errors) {
 
-	    if (errors.hasErrors()) {
-	      // return error view
-	    }
+	  if (errors.hasErrors()) {
+	    // return error view
+	  }
 
-	    return userView;
-	  }*/
+	  return userView;
+	}*/
 	
 	@ModelAttribute("users")
 	protected List<User> getUsers() throws Exception {
 		List<User> users = userService.getAllUsers();
 		return users;
 	}
-	
 }

@@ -1,14 +1,13 @@
 package org.openmrs.module.bloodbank.api.model;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.hibernate.search.annotations.Field;
-import org.openmrs.module.bloodbank.api.model.enums.Status;
-
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.search.annotations.Field;
+import org.openmrs.module.bloodbank.api.model.enums.Status;
 
 @MappedSuperclass
 public class BaseModel implements Serializable {
@@ -18,7 +17,7 @@ public class BaseModel implements Serializable {
 	@Column(name = "uuid", unique = true, nullable = false, length = 38, updatable = false)
 	private String uuid = UUID.randomUUID().toString();
 	
-	@Column(name = "created_by", updatable = false)
+	@Column(name = "created_by", nullable = false, updatable = false)
 	private String createdBy;
 	
 	@Column(name = "date_created", nullable = false, updatable = false)
@@ -43,6 +42,10 @@ public class BaseModel implements Serializable {
 		this.voided = Boolean.FALSE;
 		this.status = Status.ACTIVE.getValue();
 		this.dateCreated = new Date();
+		if (this.updatedBy != null) {
+			this.createdBy = getCreatedBy();
+			this.dateChanged = new Date();
+		}
 	}
 	
 	public String getUuid() {

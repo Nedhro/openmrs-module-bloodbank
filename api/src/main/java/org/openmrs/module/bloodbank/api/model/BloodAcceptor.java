@@ -1,8 +1,7 @@
 package org.openmrs.module.bloodbank.api.model;
 
-import org.openmrs.BaseOpenmrsData;
-
 import java.io.Serializable;
+import org.openmrs.BaseOpenmrsData;
 
 public class BloodAcceptor extends BaseOpenmrsData implements Serializable {
 	

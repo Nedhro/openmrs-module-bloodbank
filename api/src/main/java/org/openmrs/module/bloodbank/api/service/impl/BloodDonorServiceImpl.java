@@ -1,5 +1,6 @@
 package org.openmrs.module.bloodbank.api.service.impl;
 
+import java.util.List;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.bloodbank.api.dao.BloodDonorDao;
 import org.openmrs.module.bloodbank.api.model.BloodDonor;
@@ -9,8 +10,6 @@ import org.openmrs.module.bloodbank.api.model.dto.PatientDTO;
 import org.openmrs.module.bloodbank.api.service.BloodDonorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.List;
 
 public class BloodDonorServiceImpl extends BaseOpenmrsService implements BloodDonorService {
 	
@@ -99,5 +98,4 @@ public class BloodDonorServiceImpl extends BaseOpenmrsService implements BloodDo
 	public List<PatientDTO> getAllPatients() {
 		return bloodDonorDao.getAllPatients();
 	}
-	
 }

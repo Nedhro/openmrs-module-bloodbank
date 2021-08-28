@@ -42,5 +42,4 @@ public class Questionnaire extends BaseModel {
 	public void setConcernFor(Gender concernFor) {
 		this.concernFor = concernFor;
 	}
-	
 }

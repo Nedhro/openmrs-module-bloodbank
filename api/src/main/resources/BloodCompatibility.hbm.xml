@@ -66,8 +66,8 @@
 
 
     <property name="uuid" type="java.lang.String" column="uuid" length="38" unique="true"/>
-    <property name="dateCreated" type="java.util.Date" column="date_created"/>
-    <property name="createdBy" type="java.lang.String" column="created_by" length="255"/>
+    <property name="dateCreated" type="java.util.Date" column="date_created" update="false"/>
+    <property name="createdBy" type="java.lang.String" column="created_by" length="255" update="false"/>
     <property name="dateChanged" type="java.util.Date" column="date_changed"/>
     <property name="updatedBy" type="java.lang.String" column="updated_by" length="255"/>
     <property name="voided" type="java.lang.Boolean" column="voided" length="1" not-null="true"/>

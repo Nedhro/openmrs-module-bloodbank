@@ -20,18 +20,13 @@ public class BloodBankActivator extends BaseModuleActivator {
 	
 	private Log log = LogFactory.getLog(this.getClass());
 	
-	/**
-	 * @see #started()
-	 */
+	/** @see #started() */
 	public void started() {
 		log.info("Started BloodBank");
 	}
 	
-	/**
-	 * @see #shutdown()
-	 */
+	/** @see #shutdown() */
 	public void shutdown() {
 		log.info("Shutdown BloodBank");
 	}
-	
 }

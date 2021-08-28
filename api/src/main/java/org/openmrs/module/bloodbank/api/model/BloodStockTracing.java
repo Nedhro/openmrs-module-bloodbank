@@ -1,9 +1,8 @@
 package org.openmrs.module.bloodbank.api.model;
 
+import javax.persistence.Column;
 import org.openmrs.module.bloodbank.api.model.enums.SourceOfBlood;
 import org.openmrs.module.bloodbank.api.model.enums.StockStatus;
-
-import javax.persistence.Column;
 
 public class BloodStockTracing extends BaseModel {
 	

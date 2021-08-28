@@ -37,6 +37,7 @@ public class BloodBankDaoImpl implements BloodBankDao {
 	@Override
 	public List<BloodDonorPhysicalSuitability> getAllDonorTestsResult() {
 		Criteria criteria = getSession().createCriteria(BloodDonorPhysicalSuitability.class);
+		criteria.add(Restrictions.eq("voided", Boolean.FALSE));
 		criteria.add(Restrictions.eq("donorSelection", PermissionType.Selected));
 		return criteria.list();
 	}
@@ -44,9 +45,13 @@ public class BloodBankDaoImpl implements BloodBankDao {
 	@Override
 	@Transactional
 	public BloodCompatibility saveBloodCompatibility(BloodCompatibility bloodCompatibility) {
-		getSession().persist(bloodCompatibility);
-		log.info("Blood compatibility has been saved successfully..." + bloodCompatibility);
-		return bloodCompatibility;
+		if (bloodCompatibility.getCreatedBy() != null) {
+			getSession().persist(bloodCompatibility);
+			log.info("Blood compatibility has been saved successfully..." + bloodCompatibility);
+			return bloodCompatibility;
+		}
+		log.info("No valid user found to create the Blood Compatibility Test");
+		return null;
 	}
 	
 	@Override
@@ -61,7 +66,8 @@ public class BloodBankDaoImpl implements BloodBankDao {
 	public List<BloodCompatibility> getAllBloodCompatibility() {
 		Criteria criteria = getSession().createCriteria(BloodCompatibility.class);
 		criteria.add(Restrictions.eq("status", 1));
-		criteria.add(Restrictions.between("dateCreated", getdateBefore30Days(), new Date()));
+		criteria.add(Restrictions.eq("voided", Boolean.FALSE));
+		criteria.add(Restrictions.between("dateCreated", getDateBefore30Days(), new Date()));
 		log.info("Blood Compatibility List ::" + criteria.list());
 		return criteria.list();
 	}
@@ -88,16 +94,17 @@ public class BloodBankDaoImpl implements BloodBankDao {
 	
 	@Override
 	public BloodStockTracing updateBloodStockTracing(BloodStockTracing bloodStockTracing) {
+		bloodStockTracing.setDateChanged(new Date());
 		getSession().update(bloodStockTracing);
 		log.info("Blood Stock Tracing info has been updated successfully..." + bloodStockTracing);
 		return bloodStockTracing;
-		
 	}
 	
 	@Override
 	public List<BloodStockTracing> getAllBloodStockTracing() {
 		Criteria criteria = getSession().createCriteria(BloodStockTracing.class);
 		criteria.add(Restrictions.eq("status", 1));
+		criteria.add(Restrictions.eq("voided", Boolean.FALSE));
 		criteria.add(Restrictions.eq("stockStatus", StockStatus.Available));
 		log.info("Blood Stock Tracing List ::" + criteria.list());
 		return criteria.list();
@@ -115,6 +122,7 @@ public class BloodBankDaoImpl implements BloodBankDao {
 	public BloodStockTracing getBloodStockTracingByBloodBagId(String bloodBagId) {
 		Criteria criteria = getSession().createCriteria(BloodStockTracing.class);
 		criteria.add(Restrictions.eq("bloodBagId", bloodBagId));
+		criteria.add(Restrictions.eq("voided", Boolean.FALSE));
 		criteria.add(Restrictions.eq("status", 1));
 		BloodStockTracing bloodStockTracing = (BloodStockTracing) criteria.uniqueResult();
 		return bloodStockTracing;
@@ -124,6 +132,7 @@ public class BloodBankDaoImpl implements BloodBankDao {
 	public BloodCompatibility getCompatibilityByBagId(String bloodBagId) {
 		Criteria criteria = getSession().createCriteria(BloodCompatibility.class);
 		criteria.add(Restrictions.eq("bloodBagId", bloodBagId));
+		criteria.add(Restrictions.eq("voided", Boolean.FALSE));
 		criteria.add(Restrictions.eq("status", 1));
 		BloodCompatibility bloodCompatibility = (BloodCompatibility) criteria.uniqueResult();
 		return bloodCompatibility;
@@ -168,12 +177,13 @@ public class BloodBankDaoImpl implements BloodBankDao {
 		Criteria criteria = getSession().createCriteria(BloodStockTracing.class);
 		criteria.add(Restrictions.eq("bloodBagId", bloodBagId));
 		criteria.add(Restrictions.eq("status", 1));
+		criteria.add(Restrictions.eq("voided", Boolean.FALSE));
 		criteria.add(Restrictions.eq("stockStatus", StockStatus.Available));
 		BloodStockTracing bloodStockTracing = (BloodStockTracing) criteria.uniqueResult();
 		return bloodStockTracing == null;
 	}
 	
-	public Date getdateBefore30Days() {
+	public Date getDateBefore30Days() {
 		Date currentDate = new Date();
 		
 		Calendar c = Calendar.getInstance();
