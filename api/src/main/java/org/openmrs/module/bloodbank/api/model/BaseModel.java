@@ -42,10 +42,7 @@ public class BaseModel implements Serializable {
 		this.voided = Boolean.FALSE;
 		this.status = Status.ACTIVE.getValue();
 		this.dateCreated = new Date();
-		if (this.updatedBy != null) {
-			this.createdBy = getCreatedBy();
-			this.dateChanged = new Date();
-		}
+		this.dateChanged = new Date();
 	}
 	
 	public String getUuid() {
