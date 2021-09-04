@@ -21,19 +21,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 public class BloodBankDaoImpl implements BloodBankDao {
-	
+
 	protected final Logger log = LoggerFactory.getLogger(BloodDonorDaoImpl.class);
-	
+
 	private SessionFactory sessionFactory;
-	
+
 	private Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
-	
+
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	
+
 	@Override
 	public List<BloodDonorPhysicalSuitability> getAllDonorTestsResult() {
 		Criteria criteria = getSession().createCriteria(BloodDonorPhysicalSuitability.class);
@@ -41,7 +41,7 @@ public class BloodBankDaoImpl implements BloodBankDao {
 		criteria.add(Restrictions.eq("donorSelection", PermissionType.Selected));
 		return criteria.list();
 	}
-	
+
 	@Override
 	@Transactional
 	public BloodCompatibility saveBloodCompatibility(BloodCompatibility bloodCompatibility) {
@@ -53,7 +53,7 @@ public class BloodBankDaoImpl implements BloodBankDao {
 		log.info("No valid user found to create the Blood Compatibility Test");
 		return null;
 	}
-	
+
 	@Override
 	@Transactional
 	public BloodCompatibility updateBloodCompatibility(BloodCompatibility bloodCompatibility) {
@@ -61,7 +61,7 @@ public class BloodBankDaoImpl implements BloodBankDao {
 		log.info("Blood compatibility has been updated successfully..." + bloodCompatibility);
 		return bloodCompatibility;
 	}
-	
+
 	@Override
 	public List<BloodCompatibility> getAllBloodCompatibility() {
 		Criteria criteria = getSession().createCriteria(BloodCompatibility.class);
@@ -71,7 +71,7 @@ public class BloodBankDaoImpl implements BloodBankDao {
 		log.info("Blood Compatibility List ::" + criteria.list());
 		return criteria.list();
 	}
-	
+
 	@Override
 	@Transactional
 	public BloodCompatibility getBloodCompatibilityById(Integer id) {
@@ -80,7 +80,7 @@ public class BloodBankDaoImpl implements BloodBankDao {
 		BloodCompatibility compatibility = (BloodCompatibility) criteria.uniqueResult();
 		return compatibility;
 	}
-	
+
 	@Override
 	public BloodStockTracing saveBloodStockTracing(BloodStockTracing bloodStockTracing) {
 		if (uniqueBloodBagId(bloodStockTracing.getBloodBagId())) {
@@ -91,7 +91,7 @@ public class BloodBankDaoImpl implements BloodBankDao {
 			return null;
 		}
 	}
-	
+
 	@Override
 	public BloodStockTracing updateBloodStockTracing(BloodStockTracing bloodStockTracing) {
 		bloodStockTracing.setDateChanged(new Date());
@@ -99,7 +99,7 @@ public class BloodBankDaoImpl implements BloodBankDao {
 		log.info("Blood Stock Tracing info has been updated successfully..." + bloodStockTracing);
 		return bloodStockTracing;
 	}
-	
+
 	@Override
 	public List<BloodStockTracing> getAllBloodStockTracing() {
 		Criteria criteria = getSession().createCriteria(BloodStockTracing.class);
@@ -109,7 +109,7 @@ public class BloodBankDaoImpl implements BloodBankDao {
 		log.info("Blood Stock Tracing List ::" + criteria.list());
 		return criteria.list();
 	}
-	
+
 	@Override
 	public BloodStockTracing getBloodStockTracingById(Integer id) {
 		Criteria criteria = getSession().createCriteria(BloodStockTracing.class);
@@ -117,17 +117,16 @@ public class BloodBankDaoImpl implements BloodBankDao {
 		BloodStockTracing bloodStockTracing = (BloodStockTracing) criteria.uniqueResult();
 		return bloodStockTracing;
 	}
-	
+
 	@Override
 	public BloodStockTracing getBloodStockTracingByBloodBagId(String bloodBagId) {
 		Criteria criteria = getSession().createCriteria(BloodStockTracing.class);
 		criteria.add(Restrictions.eq("bloodBagId", bloodBagId));
-		criteria.add(Restrictions.eq("voided", Boolean.FALSE));
 		criteria.add(Restrictions.eq("status", 1));
 		BloodStockTracing bloodStockTracing = (BloodStockTracing) criteria.uniqueResult();
 		return bloodStockTracing;
 	}
-	
+
 	@Override
 	public BloodCompatibility getCompatibilityByBagId(String bloodBagId) {
 		Criteria criteria = getSession().createCriteria(BloodCompatibility.class);
@@ -137,7 +136,7 @@ public class BloodBankDaoImpl implements BloodBankDao {
 		BloodCompatibility bloodCompatibility = (BloodCompatibility) criteria.uniqueResult();
 		return bloodCompatibility;
 	}
-	
+
 	@Override
 	public String getNextBloodBagId(String bloodSource) {
 		SourceOfBlood sourceOfBlood;
@@ -172,7 +171,7 @@ public class BloodBankDaoImpl implements BloodBankDao {
 		log.info("No Blood Bag Id. Initial Value :: " + initialValue);
 		return initialValue;
 	}
-	
+
 	public Boolean uniqueBloodBagId(String bloodBagId) {
 		Criteria criteria = getSession().createCriteria(BloodStockTracing.class);
 		criteria.add(Restrictions.eq("bloodBagId", bloodBagId));
@@ -182,14 +181,14 @@ public class BloodBankDaoImpl implements BloodBankDao {
 		BloodStockTracing bloodStockTracing = (BloodStockTracing) criteria.uniqueResult();
 		return bloodStockTracing == null;
 	}
-	
+
 	public Date getDateBefore30Days() {
 		Date currentDate = new Date();
-		
+
 		Calendar c = Calendar.getInstance();
 		c.setTime(currentDate);
 		c.add(Calendar.DATE, -30);
-		
+
 		Date dateBefore30Days = c.getTime();
 		return dateBefore30Days;
 	}
