@@ -1,6 +1,7 @@
 package org.openmrs.module.bloodbank.api.model;
 
 import javax.persistence.Column;
+import javax.persistence.ManyToOne;
 import org.openmrs.module.bloodbank.api.model.enums.SourceOfBlood;
 import org.openmrs.module.bloodbank.api.model.enums.StockStatus;
 
@@ -8,6 +9,7 @@ public class BloodStockTracing extends BaseModel {
 	
 	private Integer bloodStockTracingId;
 	
+	@ManyToOne
 	private BloodDonor bloodDonor;
 	
 	private String bloodStorage;

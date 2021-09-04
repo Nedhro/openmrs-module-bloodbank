@@ -12,7 +12,7 @@
       See http://www.liquibase.org/manual/home#available_database_refactorings
       for a list of supported elements and attributes
   -->
-  <changeSet id="bloodbank-donor-alpha5" author="nidhro">
+  <changeSet id="bloodbank-donor-alpha7" author="nidhro">
     <preConditions onFail="MARK_RAN">
       <not>
         <tableExists tableName="bloodbank_donor"/>
@@ -49,7 +49,7 @@
     </createTable>
   </changeSet>
 
-  <changeSet id="bloodbank-donor-concern-alpha5" author="nidhro">
+  <changeSet id="bloodbank-donor-concern-alpha7" author="nidhro">
     <preConditions onFail="MARK_RAN">
       <not>
         <tableExists tableName="bloodbank_donor_concern"/>
@@ -72,7 +72,7 @@
       referencedTableName="bloodbank_donor" referencedColumnNames="donor_id"/>
   </changeSet>
 
-  <changeSet id="bloodbank_questionnaire_alpha5" author="nidhro">
+  <changeSet id="bloodbank_questionnaire_alpha7" author="nidhro">
     <preConditions onFail="MARK_RAN">
       <not>
         <tableExists tableName="bloodbank_questionnaire"/>
@@ -98,7 +98,7 @@
     </createTable>
   </changeSet>
 
-  <changeSet id="bloodbank_blood_donor_physical_suitability_alpha5" author="nidhro, jarrin">
+  <changeSet id="bloodbank_blood_donor_physical_suitability_alpha7" author="nidhro, jarrin">
     <preConditions onFail="MARK_RAN">
       <not>
         <tableExists tableName="bloodbank_blood_donor_physical_suitability"/>
@@ -138,10 +138,10 @@
     />
   </changeSet>
 
-  <changeSet id="bloodbank_blood_compatibility_alpha5" author="kamrul">
+  <changeSet id="bloodbank_blood_compatibility_alpha7" author="kamrul">
     <preConditions onFail="MARK_RAN">
       <not>
-        <tableExists tableName="bloodbank_blood_donor_physical_suitability"/>
+        <tableExists tableName="bloodbank_blood_compatibility"/>
       </not>
     </preConditions>
     <comment>
@@ -177,10 +177,10 @@
     </createTable>
   </changeSet>
 
-  <changeSet id="bloodbank_blood_stock_tracing_alpha5" author="kamrul">
+  <changeSet id="bloodbank_blood_stock_tracing_alpha7" author="kamrul">
     <preConditions onFail="MARK_RAN">
       <not>
-        <tableExists tableName="bloodbank_blood_donor_physical_suitability"/>
+        <tableExists tableName="bloodbank_blood_stock_tracing"/>
       </not>
     </preConditions>
     <comment>
@@ -212,7 +212,7 @@
       <column name="status" type="int(3)"/>
     </createTable>
     <addForeignKeyConstraint
-      constraintName="bloodbank_blood_stock_tracing_fk" onDelete="CASCADE"
+      constraintName="bloodbank_blood_stock_tracing_fk" onDelete="CASCADE" onUpdate="CASCADE"
       baseTableName="bloodbank_blood_stock_tracing" baseColumnNames="blood_donor_id"
       referencedTableName="bloodbank_donor" referencedColumnNames="donor_id"
     />

@@ -112,14 +112,13 @@ public class BloodBankController {
     if (bloodStockTracing.getBloodStockTracingId() == null) {
       if (bloodStockTracing.getCreatedBy() != null) {
         BloodStockTracing stockTracing = bloodBankService.saveBloodStockTracing(bloodStockTracing);
-        if (stockTracing == null) {
+        if (stockTracing == null)
           return new ResponseEntity<>(bloodStockTracing, HttpStatus.IM_USED);
-        }
         log.info("Blood Stock Tracing info is saved successfully :: " + bloodStockTracing);
         return new ResponseEntity<>(bloodStockTracing, HttpStatus.CREATED);
       }
       log.warn("No valid user found");
-      return new ResponseEntity<>("No User found", HttpStatus.BAD_REQUEST);
+      return new ResponseEntity<>("No User found to add new", HttpStatus.BAD_REQUEST);
     }
     if (bloodStockTracing.getUpdatedBy() != null) {
       bloodBankService.updateBloodStockTracing(bloodStockTracing);
@@ -127,7 +126,7 @@ public class BloodBankController {
       return new ResponseEntity<>(bloodStockTracing, HttpStatus.ACCEPTED);
     }
     log.warn("No valid user found");
-    return new ResponseEntity<>("No User found", HttpStatus.BAD_REQUEST);
+    return new ResponseEntity<>("No User found to update", HttpStatus.BAD_REQUEST);
   }
 	
 	@RequestMapping(method = RequestMethod.GET, value = "bloodStockTracing/list")
@@ -162,6 +161,7 @@ public class BloodBankController {
     if (user != null && !user.equals("undefined")) {
       BloodStockTracing bloodStockTracing = bloodBankService.getBloodStockTracingById(id);
       bloodStockTracing.setStatus(Status.DELETE.getValue());
+      bloodStockTracing.setVoided(Boolean.TRUE);
       bloodStockTracing.setUpdatedBy(user);
       bloodBankService.updateBloodStockTracing(bloodStockTracing);
       log.info("Blood Stock Tracing is deleted successfully :: " + bloodStockTracing);
@@ -205,7 +205,7 @@ public class BloodBankController {
         return new ResponseEntity<>(bloodStockTracing, HttpStatus.ACCEPTED);
       }
       log.info("Blood is not available in the stock :: " + bloodStockTracing);
-      return new ResponseEntity<>(bloodBagId, HttpStatus.IM_USED);
+      return new ResponseEntity<>(bloodBagId, HttpStatus.NOT_FOUND);
     }
     log.warn("No valid user found to update the status the blood bag from the stock");
     return new ResponseEntity<>(user, HttpStatus.NOT_ACCEPTABLE);

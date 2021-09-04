@@ -12,7 +12,7 @@
     </id>
     <!--        <one-to-one name="bloodDonorId" fetch="join" cascade="merge" class="org.openmrs.module.bloodbank.api.model.BloodDonor" constrained="true"/>-->
     <many-to-one name="bloodDonor" class="org.openmrs.module.bloodbank.api.model.BloodDonor"
-      column="blood_donor_id" not-null="false"/>
+      column="blood_donor_id" cascade="merge" not-null="false" update="false"/>
     <property name="bloodStorage" type="java.lang.String" column="blood_storage" length="255"/>
     <property name="sourceOfBlood" column="source_of_blood">
       <type name="org.hibernate.type.EnumType">
