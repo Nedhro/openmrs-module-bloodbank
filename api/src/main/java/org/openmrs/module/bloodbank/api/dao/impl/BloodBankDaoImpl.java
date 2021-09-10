@@ -122,8 +122,6 @@ public class BloodBankDaoImpl implements BloodBankDao {
 	public BloodStockTracing getBloodStockTracingByBloodBagId(String bloodBagId) {
 		Criteria criteria = getSession().createCriteria(BloodStockTracing.class);
 		criteria.add(Restrictions.eq("bloodBagId", bloodBagId));
-		criteria.add(Restrictions.eq("voided", Boolean.FALSE));
-		criteria.add(Restrictions.eq("status", 1));
 		BloodStockTracing bloodStockTracing = (BloodStockTracing) criteria.uniqueResult();
 		return bloodStockTracing;
 	}
