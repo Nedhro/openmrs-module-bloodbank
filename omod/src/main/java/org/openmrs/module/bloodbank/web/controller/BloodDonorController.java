@@ -25,12 +25,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping(value = "/rest/" + RestConstants.VERSION_1 + "/bloodbank")
 public class BloodDonorController {
-	
+
 	private Log log = LogFactory.getLog(this.getClass());
-	
+
 	@Autowired
 	private BloodDonorService bloodDonorService;
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = "donor/list")
 	@ResponseBody
 	public List<BloodDonor> getAllBloodDonor() {
@@ -38,7 +38,7 @@ public class BloodDonorController {
 		log.info("Blood Donor Lists :: " + bloodDonors);
 		return bloodDonors;
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST, value = "donor/add")
   @ResponseBody
   public ResponseEntity<Object> saveDonorInfo(@Valid @RequestBody BloodDonor bloodDonor) {
@@ -59,7 +59,7 @@ public class BloodDonorController {
     log.info("Blood Donor user is not available");
     return new ResponseEntity<>("No User found", HttpStatus.BAD_REQUEST);
   }
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = "donor/{id}")
   @ResponseBody
   public ResponseEntity<Object> getDonorById(@PathVariable Integer id) {
@@ -76,7 +76,7 @@ public class BloodDonorController {
     }
     return null;
   }
-	
+
 	@RequestMapping(method = RequestMethod.PUT, value = "donor/delete/{id}/by/{user}")
   @ResponseBody
   public ResponseEntity<Object> deleteDonorById(
@@ -85,6 +85,7 @@ public class BloodDonorController {
       BloodDonor bloodDonor = bloodDonorService.getDonorById(id);
       bloodDonor.setStatus(Status.DELETE.getValue());
       bloodDonor.setVoided(Boolean.TRUE);
+      bloodDonor.setUpdatedBy(user);
       bloodDonorService.updateDonorInfo(bloodDonor);
       log.info("Blood Donor deleted successfully :: " + bloodDonor);
       return new ResponseEntity<>(bloodDonor, HttpStatus.ACCEPTED);
@@ -92,7 +93,7 @@ public class BloodDonorController {
     log.info("Blood Donor user is not available");
     return new ResponseEntity<>("No User found", HttpStatus.BAD_REQUEST);
   }
-	
+
 	@RequestMapping(method = RequestMethod.POST, value = "questionnaire/add")
   @ResponseBody
   public ResponseEntity<Object> saveQuestionnaire(@Valid @RequestBody Questionnaire questionnaire) {
@@ -119,7 +120,7 @@ public class BloodDonorController {
     log.warn("No valid user found");
     return new ResponseEntity<>("No User found", HttpStatus.BAD_REQUEST);
   }
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = "questionnaire/list")
 	@ResponseBody
 	public List<Questionnaire> getAllQuestionnaires() {
@@ -127,7 +128,7 @@ public class BloodDonorController {
 		log.info("Questionnaire Lists :: " + questionnaireList);
 		return questionnaireList;
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = "questionnaire/{id}")
   @ResponseBody
   public ResponseEntity<Object> getQuestionnaireById(@PathVariable("id") Integer qid) {
@@ -144,7 +145,7 @@ public class BloodDonorController {
     }
     return null;
   }
-	
+
 	@RequestMapping(method = RequestMethod.PUT, value = "questionnaire/delete/{id}/by/{user}")
   @ResponseBody
   public ResponseEntity<Object> deleteQuestionnaireById(
@@ -153,6 +154,7 @@ public class BloodDonorController {
       Questionnaire questionnaire = bloodDonorService.getQuestionnaireById(id);
       questionnaire.setStatus(Status.DELETE.getValue());
       questionnaire.setVoided(Boolean.TRUE);
+      questionnaire.setUpdatedBy(user);
       bloodDonorService.updateQuestionnaire(questionnaire);
       log.info("Questionnaire deleted successfully :: " + questionnaire);
       return new ResponseEntity<>(questionnaire, HttpStatus.ACCEPTED);
@@ -160,7 +162,7 @@ public class BloodDonorController {
     log.warn("No valid user found");
     return new ResponseEntity<>("No User found", HttpStatus.BAD_REQUEST);
   }
-	
+
 	@RequestMapping(method = RequestMethod.POST, value = "bloodDonorPhysicalSuitability/add")
   @ResponseBody
   public ResponseEntity<Object> saveDonorPhysicalSuitability(
@@ -186,7 +188,7 @@ public class BloodDonorController {
     log.warn("No valid user found");
     return new ResponseEntity<>("No User found", HttpStatus.BAD_REQUEST);
   }
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = "bloodDonorPhysicalSuitability/list")
 	@ResponseBody
 	public List<BloodDonorPhysicalSuitability> getAllBloodDonorsPhysicalSuitability() {
@@ -195,7 +197,7 @@ public class BloodDonorController {
 		log.info("Blood Donor Physical Suitability Lists :: " + bloodDonorPhysicalSuitabilityList);
 		return bloodDonorPhysicalSuitabilityList;
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = "bloodDonorPhysicalSuitability/{id}")
   @ResponseBody
   public ResponseEntity<Object> getBloodDonorPhysicalSuitabilityById(@PathVariable Integer id) {
@@ -215,7 +217,7 @@ public class BloodDonorController {
     }
     return null;
   }
-	
+
 	@RequestMapping(
       method = RequestMethod.PUT,
       value = "bloodDonorPhysicalSuitability/delete/{id}/by/{user}")
@@ -227,6 +229,7 @@ public class BloodDonorController {
           bloodDonorService.getBloodDonorPhysicalSuitabilityById(id);
       donorPhysicalSuitability.setStatus(Status.DELETE.getValue());
       donorPhysicalSuitability.setVoided(Boolean.TRUE);
+      donorPhysicalSuitability.setUpdatedBy(user);
       bloodDonorService.updateBloodDonorPhysicalSuitability(donorPhysicalSuitability);
       log.info(
           "Blood Donor Physical Suitability test is deleted successfully :: "
@@ -236,11 +239,10 @@ public class BloodDonorController {
     log.warn("No valid user found");
     return new ResponseEntity<>("No User found", HttpStatus.BAD_REQUEST);
   }
-	
+
 	@RequestMapping(value = "patients", method = RequestMethod.GET)
 	@ResponseBody
 	public List<PatientDTO> getPatientList() {
-		List<PatientDTO> patients = this.bloodDonorService.getAllPatients();
-		return patients;
+    return this.bloodDonorService.getAllPatients();
 	}
 }
