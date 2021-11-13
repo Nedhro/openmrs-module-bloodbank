@@ -26,20 +26,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(value = "/rest/" + RestConstants.VERSION_1 + "/bloodbank")
 public class BloodDonorController {
 
-	private Log log = LogFactory.getLog(this.getClass());
+  private Log log = LogFactory.getLog(this.getClass());
 
-	@Autowired
-	private BloodDonorService bloodDonorService;
+  @Autowired private BloodDonorService bloodDonorService;
 
-	@RequestMapping(method = RequestMethod.GET, value = "donor/list")
-	@ResponseBody
-	public List<BloodDonor> getAllBloodDonor() {
-		List<BloodDonor> bloodDonors = bloodDonorService.getAllBloodDonors();
-		log.info("Blood Donor Lists :: " + bloodDonors);
-		return bloodDonors;
-	}
+  @RequestMapping(method = RequestMethod.GET, value = "donor/list")
+  @ResponseBody
+  public List<BloodDonor> getAllBloodDonor() {
+    List<BloodDonor> bloodDonors = bloodDonorService.getAllBloodDonors();
+    log.info("Blood Donor Lists :: " + bloodDonors);
+    return bloodDonors;
+  }
 
-	@RequestMapping(method = RequestMethod.POST, value = "donor/add")
+  @RequestMapping(method = RequestMethod.POST, value = "donor/add")
   @ResponseBody
   public ResponseEntity<Object> saveDonorInfo(@Valid @RequestBody BloodDonor bloodDonor) {
     if (bloodDonor.getDonorId() == null) {
@@ -60,7 +59,7 @@ public class BloodDonorController {
     return new ResponseEntity<>("No User found", HttpStatus.BAD_REQUEST);
   }
 
-	@RequestMapping(method = RequestMethod.GET, value = "donor/{id}")
+  @RequestMapping(method = RequestMethod.GET, value = "donor/{id}")
   @ResponseBody
   public ResponseEntity<Object> getDonorById(@PathVariable Integer id) {
     try {
@@ -77,7 +76,7 @@ public class BloodDonorController {
     return null;
   }
 
-	@RequestMapping(method = RequestMethod.PUT, value = "donor/delete/{id}/by/{user}")
+  @RequestMapping(method = RequestMethod.PUT, value = "donor/delete/{id}/by/{user}")
   @ResponseBody
   public ResponseEntity<Object> deleteDonorById(
       @PathVariable Integer id, @PathVariable String user) {
@@ -94,7 +93,7 @@ public class BloodDonorController {
     return new ResponseEntity<>("No User found", HttpStatus.BAD_REQUEST);
   }
 
-	@RequestMapping(method = RequestMethod.POST, value = "questionnaire/add")
+  @RequestMapping(method = RequestMethod.POST, value = "questionnaire/add")
   @ResponseBody
   public ResponseEntity<Object> saveQuestionnaire(@Valid @RequestBody Questionnaire questionnaire) {
     if (questionnaire.getQid() == null) {
@@ -110,7 +109,7 @@ public class BloodDonorController {
         return new ResponseEntity<>(questionnaire, HttpStatus.CREATED);
       }
       log.warn("No valid user found");
-    return new ResponseEntity<>("No User found", HttpStatus.BAD_REQUEST);
+      return new ResponseEntity<>("No User found", HttpStatus.BAD_REQUEST);
     }
     if (questionnaire.getUpdatedBy() != null) {
       bloodDonorService.updateQuestionnaire(questionnaire);
@@ -121,15 +120,15 @@ public class BloodDonorController {
     return new ResponseEntity<>("No User found", HttpStatus.BAD_REQUEST);
   }
 
-	@RequestMapping(method = RequestMethod.GET, value = "questionnaire/list")
-	@ResponseBody
-	public List<Questionnaire> getAllQuestionnaires() {
-		List<Questionnaire> questionnaireList = bloodDonorService.getAllQuestionnaires();
-		log.info("Questionnaire Lists :: " + questionnaireList);
-		return questionnaireList;
-	}
+  @RequestMapping(method = RequestMethod.GET, value = "questionnaire/list")
+  @ResponseBody
+  public List<Questionnaire> getAllQuestionnaires() {
+    List<Questionnaire> questionnaireList = bloodDonorService.getAllQuestionnaires();
+    log.info("Questionnaire Lists :: " + questionnaireList);
+    return questionnaireList;
+  }
 
-	@RequestMapping(method = RequestMethod.GET, value = "questionnaire/{id}")
+  @RequestMapping(method = RequestMethod.GET, value = "questionnaire/{id}")
   @ResponseBody
   public ResponseEntity<Object> getQuestionnaireById(@PathVariable("id") Integer qid) {
     try {
@@ -146,7 +145,7 @@ public class BloodDonorController {
     return null;
   }
 
-	@RequestMapping(method = RequestMethod.PUT, value = "questionnaire/delete/{id}/by/{user}")
+  @RequestMapping(method = RequestMethod.PUT, value = "questionnaire/delete/{id}/by/{user}")
   @ResponseBody
   public ResponseEntity<Object> deleteQuestionnaireById(
       @PathVariable Integer id, @PathVariable String user) {
@@ -163,7 +162,7 @@ public class BloodDonorController {
     return new ResponseEntity<>("No User found", HttpStatus.BAD_REQUEST);
   }
 
-	@RequestMapping(method = RequestMethod.POST, value = "bloodDonorPhysicalSuitability/add")
+  @RequestMapping(method = RequestMethod.POST, value = "bloodDonorPhysicalSuitability/add")
   @ResponseBody
   public ResponseEntity<Object> saveDonorPhysicalSuitability(
       @Valid @RequestBody BloodDonorPhysicalSuitability donorPhysicalSuitability) {
@@ -176,7 +175,7 @@ public class BloodDonorController {
         return new ResponseEntity<>(donorPhysicalSuitability, HttpStatus.CREATED);
       }
       log.warn("No valid user found");
-    return new ResponseEntity<>("No User found", HttpStatus.BAD_REQUEST);
+      return new ResponseEntity<>("No User found", HttpStatus.BAD_REQUEST);
     }
     if (donorPhysicalSuitability.getUpdatedBy() != null) {
       bloodDonorService.updateBloodDonorPhysicalSuitability(donorPhysicalSuitability);
@@ -189,16 +188,16 @@ public class BloodDonorController {
     return new ResponseEntity<>("No User found", HttpStatus.BAD_REQUEST);
   }
 
-	@RequestMapping(method = RequestMethod.GET, value = "bloodDonorPhysicalSuitability/list")
-	@ResponseBody
-	public List<BloodDonorPhysicalSuitability> getAllBloodDonorsPhysicalSuitability() {
-		List<BloodDonorPhysicalSuitability> bloodDonorPhysicalSuitabilityList = bloodDonorService
-		        .getAllBloodDonorPhysicalSuitability();
-		log.info("Blood Donor Physical Suitability Lists :: " + bloodDonorPhysicalSuitabilityList);
-		return bloodDonorPhysicalSuitabilityList;
-	}
+  @RequestMapping(method = RequestMethod.GET, value = "bloodDonorPhysicalSuitability/list")
+  @ResponseBody
+  public List<BloodDonorPhysicalSuitability> getAllBloodDonorsPhysicalSuitability() {
+    List<BloodDonorPhysicalSuitability> bloodDonorPhysicalSuitabilityList =
+        bloodDonorService.getAllBloodDonorPhysicalSuitability();
+    log.info("Blood Donor Physical Suitability Lists :: " + bloodDonorPhysicalSuitabilityList);
+    return bloodDonorPhysicalSuitabilityList;
+  }
 
-	@RequestMapping(method = RequestMethod.GET, value = "bloodDonorPhysicalSuitability/{id}")
+  @RequestMapping(method = RequestMethod.GET, value = "bloodDonorPhysicalSuitability/{id}")
   @ResponseBody
   public ResponseEntity<Object> getBloodDonorPhysicalSuitabilityById(@PathVariable Integer id) {
     try {
@@ -218,7 +217,7 @@ public class BloodDonorController {
     return null;
   }
 
-	@RequestMapping(
+  @RequestMapping(
       method = RequestMethod.PUT,
       value = "bloodDonorPhysicalSuitability/delete/{id}/by/{user}")
   @ResponseBody
@@ -240,9 +239,9 @@ public class BloodDonorController {
     return new ResponseEntity<>("No User found", HttpStatus.BAD_REQUEST);
   }
 
-	@RequestMapping(value = "patients", method = RequestMethod.GET)
-	@ResponseBody
-	public List<PatientDTO> getPatientList() {
+  @RequestMapping(value = "patients", method = RequestMethod.GET)
+  @ResponseBody
+  public List<PatientDTO> getPatientList() {
     return this.bloodDonorService.getAllPatients();
-	}
+  }
 }

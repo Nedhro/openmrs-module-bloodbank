@@ -3,59 +3,21 @@
 <module configVersion="1.2">
 
   <!-- Base Module Properties -->
-  <id>${project.parent.artifactId}</id>
-  <name>${project.parent.name}</name>
-  <version>${project.parent.version}</version>
-  <package>org.openmrs.module.bloodbank</package>
-  <author>Nidhro</author>
-  <description>
-    ${project.parent.description}
-  </description>
-
   <activator>org.openmrs.module.bloodbank.BloodBankActivator</activator>
-
-  <!-- <updateURL>https://modules.openmrs.org/modules/download/@MODULE_ID@/update.rdf</updateURL> -->
-  <!-- /Base Module Properties -->
-
-  <require_modules>
-    <require_module>org.openmrs.module.webservices.rest</require_module>
-    <require_module version="${openmrsAtomfeedVersion}">org.ict4h.openmrs.openmrs-atomfeed
-    </require_module>
-  </require_modules>
-
-  <require_version>1.11.6</require_version>
-
-  <!-- Extensions -->
-  <extension>
-    <point>org.openmrs.admin.list</point>
-    <class>org.openmrs.module.bloodbank.extension.html.AdminList</class>
-  </extension>
-
+  <author>Nidhro</author>
   <aware_of_modules>
     <aware_of_module>org.openmrs.module.legacyui</aware_of_module>
   </aware_of_modules>
-
-  <mappingFiles>
-    BloodDonor.hbm.xml
-    DonorConcern.hbm.xml
-    Questionnaire.hbm.xml
-    BloodDonorPhysicalSuitability.hbm.xml
-    BloodCompatibility.hbm.xml
-    BloodStockTracing.hbm.xml
-  </mappingFiles>
-
-  <!--<filter>
-        <filter-name>CORSFilter</filter-name>
-        <filter-class>org.openmrs.module.bloodbank.auth.CORSFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>CORSFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>-->
-
+  <description>
+    ${project.parent.description}
+  </description>
+  <extension>
+    <class>org.openmrs.module.bloodbank.extension.html.AdminList</class>
+    <point>org.openmrs.admin.list</point>
+  </extension>
   <filter>
-    <filter-name>CorsFilter</filter-name>
     <filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
+    <filter-name>CorsFilter</filter-name>
     <init-param>
       <param-name>cors.allowed.methods</param-name>
       <param-value>GET,POST,PUT,DELETE,HEAD,OPTIONS</param-value>
@@ -79,10 +41,51 @@
       <param-value>10</param-value>
     </init-param>
   </filter>
+
   <filter-mapping>
     <filter-name>CorsFilter</filter-name>
     <url-pattern>*</url-pattern>
   </filter-mapping>
+
+  <!-- <updateURL>https://modules.openmrs.org/modules/download/@MODULE_ID@/update.rdf</updateURL> -->
+  <!-- /Base Module Properties -->
+
+  <id>${project.parent.artifactId}</id>
+
+  <mappingFiles>
+    BloodDonor.hbm.xml
+    DonorConcern.hbm.xml
+    Questionnaire.hbm.xml
+    BloodDonorPhysicalSuitability.hbm.xml
+    BloodCompatibility.hbm.xml
+    BloodStockTracing.hbm.xml
+  </mappingFiles>
+
+  <!-- Extensions -->
+  <messages>
+    <file>messages.properties</file>
+    <lang>en</lang>
+  </messages>
+
+  <name>${project.parent.name}</name>
+
+  <package>org.openmrs.module.bloodbank</package>
+
+  <!--<filter>
+        <filter-name>CORSFilter</filter-name>
+        <filter-class>org.openmrs.module.bloodbank.auth.CORSFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CORSFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>-->
+
+  <require_modules>
+    <require_module>org.openmrs.module.webservices.rest</require_module>
+    <require_module version="${openmrsAtomfeedVersion}">org.ict4h.openmrs.openmrs-atomfeed
+    </require_module>
+  </require_modules>
+  <require_version>1.11.6</require_version>
 
   <!-- AOP
     <advice>
@@ -142,10 +145,7 @@
 
   <!-- Internationalization -->
   <!-- All message codes should start with @MODULE_ID@.* -->
-  <messages>
-    <lang>en</lang>
-    <file>messages.properties</file>
-  </messages>
+  <version>${project.parent.version}</version>
   <!-- /Internationalization -->
 
 </module>
