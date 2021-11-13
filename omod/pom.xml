@@ -1,52 +1,9 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.openmrs.module</groupId>
-    <artifactId>bloodbank</artifactId>
-    <version>1.0.1</version>
-  </parent>
-
   <artifactId>bloodbank-omod</artifactId>
-  <packaging>jar</packaging>
-  <name>BloodBank OMOD</name>
-  <description>Omod submodule for BloodBank</description>
-
-  <properties>
-    <MODULE_ID>bloodbank</MODULE_ID>
-    <MODULE_NAME>${project.name}</MODULE_NAME>
-    <MODULE_VERSION>${project.version}</MODULE_VERSION>
-    <MODULE_PACKAGE>${project.groupId}.${MODULE_ID}</MODULE_PACKAGE>
-    <openmrsVersion>2.1.1</openmrsVersion>
-  </properties>
-
-  <dependencies>
-    <dependency>
-      <groupId>${project.parent.groupId}</groupId>
-      <artifactId>${project.parent.artifactId}-api</artifactId>
-      <version>${project.parent.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.openmrs.web</groupId>
-      <artifactId>openmrs-web</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.openmrs.module</groupId>
-      <artifactId>webservices.rest-omod-common</artifactId>
-      <scope>provided</scope>
-    </dependency>
-  </dependencies>
-
   <build>
     <finalName>${project.parent.artifactId}-${project.parent.version}</finalName>
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-        <filtering>true</filtering>
-      </resource>
-    </resources>
     <pluginManagement>
       <plugins>
         <plugin>
@@ -60,55 +17,98 @@
     </pluginManagement>
     <plugins>
       <plugin>
-        <groupId>org.openmrs.maven.plugins</groupId>
         <artifactId>maven-openmrs-plugin</artifactId>
-        <extensions>true</extensions>
         <executions>
           <execution>
-            <id>init</id>
-            <phase>initialize</phase>
             <goals>
               <goal>initialize-module</goal>
             </goals>
+            <id>init</id>
+            <phase>initialize</phase>
           </execution>
           <execution>
-            <id>pack</id>
-            <phase>package</phase>
             <goals>
               <goal>package-module</goal>
             </goals>
+            <id>pack</id>
+            <phase>package</phase>
           </execution>
         </executions>
+        <extensions>true</extensions>
+        <groupId>org.openmrs.maven.plugins</groupId>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
         <executions>
           <execution>
-            <id>Expand moduleApplicationContext and messages</id>
-            <goals>
-              <goal>unpack-dependencies</goal>
-            </goals>
-            <phase>generate-resources</phase>
             <configuration>
-              <includeGroupIds>${project.parent.groupId}</includeGroupIds>
-              <includeArtifactIds>${project.parent.artifactId}-api</includeArtifactIds>
               <excludeTransitive>true</excludeTransitive>
+              <includeArtifactIds>${project.parent.artifactId}-api</includeArtifactIds>
+              <includeGroupIds>${project.parent.groupId}</includeGroupIds>
               <includes>**/*</includes>
               <outputDirectory>${project.build.directory}/classes</outputDirectory>
             </configuration>
+            <goals>
+              <goal>unpack-dependencies</goal>
+            </goals>
+            <id>Expand moduleApplicationContext and messages</id>
+            <phase>generate-resources</phase>
           </execution>
         </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.openmrs.maven.plugins</groupId>
-        <artifactId>maven-openmrs-plugin</artifactId>
-      </plugin>
-      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+      </plugin>
+      <plugin>
+        <artifactId>maven-openmrs-plugin</artifactId>
+        <groupId>org.openmrs.maven.plugins</groupId>
+      </plugin>
+      <plugin>
         <artifactId>maven-dependency-plugin</artifactId>
+        <groupId>org.apache.maven.plugins</groupId>
       </plugin>
     </plugins>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
   </build>
+
+  <dependencies>
+    <dependency>
+      <artifactId>${project.parent.artifactId}-api</artifactId>
+      <groupId>${project.parent.groupId}</groupId>
+      <version>${project.parent.version}</version>
+    </dependency>
+    <dependency>
+      <artifactId>openmrs-web</artifactId>
+      <groupId>org.openmrs.web</groupId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <artifactId>webservices.rest-omod-common</artifactId>
+      <groupId>org.openmrs.module</groupId>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+  <description>Omod submodule for BloodBank</description>
+  <modelVersion>4.0.0</modelVersion>
+  <name>BloodBank OMOD</name>
+
+  <packaging>jar</packaging>
+
+  <parent>
+    <artifactId>bloodbank</artifactId>
+    <groupId>org.openmrs.module</groupId>
+    <version>1.0.1</version>
+  </parent>
+
+  <properties>
+    <MODULE_ID>bloodbank</MODULE_ID>
+    <MODULE_NAME>${project.name}</MODULE_NAME>
+    <MODULE_PACKAGE>${project.groupId}.${MODULE_ID}</MODULE_PACKAGE>
+    <MODULE_VERSION>${project.version}</MODULE_VERSION>
+    <openmrsVersion>2.1.1</openmrsVersion>
+  </properties>
 
 </project>

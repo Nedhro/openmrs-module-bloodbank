@@ -14,6 +14,6 @@ import org.springframework.stereotype.Component;
 /** Contains module's config. */
 @Component("bloodbank.BloodBankConfig")
 public class BloodBankConfig {
-	
-	public static final String MODULE_PRIVILEGE = "BloodBank Privilege";
+
+  public static final String MODULE_PRIVILEGE = "BloodBank Privilege";
 }
