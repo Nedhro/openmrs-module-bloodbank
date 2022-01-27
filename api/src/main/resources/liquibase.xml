@@ -12,12 +12,12 @@
       See http://www.liquibase.org/manual/home#available_database_refactorings
       for a list of supported elements and attributes
   -->
-  <changeSet id="bloodbank-donor-V1.01" author="nidhro">
-    <preConditions onFail="MARK_RAN">
+  <changeSet id="bloodbank-donor-V2.04" author="nidhro">
+<!--    <preConditions onFail="MARK_RAN">
       <not>
         <tableExists tableName="bloodbank_donor"/>
       </not>
-    </preConditions>
+    </preConditions>-->
     <comment>
       Creating the bloodbank_donor table
     </comment>
@@ -49,12 +49,12 @@
     </createTable>
   </changeSet>
 
-  <changeSet id="bloodbank-donor-concern-V1.01" author="nidhro">
-    <preConditions onFail="MARK_RAN">
+  <changeSet id="bloodbank-donor-concern-V2.04" author="nidhro">
+    <!--<preConditions onFail="MARK_RAN">
       <not>
         <tableExists tableName="bloodbank_donor_concern"/>
       </not>
-    </preConditions>
+    </preConditions>-->
     <comment>
       Creating the bloodbank_donor_concern table
     </comment>
@@ -72,12 +72,12 @@
       referencedTableName="bloodbank_donor" referencedColumnNames="donor_id"/>
   </changeSet>
 
-  <changeSet id="bloodbank_questionnaire_V1.01" author="nidhro">
-    <preConditions onFail="MARK_RAN">
+  <changeSet id="bloodbank_questionnaire_V2.04" author="nidhro">
+    <!--<preConditions onFail="MARK_RAN">
       <not>
         <tableExists tableName="bloodbank_questionnaire"/>
       </not>
-    </preConditions>
+    </preConditions>-->
     <comment>
       Creating the bloodbank_questionnaire table
     </comment>
@@ -98,12 +98,12 @@
     </createTable>
   </changeSet>
 
-  <changeSet id="bloodbank_blood_donor_physical_suitability_V1.01" author="nidhro, jarrin">
-    <preConditions onFail="MARK_RAN">
+  <changeSet id="bloodbank_blood_donor_physical_suitability_V2.04" author="nidhro, jarrin">
+    <!--<preConditions onFail="MARK_RAN">
       <not>
         <tableExists tableName="bloodbank_blood_donor_physical_suitability"/>
       </not>
-    </preConditions>
+    </preConditions>-->
     <comment>
       Creating the bloodbank_blood_donor_physical_suitability table
     </comment>
@@ -138,12 +138,12 @@
     />
   </changeSet>
 
-  <changeSet id="bloodbank_blood_compatibility_V1.01" author="kamrul">
-    <preConditions onFail="MARK_RAN">
+  <changeSet id="bloodbank_blood_compatibility_V2.04" author="kamrul">
+    <!--<preConditions onFail="MARK_RAN">
       <not>
         <tableExists tableName="bloodbank_blood_compatibility"/>
       </not>
-    </preConditions>
+    </preConditions>-->
     <comment>
       Creating the bloodbank_blood_compatibility table
     </comment>
@@ -153,7 +153,9 @@
       </column>
       <column name="blood_screening" type="varchar(255)"/>
       <column name="blood_grouping" type="varchar(255)"/>
-      <column name="blood_cross_matching" type="varchar(255)"/>
+      <column name="at_room_temp" type="varchar(255)"/>
+      <column name="at_thirty_seven_by_ict" type="varchar(255)"/>
+      <column name="coombs_test" type="varchar(255)"/>
       <column name="blood_hiv_test" type="varchar(255)"/>
       <column name="blood_hbv_test" type="varchar(255)"/>
       <column name="blood_hcv_test" type="varchar(255)"/>
@@ -166,6 +168,7 @@
         <constraints nullable="false"/>
       </column>
       <column name="patient_blood_group" type="varchar(255)"/>
+      <column name="patient_blood_group_rhesus" type="varchar(255)"/>
 
       <column name="uuid" type="varchar(255)"/>
       <column name="date_created" type="datetime"/>
@@ -177,12 +180,12 @@
     </createTable>
   </changeSet>
 
-  <changeSet id="bloodbank_blood_stock_tracing_V1.01" author="kamrul">
-    <preConditions onFail="MARK_RAN">
+  <changeSet id="bloodbank_blood_stock_tracing_V2.04" author="kamrul">
+    <!--<preConditions onFail="MARK_RAN">
       <not>
         <tableExists tableName="bloodbank_blood_stock_tracing"/>
       </not>
-    </preConditions>
+    </preConditions>-->
     <comment>
       Creating the bloodbank_blood_stock_tracing table
     </comment>
@@ -191,8 +194,12 @@
         <constraints primaryKey="true" nullable="false"/>
       </column>
       <column name="blood_storage" type="varchar(255)"/>
+      <column name="blood_component" type="varchar(255)"/>
       <column name="source_of_blood" type="varchar(255)"/>
       <column name="blood_group" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="blood_group_rhesus" type="varchar(255)">
         <constraints nullable="false"/>
       </column>
       <column name="stock_status" type="varchar(255)"/>
