@@ -48,5 +48,5 @@ public interface BloodDonorService extends OpenmrsService {
 	@Transactional
 	BloodDonorPhysicalSuitability updateBloodDonorPhysicalSuitability(BloodDonorPhysicalSuitability donorPhysicalSuitability);
 	
-	List<PatientDTO> getAllPatients();
+	List<PatientDTO> getAllPatients(String name);
 }

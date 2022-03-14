@@ -95,7 +95,7 @@ public class BloodDonorServiceImpl extends BaseOpenmrsService implements BloodDo
 	}
 	
 	@Override
-	public List<PatientDTO> getAllPatients() {
-		return bloodDonorDao.getAllPatients();
+	public List<PatientDTO> getAllPatients(String name) {
+		return bloodDonorDao.getAllPatients(name);
 	}
 }

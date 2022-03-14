@@ -13,11 +13,11 @@
       for a list of supported elements and attributes
   -->
   <changeSet id="bloodbank-donor-V2.04" author="nidhro">
-<!--    <preConditions onFail="MARK_RAN">
+    <preConditions onFail="MARK_RAN">
       <not>
         <tableExists tableName="bloodbank_donor"/>
       </not>
-    </preConditions>-->
+    </preConditions>
     <comment>
       Creating the bloodbank_donor table
     </comment>
@@ -50,11 +50,11 @@
   </changeSet>
 
   <changeSet id="bloodbank-donor-concern-V2.04" author="nidhro">
-    <!--<preConditions onFail="MARK_RAN">
+    <preConditions onFail="MARK_RAN">
       <not>
         <tableExists tableName="bloodbank_donor_concern"/>
       </not>
-    </preConditions>-->
+    </preConditions>
     <comment>
       Creating the bloodbank_donor_concern table
     </comment>
@@ -73,11 +73,11 @@
   </changeSet>
 
   <changeSet id="bloodbank_questionnaire_V2.04" author="nidhro">
-    <!--<preConditions onFail="MARK_RAN">
+    <preConditions onFail="MARK_RAN">
       <not>
         <tableExists tableName="bloodbank_questionnaire"/>
       </not>
-    </preConditions>-->
+    </preConditions>
     <comment>
       Creating the bloodbank_questionnaire table
     </comment>
@@ -99,11 +99,11 @@
   </changeSet>
 
   <changeSet id="bloodbank_blood_donor_physical_suitability_V2.04" author="nidhro, jarrin">
-    <!--<preConditions onFail="MARK_RAN">
+    <preConditions onFail="MARK_RAN">
       <not>
         <tableExists tableName="bloodbank_blood_donor_physical_suitability"/>
       </not>
-    </preConditions>-->
+    </preConditions>
     <comment>
       Creating the bloodbank_blood_donor_physical_suitability table
     </comment>
@@ -139,11 +139,11 @@
   </changeSet>
 
   <changeSet id="bloodbank_blood_compatibility_V2.04" author="kamrul">
-    <!--<preConditions onFail="MARK_RAN">
+    <preConditions onFail="MARK_RAN">
       <not>
         <tableExists tableName="bloodbank_blood_compatibility"/>
       </not>
-    </preConditions>-->
+    </preConditions>
     <comment>
       Creating the bloodbank_blood_compatibility table
     </comment>
@@ -181,11 +181,11 @@
   </changeSet>
 
   <changeSet id="bloodbank_blood_stock_tracing_V2.04" author="kamrul">
-    <!--<preConditions onFail="MARK_RAN">
+    <preConditions onFail="MARK_RAN">
       <not>
         <tableExists tableName="bloodbank_blood_stock_tracing"/>
       </not>
-    </preConditions>-->
+    </preConditions>
     <comment>
       Creating the bloodbank_blood_stock_tracing table
     </comment>

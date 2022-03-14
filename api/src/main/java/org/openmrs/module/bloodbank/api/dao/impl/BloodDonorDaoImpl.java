@@ -1,6 +1,7 @@
 package org.openmrs.module.bloodbank.api.dao.impl;
 
 import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -21,6 +22,8 @@ public class BloodDonorDaoImpl implements BloodDonorDao {
 	protected final Logger log = LoggerFactory.getLogger(BloodDonorDaoImpl.class);
 	
 	private SessionFactory sessionFactory;
+	
+	private List<PatientDTO> patientList;
 	
 	private Session getSession() {
 		return sessionFactory.getCurrentSession();
@@ -145,16 +148,41 @@ public class BloodDonorDaoImpl implements BloodDonorDao {
 	}
 	
 	@Override
-	public List<PatientDTO> getAllPatients() {
-		String query = "SELECT DISTINCT v.patient_id, pi.identifier, p.uuid,\n"
-		        + "                CONCAT(pn.given_name, ' ', IFNULL(pn.family_name, '')) AS name\n" + "FROM visit v\n"
-		        + "         JOIN person_name pn ON v.patient_id = pn.person_id AND pn.voided = 0\n"
-		        + "         JOIN patient_identifier pi ON v.patient_id = pi.patient_id\n"
-		        + "         JOIN person p ON p.person_id = v.patient_id AND p.voided = 0\n"
-		        + "WHERE v.date_stopped IS NULL\n" + "  AND v.voided = 0";
+	public List<PatientDTO> getAllPatients(String name) {
+		String query = "select *\n" + "from (SELECT DISTINCT v.patient_id,\n" + "                      p.uuid,\n"
+		        + "                      CONCAT(IF(pn.given_name IS NULL, '', CONCAT((pn.given_name), ' ')),\n"
+		        + "                             IF(pn.middle_name IS NULL, '', CONCAT((pn.middle_name), ' ')),\n"
+		        + "                             IF(pn.family_name IS NULL, '', CONCAT((pn.family_name), ' ')),\n"
+		        + "                             '(', pi.identifier, ')')                                AS 'name',\n"
+		        + "                      DATE_FORMAT(FROM_DAYS(DATEDIFF(now(), p.birthdate)), '%Y') + 0 as 'age',\n"
+		        + "                      p.gender                                                       as 'gender',\n"
+		        + "                      bed.Bed                                                        as 'bed',\n"
+		        + "                      bed.ward                                                       as 'ward',\n"
+		        + "                      bed.unit                                                       as 'unit'\n"
+		        + "      FROM visit v\n"
+		        + "               JOIN person_name pn ON v.patient_id = pn.person_id AND pn.voided = 0\n"
+		        + "               JOIN patient_identifier pi ON v.patient_id = pi.patient_id\n"
+		        + "               JOIN person p ON p.person_id = v.patient_id AND p.voided = 0\n"
+		        + "               left join (SELECT bed_patient_assignment_map_id, bed_id, patient_id\n"
+		        + "                          FROM bed_patient_assignment_map\n"
+		        + "                          WHERE bed_patient_assignment_map_id IN (\n"
+		        + "                              SELECT MAX(bed_patient_assignment_map_id)\n"
+		        + "                              FROM bed_patient_assignment_map\n"
+		        + "                              GROUP BY patient_id)) latest on v.patient_id = latest.patient_id\n"
+		        + "               left join\n" + "           (SELECT floor.name     as 'ward',\n"
+		        + "                   bed.bed_number as 'bed',\n" + "                   btag.name      as 'unit',\n"
+		        + "                   bed.bed_id     as 'id'\n" + "            from bed\n"
+		        + "                     inner join bed_location_map on bed.bed_id = bed_location_map.bed_id\n"
+		        + "                     inner join location as ward on bed_location_map.location_id = ward.location_id\n"
+		        + "                     inner join location as floor on ward.parent_location = floor.location_id\n"
+		        + "                     left join bed_tag_map btagmap on bed.bed_id = btagmap.bed_id\n"
+		        + "                     left join bed_tag btag on btagmap.bed_tag_id = btag.bed_tag_id) bed\n"
+		        + "           on latest.bed_id = bed.id\n" + "      WHERE v.date_stopped IS NULL\n"
+		        + "        AND v.voided = 0) patiet\n" + "where patiet.name like '%" + name + "%'";
 		SQLQuery sqlQuery = (SQLQuery) getSession().createSQLQuery(query).setResultTransformer(
 		    Transformers.aliasToBean(PatientDTO.class));
 		List<PatientDTO> patientList = sqlQuery.list();
 		return patientList;
 	}
+	
 }
