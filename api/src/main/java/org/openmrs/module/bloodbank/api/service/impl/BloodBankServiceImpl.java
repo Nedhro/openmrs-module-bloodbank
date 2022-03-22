@@ -1,13 +1,15 @@
 package org.openmrs.module.bloodbank.api.service.impl;
 
-import java.util.List;
 import org.openmrs.api.UserService;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.bloodbank.api.dao.BloodBankDao;
 import org.openmrs.module.bloodbank.api.model.BloodCompatibility;
 import org.openmrs.module.bloodbank.api.model.BloodDonorPhysicalSuitability;
+import org.openmrs.module.bloodbank.api.model.BloodSerology;
 import org.openmrs.module.bloodbank.api.model.BloodStockTracing;
 import org.openmrs.module.bloodbank.api.service.BloodBankService;
+
+import java.util.List;
 
 public class BloodBankServiceImpl extends BaseOpenmrsService implements BloodBankService {
 	
@@ -72,14 +74,34 @@ public class BloodBankServiceImpl extends BaseOpenmrsService implements BloodBan
 	public BloodStockTracing getBloodStockTracingByBloodBagId(String bloodBagId) {
 		return bloodBankDao.getBloodStockTracingByBloodBagId(bloodBagId);
 	}
-	
+
 	@Override
 	public BloodCompatibility getCompatibilityByBagId(String bloodBagId) {
 		return bloodBankDao.getCompatibilityByBagId(bloodBagId);
 	}
-	
+
 	@Override
 	public String getNextBloodBagId(String bloodSource) {
 		return bloodBankDao.getNextBloodBagId(bloodSource);
+	}
+
+	@Override
+	public BloodSerology saveBloodSerology(BloodSerology bloodSerology) {
+		return bloodBankDao.saveBloodSerology(bloodSerology);
+	}
+
+	@Override
+	public BloodSerology updateBloodSerology(BloodSerology bloodSerology) {
+		return bloodBankDao.updateBloodSerology(bloodSerology);
+	}
+
+	@Override
+	public List<BloodSerology> getAllBloodSerology() {
+		return bloodBankDao.getAllBloodSerology();
+	}
+
+	@Override
+	public BloodSerology getBloodSerologyById(Integer id) {
+		return bloodBankDao.getBloodSerologyById(id);
 	}
 }

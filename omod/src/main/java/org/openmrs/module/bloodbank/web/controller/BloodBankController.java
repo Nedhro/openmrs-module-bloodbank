@@ -4,6 +4,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.module.bloodbank.api.model.BloodCompatibility;
 import org.openmrs.module.bloodbank.api.model.BloodDonorPhysicalSuitability;
+import org.openmrs.module.bloodbank.api.model.BloodSerology;
 import org.openmrs.module.bloodbank.api.model.BloodStockTracing;
 import org.openmrs.module.bloodbank.api.model.enums.Status;
 import org.openmrs.module.bloodbank.api.model.enums.StockStatus;
@@ -249,5 +250,71 @@ public class BloodBankController {
                     RestUtil.wrapErrorResponse(e, e.getMessage()), HttpStatus.BAD_REQUEST);
         }
         return null;
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "bloodSerologyTest/add")
+    @ResponseBody
+    public ResponseEntity<Object> saveBloodSerology(
+            @Valid @RequestBody BloodSerology bloodSerology) {
+        if (bloodSerology.getBloodSerologyId() == null) {
+            if (bloodSerology.getCreatedBy() != null) {
+                bloodBankService.saveBloodSerology(bloodSerology);
+                log.info("Blood Serology is saved successfully :: " + bloodSerology);
+                return new ResponseEntity<>(bloodSerology, HttpStatus.CREATED);
+            }
+            log.warn("No valid user found");
+            return new ResponseEntity<>("No User found", HttpStatus.BAD_REQUEST);
+        }
+        if (bloodSerology.getUpdatedBy() != null) {
+            bloodBankService.updateBloodSerology(bloodSerology);
+            log.info("Blood Serology is updated successfully :: " + bloodSerology);
+            return new ResponseEntity<>(bloodSerology, HttpStatus.ACCEPTED);
+        }
+        log.warn("No valid user found");
+        return new ResponseEntity<>("No User found", HttpStatus.BAD_REQUEST);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "bloodSerologyTest/list")
+    @ResponseBody
+    public List<BloodSerology> getAllBloodSerology() {
+        List<BloodSerology> bloodSerologies = bloodBankService.getAllBloodSerology();
+        log.info("Blood Serology Lists :: " + bloodSerologies);
+        return bloodSerologies;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "bloodSerologyTest/{id}")
+    @ResponseBody
+    public ResponseEntity<Object> getBloodSerologyById(@PathVariable Integer id) {
+        try {
+            if (id != null) {
+                BloodSerology bloodSerology = bloodBankService.getBloodSerologyById(id);
+                log.info("Blood Serology is retrieved successfully :: " + bloodSerology);
+                return new ResponseEntity<>(bloodSerology, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            log.error("Runtime error while trying to find the Blood Serology", e);
+            return new ResponseEntity<>(
+                    RestUtil.wrapErrorResponse(e, e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+        return null;
+    }
+
+    @RequestMapping(
+            method = RequestMethod.PUT,
+            value = "bloodSerologyTest/delete/{id}/by/{user}")
+    @ResponseBody
+    public ResponseEntity<Object> deleteBloodSerologyById(
+            @PathVariable Integer id, @PathVariable String user) {
+        BloodSerology bloodSerology = bloodBankService.getBloodSerologyById(id);
+        if (user != null && !user.equals("undefined")) {
+            bloodSerology.setStatus(Status.DELETE.getValue());
+            bloodSerology.setVoided(Boolean.TRUE);
+            bloodSerology.setUpdatedBy(user);
+            bloodBankService.updateBloodSerology(bloodSerology);
+            log.info("Blood Serology is deleted successfully :: " + bloodSerology);
+            return new ResponseEntity<>(bloodSerology, HttpStatus.ACCEPTED);
+        }
+        log.warn("No valid user found");
+        return new ResponseEntity<>("No User found", HttpStatus.BAD_REQUEST);
     }
 }

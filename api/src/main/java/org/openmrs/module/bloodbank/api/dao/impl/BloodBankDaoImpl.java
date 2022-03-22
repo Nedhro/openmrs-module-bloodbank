@@ -9,6 +9,7 @@ import org.hibernate.criterion.Restrictions;
 import org.openmrs.module.bloodbank.api.dao.BloodBankDao;
 import org.openmrs.module.bloodbank.api.model.BloodCompatibility;
 import org.openmrs.module.bloodbank.api.model.BloodDonorPhysicalSuitability;
+import org.openmrs.module.bloodbank.api.model.BloodSerology;
 import org.openmrs.module.bloodbank.api.model.BloodStockTracing;
 import org.openmrs.module.bloodbank.api.model.enums.PermissionType;
 import org.openmrs.module.bloodbank.api.model.enums.SourceOfBlood;
@@ -172,7 +173,46 @@ public class BloodBankDaoImpl implements BloodBankDao {
 		log.info("No Blood Bag Id. Initial Value :: " + initialValue);
 		return initialValue;
 	}
-	
+
+	@Override
+	@Transactional
+	public BloodSerology saveBloodSerology(BloodSerology bloodSerology) {
+		if (bloodSerology.getCreatedBy() != null) {
+			getSession().persist(bloodSerology);
+			log.info("Blood serology has been saved successfully..." + bloodSerology);
+			return bloodSerology;
+		}
+		log.info("No valid user found to create the Blood serology Test");
+		return null;
+	}
+
+	@Override
+	@Transactional
+	public BloodSerology updateBloodSerology(BloodSerology bloodSerology) {
+		getSession().update(bloodSerology);
+		log.info("Blood serology has been updated successfully..." + bloodSerology);
+		return bloodSerology;
+	}
+
+	@Override
+	public List<BloodSerology> getAllBloodSerology() {
+		Criteria criteria = getSession().createCriteria(BloodSerology.class);
+		criteria.add(Restrictions.eq("status", 1));
+		criteria.add(Restrictions.eq("voided", Boolean.FALSE));
+		criteria.add(Restrictions.between("dateCreated", getDateBefore30Days(), new Date()));
+		log.info("Blood Serology List ::" + criteria.list());
+		return criteria.list();
+	}
+
+	@Override
+	@Transactional
+	public BloodSerology getBloodSerologyById(Integer id) {
+		Criteria criteria = getSession().createCriteria(BloodSerology.class);
+		criteria.add(Restrictions.eq("bloodSerologyId", id));
+		BloodSerology serology = (BloodSerology) criteria.uniqueResult();
+		return serology;
+	}
+
 	public Boolean uniqueBloodBagId(String bloodBagId) {
 		Criteria criteria = getSession().createCriteria(BloodStockTracing.class);
 		criteria.add(Restrictions.eq("bloodBagId", bloodBagId));
