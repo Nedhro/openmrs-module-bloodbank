@@ -213,6 +213,16 @@ public class BloodBankDaoImpl implements BloodBankDao {
 		return serology;
 	}
 
+	@Override
+	public BloodSerology getBloodSerologyByPatientId(Integer id) {
+		Criteria criteria = getSession().createCriteria(BloodSerology.class);
+		criteria.add(Restrictions.eq("patientId", id));
+		criteria.addOrder(Order.desc("bloodSerologyId"));
+		criteria.setMaxResults(1);
+		BloodSerology serology = (BloodSerology) criteria.uniqueResult();
+		return serology;
+	}
+
 	public Boolean uniqueBloodBagId(String bloodBagId) {
 		Criteria criteria = getSession().createCriteria(BloodStockTracing.class);
 		criteria.add(Restrictions.eq("bloodBagId", bloodBagId));

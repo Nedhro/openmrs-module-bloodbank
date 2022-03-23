@@ -21,16 +21,16 @@ public class BloodDonorServiceImpl extends BaseOpenmrsService implements BloodDo
     public void setBloodDonorDao(BloodDonorDao bloodDonorDao) {
         this.bloodDonorDao = bloodDonorDao;
     }
-	
-	@Override
-	public List<BloodDonor> getAllBloodDonors() {
-		return bloodDonorDao.getAllBloodDonors();
-	}
-	
-	@Override
-	public BloodDonor saveDonorInfo(BloodDonor bloodDonor) {
-		return bloodDonorDao.saveDonorInfo(bloodDonor);
-	}
+
+    @Override
+    public List<BloodDonor> getAllBloodDonors() {
+        return bloodDonorDao.getAllBloodDonors();
+    }
+
+    @Override
+    public BloodDonor saveDonorInfo(BloodDonor bloodDonor) {
+        return bloodDonorDao.saveDonorInfo(bloodDonor);
+    }
 	
 	@Override
 	public Questionnaire saveQuestionnaire(Questionnaire questionnaire) {

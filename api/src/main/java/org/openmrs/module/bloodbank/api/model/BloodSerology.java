@@ -18,9 +18,9 @@ public class BloodSerology extends BaseModel {
 
 	private String bloodMalariaTest;
 
-	private String bloodBagId;
+	private Integer patientId;
 
-	private String patient;
+	private String patientName;
 
 	private String patientBloodGroup;
 
@@ -36,8 +36,8 @@ public class BloodSerology extends BaseModel {
 	}
 
 	public BloodSerology(Integer bloodSerologyId, String bloodScreening, String bloodGrouping, String bloodHivTest,
-						 String bloodHbvTest, String bloodHcvTest, String bloodSyphilisTest, String bloodMalariaTest, String bloodBagId,
-						 String patient, String patientBloodGroup, String patientBloodGroupRhesus, String atRoomTemp, String at37ByICT,
+						 String bloodHbvTest, String bloodHcvTest, String bloodSyphilisTest, String bloodMalariaTest, Integer patientId,
+						 String patientName, String patientBloodGroup, String patientBloodGroupRhesus, String atRoomTemp, String at37ByICT,
 						 String coombsTest) {
 		this.bloodSerologyId = bloodSerologyId;
 		this.bloodScreening = bloodScreening;
@@ -47,8 +47,8 @@ public class BloodSerology extends BaseModel {
 		this.bloodHcvTest = bloodHcvTest;
 		this.bloodSyphilisTest = bloodSyphilisTest;
 		this.bloodMalariaTest = bloodMalariaTest;
-		this.bloodBagId = bloodBagId;
-		this.patient = patient;
+		this.patientId = patientId;
+		this.patientName = patientName;
 		this.patientBloodGroup = patientBloodGroup;
 		this.patientBloodGroupRhesus = patientBloodGroupRhesus;
 		this.atRoomTemp = atRoomTemp;
@@ -120,20 +120,20 @@ public class BloodSerology extends BaseModel {
 		this.bloodMalariaTest = bloodMalariaTest;
 	}
 
-	public String getBloodBagId() {
-		return bloodBagId;
+	public Integer getPatientId() {
+		return patientId;
 	}
 
-	public void setBloodBagId(String bloodBagId) {
-		this.bloodBagId = bloodBagId;
+	public void setPatientId(Integer patientId) {
+		this.patientId = patientId;
 	}
 
-	public String getPatient() {
-		return patient;
+	public String getPatientName() {
+		return patientName;
 	}
 
-	public void setPatient(String patient) {
-		this.patient = patient;
+	public void setPatientName(String patientName) {
+		this.patientName = patientName;
 	}
 
 	public String getPatientBloodGroup() {

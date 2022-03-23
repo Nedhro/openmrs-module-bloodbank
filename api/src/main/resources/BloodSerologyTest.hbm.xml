@@ -20,10 +20,9 @@
         <property name="bloodHcvTest" column="blood_hcv_test" type="java.lang.String" length="255"/>
         <property name="bloodSyphilisTest" column="blood_syphilis_test" type="java.lang.String" length="255"/>
         <property name="bloodMalariaTest" column="blood_malaria_test" type="java.lang.String" length="255"/>
-        <property name="bloodBagId" type="java.lang.String" column="blood_bag_id" length="255"
-                  not-null="true"/>
-        <property name="patient" type="java.lang.String" column="patient" length="255" not-null="true"/>
+        <property name="patientId" type="java.lang.Integer" column="patient_id" length="25" not-null="true"/>
         <property name="patientBloodGroup" type="java.lang.String" column="patient_blood_group" length="255"/>
+        <property name="patientName" type="java.lang.String" column="patient_name" length="255"/>
         <property name="patientBloodGroupRhesus" type="java.lang.String" column="patient_blood_group_rhesus"
                   length="255"/>
 

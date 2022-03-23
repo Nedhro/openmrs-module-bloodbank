@@ -16,16 +16,16 @@ public interface BloodDonorDao {
     boolean existsByQuestionnaireName(String question);
 
     Questionnaire saveQuestionnaire(Questionnaire questionnaire);
-	
-	List<Questionnaire> getAllQuestionnaires();
-	
-	BloodDonorPhysicalSuitability saveBloodDonorPhysicalSuitability(BloodDonorPhysicalSuitability donorPhysicalSuitability);
-	
-	List<BloodDonorPhysicalSuitability> getAllBloodDonorPhysicalSuitability();
-	
-	Questionnaire getQuestionnaireById(Integer qid);
-	
-	Questionnaire updateQuestionnaire(Questionnaire questionnaire);
+
+    List<Questionnaire> getAllQuestionnaires();
+
+    BloodDonorPhysicalSuitability saveBloodDonorPhysicalSuitability(BloodDonorPhysicalSuitability donorPhysicalSuitability);
+
+    List<BloodDonorPhysicalSuitability> getAllBloodDonorPhysicalSuitability();
+
+    Questionnaire getQuestionnaireById(Integer qid);
+
+    Questionnaire updateQuestionnaire(Questionnaire questionnaire);
 	
 	BloodDonor updateDonorInfo(BloodDonor bloodDonor);
 	

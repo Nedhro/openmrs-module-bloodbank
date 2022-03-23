@@ -75,33 +75,38 @@ public class BloodBankServiceImpl extends BaseOpenmrsService implements BloodBan
 		return bloodBankDao.getBloodStockTracingByBloodBagId(bloodBagId);
 	}
 
-	@Override
+    @Override
 	public BloodCompatibility getCompatibilityByBagId(String bloodBagId) {
 		return bloodBankDao.getCompatibilityByBagId(bloodBagId);
 	}
 
-	@Override
+    @Override
 	public String getNextBloodBagId(String bloodSource) {
 		return bloodBankDao.getNextBloodBagId(bloodSource);
 	}
 
-	@Override
+    @Override
 	public BloodSerology saveBloodSerology(BloodSerology bloodSerology) {
 		return bloodBankDao.saveBloodSerology(bloodSerology);
 	}
 
-	@Override
+    @Override
 	public BloodSerology updateBloodSerology(BloodSerology bloodSerology) {
 		return bloodBankDao.updateBloodSerology(bloodSerology);
 	}
 
-	@Override
-	public List<BloodSerology> getAllBloodSerology() {
-		return bloodBankDao.getAllBloodSerology();
-	}
+    @Override
+    public List<BloodSerology> getAllBloodSerology() {
+        return bloodBankDao.getAllBloodSerology();
+    }
 
-	@Override
-	public BloodSerology getBloodSerologyById(Integer id) {
-		return bloodBankDao.getBloodSerologyById(id);
-	}
+    @Override
+    public BloodSerology getBloodSerologyById(Integer id) {
+        return bloodBankDao.getBloodSerologyById(id);
+    }
+
+    @Override
+    public BloodSerology getBloodSerologyByPatientId(Integer id) {
+        return bloodBankDao.getBloodSerologyByPatientId(id);
+    }
 }

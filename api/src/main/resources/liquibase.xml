@@ -248,12 +248,10 @@
             <column name="blood_hcv_test" type="varchar(255)"/>
             <column name="blood_syphilis_test" type="varchar(255)"/>
             <column name="blood_malaria_test" type="varchar(255)"/>
-            <column name="blood_bag_id" type="varchar(255)">
+            <column name="patient_id" type="int(25)">
                 <constraints nullable="false"/>
             </column>
-            <column name="patient" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
+            <column name="patient_name" type="varchar(255)"/>
             <column name="patient_blood_group" type="varchar(255)"/>
             <column name="patient_blood_group_rhesus" type="varchar(255)"/>
 

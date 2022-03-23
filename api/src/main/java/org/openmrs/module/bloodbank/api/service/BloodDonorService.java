@@ -19,16 +19,16 @@ public interface BloodDonorService extends OpenmrsService {
     List<BloodDonor> getAllBloodDonors();
 
     boolean existsByQuestionnaireName(String question);
-	
-	@Transactional
-	Questionnaire saveQuestionnaire(Questionnaire questionnaire) throws APIException;
-	
-	@Transactional(readOnly = true)
-	List<Questionnaire> getAllQuestionnaires();
-	
-	@Transactional
-	BloodDonorPhysicalSuitability saveBloodDonorPhysicalSuitability(BloodDonorPhysicalSuitability donorPhysicalSuitability)
-	        throws APIException;
+
+    @Transactional
+    Questionnaire saveQuestionnaire(Questionnaire questionnaire) throws APIException;
+
+    @Transactional(readOnly = true)
+    List<Questionnaire> getAllQuestionnaires();
+
+    @Transactional
+    BloodDonorPhysicalSuitability saveBloodDonorPhysicalSuitability(BloodDonorPhysicalSuitability donorPhysicalSuitability)
+            throws APIException;
 	
 	@Transactional(readOnly = true)
 	List<BloodDonorPhysicalSuitability> getAllBloodDonorPhysicalSuitability();

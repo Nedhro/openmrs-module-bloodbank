@@ -299,6 +299,23 @@ public class BloodBankController {
         return null;
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "bloodSerologyTestByPatientId/{id}")
+    @ResponseBody
+    public ResponseEntity<Object> getBloodSerologyByPatientId(@PathVariable Integer id) {
+        try {
+            if (id != null) {
+                BloodSerology bloodSerology = bloodBankService.getBloodSerologyByPatientId(id);
+                log.info("Blood Serology is retrieved successfully :: " + bloodSerology);
+                return new ResponseEntity<>(bloodSerology, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            log.error("Runtime error while trying to find the Blood Serology", e);
+            return new ResponseEntity<>(
+                    RestUtil.wrapErrorResponse(e, e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+        return null;
+    }
+
     @RequestMapping(
             method = RequestMethod.PUT,
             value = "bloodSerologyTest/delete/{id}/by/{user}")
