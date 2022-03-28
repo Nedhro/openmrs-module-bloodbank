@@ -29,16 +29,16 @@ public interface BloodDonorService extends OpenmrsService {
     @Transactional
     BloodDonorPhysicalSuitability saveBloodDonorPhysicalSuitability(BloodDonorPhysicalSuitability donorPhysicalSuitability)
             throws APIException;
-	
-	@Transactional(readOnly = true)
-	List<BloodDonorPhysicalSuitability> getAllBloodDonorPhysicalSuitability();
-	
-	@Transactional(readOnly = true)
-	Questionnaire getQuestionnaireById(Integer qid);
-	
-	BloodDonorPhysicalSuitability getBloodDonorPhysicalSuitabilityById(Integer id);
-	
-	BloodDonor getDonorById(Integer id);
+
+    @Transactional(readOnly = true)
+    List<BloodDonorPhysicalSuitability> getAllBloodDonorPhysicalSuitability();
+
+    @Transactional(readOnly = true)
+    Questionnaire getQuestionnaireById(Integer qid);
+
+    BloodDonorPhysicalSuitability getBloodDonorPhysicalSuitabilityById(Integer id);
+
+    BloodDonor getDonorById(Integer id);
 	
 	@Transactional
 	Questionnaire updateQuestionnaire(Questionnaire questionnaire);

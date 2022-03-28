@@ -12,34 +12,36 @@ public interface BloodBankDao {
 	List<BloodDonorPhysicalSuitability> getAllDonorTestsResult();
 	
 	BloodCompatibility saveBloodCompatibility(BloodCompatibility bloodCompatibility);
-	
+
 	BloodCompatibility updateBloodCompatibility(BloodCompatibility bloodCompatibility);
-	
+
 	List<BloodCompatibility> getAllBloodCompatibility();
-	
+
 	BloodCompatibility getBloodCompatibilityById(Integer id);
-	
+
 	BloodStockTracing saveBloodStockTracing(BloodStockTracing bloodStockTracing);
-	
+
 	BloodStockTracing updateBloodStockTracing(BloodStockTracing bloodStockTracing);
 
-    List<BloodStockTracing> getAllBloodStockTracing();
+	List<BloodStockTracing> getAllBloodStockTracing();
 
-    BloodStockTracing getBloodStockTracingById(Integer id);
+	BloodStockTracing getBloodStockTracingById(Integer id);
 
-    BloodStockTracing getBloodStockTracingByBloodBagId(String bloodBagId);
+	BloodStockTracing getBloodStockTracingByBloodBagId(String bloodBagId);
 
-    BloodCompatibility getCompatibilityByBagId(String bloodBagId);
+	BloodCompatibility getCompatibilityByBagId(String bloodBagId);
 
-    String getNextBloodBagId(String bloodSource);
+	String getNextBloodBagId(String bloodSource);
 
-    BloodSerology saveBloodSerology(BloodSerology bloodSerology);
+	BloodSerology saveBloodSerology(BloodSerology bloodSerology);
 
-    BloodSerology updateBloodSerology(BloodSerology bloodSerology);
+	BloodSerology updateBloodSerology(BloodSerology bloodSerology);
 
-    List<BloodSerology> getAllBloodSerology();
+	List<BloodSerology> getAllBloodSerology();
 
-    BloodSerology getBloodSerologyById(Integer id);
+	BloodSerology getBloodSerologyById(Integer id);
 
-    BloodSerology getBloodSerologyByPatientId(Integer id);
+	BloodSerology getBloodSerologyByPatientId(Integer id);
+
+	List<BloodSerology> getBloodSerologyByPatientIdentifier(String identifier);
 }

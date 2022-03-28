@@ -26,14 +26,14 @@ public interface BloodDonorDao {
     Questionnaire getQuestionnaireById(Integer qid);
 
     Questionnaire updateQuestionnaire(Questionnaire questionnaire);
-	
-	BloodDonor updateDonorInfo(BloodDonor bloodDonor);
-	
-	BloodDonorPhysicalSuitability updateBloodDonorPhysicalSuitability(BloodDonorPhysicalSuitability donorPhysicalSuitability);
-	
-	BloodDonorPhysicalSuitability getBloodDonorPhysicalSuitabilityById(Integer id);
-	
-	BloodDonor getDonorById(Integer id);
-	
-	List<PatientDTO> getAllPatients(String name);
+
+    BloodDonor updateDonorInfo(BloodDonor bloodDonor);
+
+    BloodDonorPhysicalSuitability updateBloodDonorPhysicalSuitability(BloodDonorPhysicalSuitability donorPhysicalSuitability);
+
+    BloodDonorPhysicalSuitability getBloodDonorPhysicalSuitabilityById(Integer id);
+
+    BloodDonor getDonorById(Integer id);
+
+    List<PatientDTO> getAllPatients(String name);
 }

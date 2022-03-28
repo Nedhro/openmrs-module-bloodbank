@@ -20,41 +20,44 @@ public interface BloodBankService extends OpenmrsService {
 	
 	@Transactional
 	BloodCompatibility updateBloodCompatibility(BloodCompatibility bloodCompatibility);
-	
+
 	@Transactional(readOnly = true)
 	List<BloodCompatibility> getAllBloodCompatibility();
-	
+
 	BloodCompatibility getBloodCompatibilityById(Integer id);
-	
+
 	@Transactional
 	BloodStockTracing saveBloodStockTracing(BloodStockTracing bloodStockTracing);
-	
+
 	@Transactional
 	BloodStockTracing updateBloodStockTracing(BloodStockTracing bloodStockTracing);
 
-    @Transactional(readOnly = true)
+	@Transactional(readOnly = true)
 	List<BloodStockTracing> getAllBloodStockTracing();
 
-    BloodStockTracing getBloodStockTracingById(Integer id);
+	BloodStockTracing getBloodStockTracingById(Integer id);
 
-    BloodStockTracing getBloodStockTracingByBloodBagId(String bloodBagId);
+	BloodStockTracing getBloodStockTracingByBloodBagId(String bloodBagId);
 
-    BloodCompatibility getCompatibilityByBagId(String bloodBagId);
+	BloodCompatibility getCompatibilityByBagId(String bloodBagId);
 
-    String getNextBloodBagId(String bloodSource);
+	String getNextBloodBagId(String bloodSource);
 
-    @Transactional
-    BloodSerology saveBloodSerology(BloodSerology bloodSerology) throws APIException;
+	@Transactional
+	BloodSerology saveBloodSerology(BloodSerology bloodSerology) throws APIException;
 
-    @Transactional
-    BloodSerology updateBloodSerology(BloodSerology bloodSerology);
+	@Transactional
+	BloodSerology updateBloodSerology(BloodSerology bloodSerology);
 
-    @Transactional(readOnly = true)
-    List<BloodSerology> getAllBloodSerology();
+	@Transactional(readOnly = true)
+	List<BloodSerology> getAllBloodSerology();
 
-    BloodSerology getBloodSerologyById(Integer id);
+	BloodSerology getBloodSerologyById(Integer id);
 
-    BloodSerology getBloodSerologyByPatientId(Integer id);
+	BloodSerology getBloodSerologyByPatientId(Integer id);
+
+	@Transactional
+	List<BloodSerology> getBloodSerologyByPatientIdentifier(String identifier);
 	
 	/*@Authorized()
 	@Transactional(readOnly = true)

@@ -4,6 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.module.bloodbank.api.dao.BloodBankDao;
@@ -217,10 +218,19 @@ public class BloodBankDaoImpl implements BloodBankDao {
 	public BloodSerology getBloodSerologyByPatientId(Integer id) {
 		Criteria criteria = getSession().createCriteria(BloodSerology.class);
 		criteria.add(Restrictions.eq("patientId", id));
+		criteria.add(Restrictions.ne("patientBloodGroup", ""));
 		criteria.addOrder(Order.desc("bloodSerologyId"));
 		criteria.setMaxResults(1);
 		BloodSerology serology = (BloodSerology) criteria.uniqueResult();
 		return serology;
+	}
+
+	@Override
+	public List<BloodSerology> getBloodSerologyByPatientIdentifier(String identifier) {
+		Criteria criteria = getSession().createCriteria(BloodSerology.class);
+		criteria.add(Restrictions.like("patientName", identifier, MatchMode.ANYWHERE));
+		criteria.addOrder(Order.desc("bloodSerologyId"));
+		return criteria.list();
 	}
 
 	public Boolean uniqueBloodBagId(String bloodBagId) {
