@@ -126,16 +126,24 @@ public class BloodBankController {
         log.warn("No valid user found");
         return new ResponseEntity<>("No User found to update", HttpStatus.BAD_REQUEST);
     }
-	
-	@RequestMapping(method = RequestMethod.GET, value = "bloodStockTracing/list")
-	@ResponseBody
-	public List<BloodStockTracing> getAllBloodStockTracing() {
-		List<BloodStockTracing> bloodStockTracings = bloodBankService.getAllBloodStockTracing();
-		log.info("Blood Stock Tracing Lists :: " + bloodStockTracings);
-		return bloodStockTracings;
-	}
-	
-	@RequestMapping(method = RequestMethod.GET, value = "bloodStockTracing/{id}")
+
+    @RequestMapping(method = RequestMethod.GET, value = "bloodStockTracing/list")
+    @ResponseBody
+    public List<BloodStockTracing> getAllBloodStockTracing() {
+        List<BloodStockTracing> bloodStockTracings = bloodBankService.getAllBloodStockTracing();
+        log.info("Blood Stock Tracing Lists :: " + bloodStockTracings);
+        return bloodStockTracings;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "bloodStockTracing/approvedList")
+    @ResponseBody
+    public List<BloodStockTracing> getAllBloodStockTracingApproved() {
+        List<BloodStockTracing> bloodStockTracings = bloodBankService.getAllBloodStockTracingApproved();
+        log.info("Blood Stock Tracing Lists :: " + bloodStockTracings);
+        return bloodStockTracings;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "bloodStockTracing/{id}")
     @ResponseBody
     public ResponseEntity<Object> getBloodStockTracingById(@PathVariable Integer id) {
         try {

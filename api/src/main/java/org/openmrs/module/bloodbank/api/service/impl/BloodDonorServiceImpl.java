@@ -41,16 +41,16 @@ public class BloodDonorServiceImpl extends BaseOpenmrsService implements BloodDo
         } else {
             return bloodDonorDao.saveQuestionnaire(questionnaire);
         }
-	}
-	
-	@Override
-	public List<Questionnaire> getAllQuestionnaires() {
-		return bloodDonorDao.getAllQuestionnaires();
-	}
-	
-	@Override
-	public boolean existsByQuestionnaireName(String question) {
-		return bloodDonorDao.existsByQuestionnaireName(question);
+    }
+
+    @Override
+    public List<Questionnaire> getAllQuestionnaires() {
+        return bloodDonorDao.getAllQuestionnaires();
+    }
+
+    @Override
+    public boolean existsByQuestionnaireName(String question) {
+        return bloodDonorDao.existsByQuestionnaireName(question);
 	}
 	
 	@Override
@@ -86,17 +86,22 @@ public class BloodDonorServiceImpl extends BaseOpenmrsService implements BloodDo
 	
 	@Override
 	public BloodDonor updateDonorInfo(BloodDonor bloodDonor) {
-		return bloodDonorDao.updateDonorInfo(bloodDonor);
-	}
-	
-	@Override
-	public BloodDonorPhysicalSuitability updateBloodDonorPhysicalSuitability(
-	        BloodDonorPhysicalSuitability donorPhysicalSuitability) {
-		return bloodDonorDao.updateBloodDonorPhysicalSuitability(donorPhysicalSuitability);
-	}
-	
-	@Override
-	public List<PatientDTO> getAllPatients(String name) {
-		return bloodDonorDao.getAllPatients(name);
-	}
+        return bloodDonorDao.updateDonorInfo(bloodDonor);
+    }
+
+    @Override
+    public BloodDonorPhysicalSuitability updateBloodDonorPhysicalSuitability(
+            BloodDonorPhysicalSuitability donorPhysicalSuitability) {
+        return bloodDonorDao.updateBloodDonorPhysicalSuitability(donorPhysicalSuitability);
+    }
+
+    @Override
+    public List<PatientDTO> getAllPatients(Integer id) {
+        return bloodDonorDao.getAllPatients(id);
+    }
+
+    @Override
+    public List<PatientDTO> getPatientById(String identifier) {
+        return bloodDonorDao.getPatientById(identifier);
+    }
 }

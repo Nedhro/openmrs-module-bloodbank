@@ -35,6 +35,9 @@ public interface BloodBankService extends OpenmrsService {
 	@Transactional(readOnly = true)
 	List<BloodStockTracing> getAllBloodStockTracing();
 
+	@Transactional(readOnly = true)
+	List<BloodStockTracing> getAllBloodStockTracingApproved();
+
 	BloodStockTracing getBloodStockTracingById(Integer id);
 
 	BloodStockTracing getBloodStockTracingByBloodBagId(String bloodBagId);

@@ -36,6 +36,8 @@ public class BloodDonor extends BaseModel {
 
     private String typeOfDonor;
 
+    private Integer patientId;
+
     private String patient;
 
     @JsonManagedReference
@@ -44,7 +46,7 @@ public class BloodDonor extends BaseModel {
     public BloodDonor() {
     }
 
-    public BloodDonor(Integer donorId, String donorName, Integer donorAge, String donorGuardian, Gender donorGender, MaritalStatus donorMaritalStatus, String donorProfession, String donorPresentAddress, String donorPermanentAddress, String donorMobileNo, Date donorLastDonatedDate, String donorLastDonatedPlace, String typeOfDonor, String patient, Set<DonorConcern> concernSet) {
+    public BloodDonor(Integer donorId, String donorName, Integer donorAge, String donorGuardian, Gender donorGender, MaritalStatus donorMaritalStatus, String donorProfession, String donorPresentAddress, String donorPermanentAddress, String donorMobileNo, Date donorLastDonatedDate, String donorLastDonatedPlace, String typeOfDonor, Integer patientId, String patient, Set<DonorConcern> concernSet) {
         this.donorId = donorId;
         this.donorName = donorName;
         this.donorAge = donorAge;
@@ -58,6 +60,7 @@ public class BloodDonor extends BaseModel {
         this.donorLastDonatedDate = donorLastDonatedDate;
         this.donorLastDonatedPlace = donorLastDonatedPlace;
         this.typeOfDonor = typeOfDonor;
+        this.patientId = patientId;
         this.patient = patient;
         this.concernSet = concernSet;
     }
@@ -164,6 +167,14 @@ public class BloodDonor extends BaseModel {
 
     public void setTypeOfDonor(String typeOfDonor) {
         this.typeOfDonor = typeOfDonor;
+    }
+
+    public Integer getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(Integer patientId) {
+        this.patientId = patientId;
     }
 
     public String getPatient() {

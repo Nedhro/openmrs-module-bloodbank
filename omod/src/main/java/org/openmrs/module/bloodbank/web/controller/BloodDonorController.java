@@ -236,10 +236,16 @@ public class BloodDonorController {
         log.warn("No valid user found");
         return new ResponseEntity<>("No User found", HttpStatus.BAD_REQUEST);
     }
-	
-	@RequestMapping(value = "patients", method = RequestMethod.GET)
-	@ResponseBody
-	public List<PatientDTO> getPatientList(@RequestParam("name") String name) {
-		return this.bloodDonorService.getAllPatients(name);
-	}
+
+    @RequestMapping(value = "patients", method = RequestMethod.GET)
+    @ResponseBody
+    public List<PatientDTO> getPatientList(@RequestParam("id") Integer id) {
+        return this.bloodDonorService.getAllPatients(id);
+    }
+
+    @RequestMapping(value = "patientsById", method = RequestMethod.GET)
+    @ResponseBody
+    public List<PatientDTO> getPatientById(@RequestParam("identifier") String identifier) {
+        return this.bloodDonorService.getPatientById(identifier);
+    }
 }
