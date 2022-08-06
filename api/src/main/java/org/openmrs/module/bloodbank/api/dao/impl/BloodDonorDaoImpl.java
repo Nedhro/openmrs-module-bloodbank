@@ -45,7 +45,8 @@ public class BloodDonorDaoImpl implements BloodDonorDao {
 	@Transactional
 	@Override
 	public BloodDonor saveDonorInfo(BloodDonor bloodDonor) {
-		getSession().merge(bloodDonor);
+		Integer id = (Integer) getSession().save(bloodDonor);
+		bloodDonor.setDonorId(id);
 		log.info("Blood Donor Info is saved Successfully :: " + bloodDonor);
 		return bloodDonor;
 	}
