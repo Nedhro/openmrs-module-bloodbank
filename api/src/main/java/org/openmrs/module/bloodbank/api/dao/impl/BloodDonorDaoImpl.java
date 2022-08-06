@@ -45,7 +45,8 @@ public class BloodDonorDaoImpl implements BloodDonorDao {
 	@Transactional
 	@Override
 	public BloodDonor saveDonorInfo(BloodDonor bloodDonor) {
-		getSession().merge(bloodDonor);
+		Integer id = (Integer) getSession().save(bloodDonor);
+		bloodDonor.setDonorId(id);
 		log.info("Blood Donor Info is saved Successfully :: " + bloodDonor);
 		return bloodDonor;
 	}
@@ -137,7 +138,7 @@ public class BloodDonorDaoImpl implements BloodDonorDao {
 		        .uniqueResult();
 		return bloodDonorPhysicalSuitability;
 	}
-	
+
 	@Override
 	@Transactional
 	public BloodDonor getDonorById(Integer id) {
@@ -146,43 +147,67 @@ public class BloodDonorDaoImpl implements BloodDonorDao {
 		BloodDonor bloodDonor = (BloodDonor) criteria.uniqueResult();
 		return bloodDonor;
 	}
-	
+
 	@Override
-	public List<PatientDTO> getAllPatients(String name) {
-		String query = "select *\n" + "from (SELECT DISTINCT v.patient_id,\n" + "                      p.uuid,\n"
-		        + "                      CONCAT(IF(pn.given_name IS NULL, '', CONCAT((pn.given_name), ' ')),\n"
-		        + "                             IF(pn.middle_name IS NULL, '', CONCAT((pn.middle_name), ' ')),\n"
-		        + "                             IF(pn.family_name IS NULL, '', CONCAT((pn.family_name), ' ')),\n"
-		        + "                             '(', pi.identifier, ')')                                AS 'name',\n"
-		        + "                      DATE_FORMAT(FROM_DAYS(DATEDIFF(now(), p.birthdate)), '%Y') + 0 as 'age',\n"
-		        + "                      p.gender                                                       as 'gender',\n"
-		        + "                      bed.Bed                                                        as 'bed',\n"
-		        + "                      bed.ward                                                       as 'ward',\n"
-		        + "                      bed.unit                                                       as 'unit'\n"
-		        + "      FROM visit v\n"
-		        + "               JOIN person_name pn ON v.patient_id = pn.person_id AND pn.voided = 0\n"
-		        + "               JOIN patient_identifier pi ON v.patient_id = pi.patient_id\n"
-		        + "               JOIN person p ON p.person_id = v.patient_id AND p.voided = 0\n"
-		        + "               left join (SELECT bed_patient_assignment_map_id, bed_id, patient_id\n"
-		        + "                          FROM bed_patient_assignment_map\n"
-		        + "                          WHERE bed_patient_assignment_map_id IN (\n"
-		        + "                              SELECT MAX(bed_patient_assignment_map_id)\n"
-		        + "                              FROM bed_patient_assignment_map\n"
-		        + "                              GROUP BY patient_id)) latest on v.patient_id = latest.patient_id\n"
-		        + "               left join\n" + "           (SELECT floor.name     as 'ward',\n"
-		        + "                   bed.bed_number as 'bed',\n" + "                   btag.name      as 'unit',\n"
-		        + "                   bed.bed_id     as 'id'\n" + "            from bed\n"
-		        + "                     inner join bed_location_map on bed.bed_id = bed_location_map.bed_id\n"
-		        + "                     inner join location as ward on bed_location_map.location_id = ward.location_id\n"
-		        + "                     inner join location as floor on ward.parent_location = floor.location_id\n"
-		        + "                     left join bed_tag_map btagmap on bed.bed_id = btagmap.bed_id\n"
-		        + "                     left join bed_tag btag on btagmap.bed_tag_id = btag.bed_tag_id) bed\n"
-		        + "           on latest.bed_id = bed.id\n" + "      WHERE v.date_stopped IS NULL\n"
-		        + "        AND v.voided = 0) patiet\n" + "where patiet.name like '%" + name + "%'";
+	public List<PatientDTO> getAllPatients(Integer id) {
+		String query = "select DISTINCT p.patient_id,\n"
+				+ "                per.uuid,\n"
+				+ "                CONCAT(IF(pn.given_name IS NULL, '', CONCAT((pn.given_name), ' ')),\n"
+				+ "                       IF(pn.middle_name IS NULL, '', CONCAT((pn.middle_name), ' ')),\n"
+				+ "                       IF(pn.family_name IS NULL, '', CONCAT((pn.family_name), ' ')),\n"
+				+ "                       '(', pi.identifier, ')') AS 'name',\n"
+				+ "                CONCAT(IF(TIMESTAMPDIFF(YEAR, per.birthdate, now()) = 0, '',\n"
+				+ "                          CONCAT((CONCAT(TIMESTAMPDIFF(YEAR, per.birthdate, now()), 'Y')), ' ')),\n"
+				+ "                       IF((TIMESTAMPDIFF(MONTH, per.birthdate, now()) % 12) = 0, '',\n"
+				+ "                          CONCAT((CONCAT((TIMESTAMPDIFF(MONTH, per.birthdate, now()) % 12), 'M')), ' ')),\n"
+				+ "                       IF(FLOOR(TIMESTAMPDIFF(DAY, per.birthdate, now()) % 30.4375) = 0, '',\n"
+				+ "                          CONCAT((CONCAT(FLOOR(TIMESTAMPDIFF(DAY, per.birthdate, now()) % 30.4375), 'D')), ' '))\n"
+				+ "                    )                           AS 'age',\n"
+				+ "                per.gender                      as 'gender',\n"
+				+ "                bed.Bed                         as 'bed',\n"
+				+ "                bed.ward                        as 'ward',\n"
+				+ "                bed.unit                        as 'unit'\n"
+				+ "from patient p\n"
+				+ "         inner join patient_identifier pi on p.patient_id = pi.patient_id\n"
+				+ "         inner join person per on p.patient_id = per.person_id\n"
+				+ "         inner join person_name pn on p.patient_id = pn.person_id\n"
+				+ "         left join (SELECT bed_patient_assignment_map_id, bed_id, patient_id\n"
+				+ "                    FROM bed_patient_assignment_map\n"
+				+ "                    WHERE bed_patient_assignment_map_id IN (\n"
+				+ "                        SELECT MAX(bed_patient_assignment_map_id)\n"
+				+ "                        FROM bed_patient_assignment_map\n"
+				+ "                        GROUP BY patient_id)) latest on p.patient_id = latest.patient_id\n"
+				+ "         left join (SELECT floor.name     as 'ward',\n"
+				+ "                           bed.bed_number as 'bed',\n"
+				+ "                           btag.name      as 'unit',\n"
+				+ "                           bed.bed_id     as 'id'\n"
+				+ "                    from bed\n"
+				+ "                             inner join bed_location_map on bed.bed_id = bed_location_map.bed_id\n"
+				+ "                             inner join location as ward on bed_location_map.location_id = ward.location_id\n"
+				+ "                             inner join location as floor on ward.parent_location = floor.location_id\n"
+				+ "                             left join bed_tag_map btagmap on bed.bed_id = btagmap.bed_id\n"
+				+ "                             left join bed_tag btag on btagmap.bed_tag_id = btag.bed_tag_id) bed\n"
+				+ "                   on latest.bed_id = bed.id\n" + "where p.patient_id = " + id + "";
 		SQLQuery sqlQuery = (SQLQuery) getSession().createSQLQuery(query).setResultTransformer(
-		    Transformers.aliasToBean(PatientDTO.class));
+				Transformers.aliasToBean(PatientDTO.class));
 		List<PatientDTO> patientList = sqlQuery.list();
 		return patientList;
 	}
-	
+
+	@Override
+	public List<PatientDTO> getPatientById(String identifier) {
+		String query = "select DISTINCT p.patient_id,\n"
+				+ "                CONCAT(IF(pn.given_name IS NULL, '', CONCAT((pn.given_name), ' ')),\n"
+				+ "                       IF(pn.middle_name IS NULL, '', CONCAT((pn.middle_name), ' ')),\n"
+				+ "                       IF(pn.family_name IS NULL, '', CONCAT((pn.family_name), ' ')),\n"
+				+ "                       '(', pi.identifier, ')') AS 'name'\n" + "from patient p\n"
+				+ "         inner join patient_identifier pi on p.patient_id = pi.patient_id\n"
+				+ "         inner join person_name pn on p.patient_id = pn.person_id\n" + "where pi.identifier =  '"
+				+ identifier + "'";
+		SQLQuery sqlQuery = (SQLQuery) getSession().createSQLQuery(query).setResultTransformer(
+				Transformers.aliasToBean(PatientDTO.class));
+		List<PatientDTO> patientList = sqlQuery.list();
+		return patientList;
+	}
+
 }

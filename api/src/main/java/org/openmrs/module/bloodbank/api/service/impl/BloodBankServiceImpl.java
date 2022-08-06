@@ -54,15 +54,20 @@ public class BloodBankServiceImpl extends BaseOpenmrsService implements BloodBan
 	public BloodStockTracing saveBloodStockTracing(BloodStockTracing bloodStockTracing) {
 		return bloodBankDao.saveBloodStockTracing(bloodStockTracing);
 	}
-	
+
 	@Override
 	public BloodStockTracing updateBloodStockTracing(BloodStockTracing bloodStockTracing) {
 		return bloodBankDao.updateBloodStockTracing(bloodStockTracing);
 	}
-	
+
 	@Override
 	public List<BloodStockTracing> getAllBloodStockTracing() {
 		return bloodBankDao.getAllBloodStockTracing();
+	}
+
+	@Override
+	public List<BloodStockTracing> getAllBloodStockTracingApproved() {
+		return bloodBankDao.getAllBloodStockTracingApproved();
 	}
 
 	@Override

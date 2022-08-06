@@ -35,5 +35,7 @@ public interface BloodDonorDao {
 
     BloodDonor getDonorById(Integer id);
 
-    List<PatientDTO> getAllPatients(String name);
+    List<PatientDTO> getAllPatients(Integer id);
+
+    List<PatientDTO> getPatientById(String identifier);
 }

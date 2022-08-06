@@ -102,7 +102,7 @@ public class BloodBankDaoImpl implements BloodBankDao {
 		log.info("Blood Stock Tracing info has been updated successfully..." + bloodStockTracing);
 		return bloodStockTracing;
 	}
-	
+
 	@Override
 	public List<BloodStockTracing> getAllBloodStockTracing() {
 		Criteria criteria = getSession().createCriteria(BloodStockTracing.class);
@@ -112,7 +112,17 @@ public class BloodBankDaoImpl implements BloodBankDao {
 		log.info("Blood Stock Tracing List ::" + criteria.list());
 		return criteria.list();
 	}
-	
+
+	@Override
+	public List<BloodStockTracing> getAllBloodStockTracingApproved() {
+		Criteria criteria = getSession().createCriteria(BloodStockTracing.class);
+		criteria.add(Restrictions.eq("status", 2));
+		criteria.add(Restrictions.eq("voided", Boolean.TRUE));
+		criteria.add(Restrictions.eq("stockStatus", StockStatus.NotAvailable.getValue()));
+		log.info("Blood Stock Tracing List ::" + criteria.list());
+		return criteria.list();
+	}
+
 	@Override
 	public BloodStockTracing getBloodStockTracingById(Integer id) {
 		Criteria criteria = getSession().createCriteria(BloodStockTracing.class);
