@@ -1,5 +1,6 @@
 package org.openmrs.module.bloodbank.api.dao.impl;
 
+import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -14,8 +15,6 @@ import org.openmrs.module.bloodbank.api.model.dto.PatientDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 public class BloodDonorDaoImpl implements BloodDonorDao {
 	
@@ -202,7 +201,8 @@ public class BloodDonorDaoImpl implements BloodDonorDao {
 				+ "                       IF(pn.family_name IS NULL, '', CONCAT((pn.family_name), ' ')),\n"
 				+ "                       '(', pi.identifier, ')') AS 'name'\n" + "from patient p\n"
 				+ "         inner join patient_identifier pi on p.patient_id = pi.patient_id\n"
-				+ "         inner join person_name pn on p.patient_id = pn.person_id\n" + "where pi.identifier =  '"
+				+ "         inner join person_name pn on p.patient_id = pn.person_id\n"
+				+ "where pi.identifier =  '"
 				+ identifier + "'";
 		SQLQuery sqlQuery = (SQLQuery) getSession().createSQLQuery(query).setResultTransformer(
 				Transformers.aliasToBean(PatientDTO.class));

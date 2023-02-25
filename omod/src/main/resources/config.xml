@@ -42,7 +42,8 @@
     BloodDonorPhysicalSuitability.hbm.xml
     BloodCompatibility.hbm.xml
     BloodStockTracing.hbm.xml
-      BloodSerologyTest.hbm.xml
+    BloodSerologyTest.hbm.xml
+    BloodBankUtilDb.xml
   </mappingFiles>
 
   <!--<filter>

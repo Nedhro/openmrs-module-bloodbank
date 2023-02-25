@@ -1,5 +1,6 @@
 package org.openmrs.module.bloodbank.api.service;
 
+import java.util.List;
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.bloodbank.api.model.BloodDonor;
@@ -7,8 +8,6 @@ import org.openmrs.module.bloodbank.api.model.BloodDonorPhysicalSuitability;
 import org.openmrs.module.bloodbank.api.model.Questionnaire;
 import org.openmrs.module.bloodbank.api.model.dto.PatientDTO;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 public interface BloodDonorService extends OpenmrsService {
 
@@ -27,7 +26,8 @@ public interface BloodDonorService extends OpenmrsService {
 	List<Questionnaire> getAllQuestionnaires();
 
 	@Transactional
-	BloodDonorPhysicalSuitability saveBloodDonorPhysicalSuitability(BloodDonorPhysicalSuitability donorPhysicalSuitability)
+	BloodDonorPhysicalSuitability saveBloodDonorPhysicalSuitability(
+			BloodDonorPhysicalSuitability donorPhysicalSuitability)
 			throws APIException;
 
 	@Transactional(readOnly = true)

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="org.openmrs.module.bloodbank.api.model">
+  <class name="BloodBankUtil" table="bloodbank_util_db" lazy="false" batch-size="50">
+    <id name="utilId" type="java.lang.Integer" column="util_id">
+      <generator class="native">
+        <param name="sequence">util_id_seq</param>
+      </generator>
+    </id>
+    <property name="property" type="java.lang.String" column="property"/>
+    <property name="propertyValue" type="java.lang.String" column="property_value"/>
+    <property name="description" type="java.lang.String" column="description"/>
+
+    <property name="uuid" type="java.lang.String" column="uuid" length="38" unique="true"/>
+    <property name="dateCreated" type="java.util.Date" column="date_created" update="false"/>
+    <property name="createdBy" type="java.lang.String" column="created_by" length="255"
+      update="false"/>
+    <property name="dateChanged" type="java.util.Date" column="date_changed"/>
+    <property name="updatedBy" type="java.lang.String" column="updated_by" length="255"/>
+    <property name="voided" type="java.lang.Boolean" column="voided" length="1" not-null="true"/>
+    <property name="status" type="java.lang.Integer" column="status" length="1" not-null="true"/>
+  </class>
+</hibernate-mapping>

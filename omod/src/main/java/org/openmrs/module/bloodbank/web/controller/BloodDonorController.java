@@ -1,5 +1,7 @@
 package org.openmrs.module.bloodbank.web.controller;
 
+import java.util.List;
+import javax.validation.Valid;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.module.bloodbank.api.model.BloodDonor;
@@ -14,10 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.util.List;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping(value = "/rest/" + RestConstants.VERSION_1 + "/bloodbank")
@@ -226,26 +230,26 @@ public class BloodDonorController {
                     bloodDonorService.getBloodDonorPhysicalSuitabilityById(id);
             donorPhysicalSuitability.setStatus(Status.DELETE.getValue());
             donorPhysicalSuitability.setVoided(Boolean.TRUE);
-            donorPhysicalSuitability.setUpdatedBy(user);
-            bloodDonorService.updateBloodDonorPhysicalSuitability(donorPhysicalSuitability);
-            log.info(
-                    "Blood Donor Physical Suitability test is deleted successfully :: "
-                            + donorPhysicalSuitability);
-            return new ResponseEntity<>(donorPhysicalSuitability, HttpStatus.ACCEPTED);
+          donorPhysicalSuitability.setUpdatedBy(user);
+          bloodDonorService.updateBloodDonorPhysicalSuitability(donorPhysicalSuitability);
+          log.info(
+              "Blood Donor Physical Suitability test is deleted successfully :: "
+                  + donorPhysicalSuitability);
+          return new ResponseEntity<>(donorPhysicalSuitability, HttpStatus.ACCEPTED);
         }
-        log.warn("No valid user found");
-        return new ResponseEntity<>("No User found", HttpStatus.BAD_REQUEST);
-    }
+    log.warn("No valid user found");
+    return new ResponseEntity<>("No User found", HttpStatus.BAD_REQUEST);
+  }
 
-    @RequestMapping(value = "patients", method = RequestMethod.GET)
-    @ResponseBody
-    public List<PatientDTO> getPatientList(@RequestParam("id") Integer id) {
-        return this.bloodDonorService.getAllPatients(id);
-    }
+  @RequestMapping(value = "patients", method = RequestMethod.GET)
+  @ResponseBody
+  public List<PatientDTO> getPatientList(@RequestParam("id") Integer id) {
+    return this.bloodDonorService.getAllPatients(id);
+  }
 
-    @RequestMapping(value = "patientsById", method = RequestMethod.GET)
-    @ResponseBody
-    public List<PatientDTO> getPatientById(@RequestParam("identifier") String identifier) {
-        return this.bloodDonorService.getPatientById(identifier);
-    }
+  @RequestMapping(value = "patientsById", method = RequestMethod.GET)
+  @ResponseBody
+  public List<PatientDTO> getPatientById(@RequestParam("identifier") String identifier) {
+    return this.bloodDonorService.getPatientById(identifier);
+  }
 }

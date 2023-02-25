@@ -1,11 +1,10 @@
 package org.openmrs.module.bloodbank.api.dao;
 
+import java.util.List;
 import org.openmrs.module.bloodbank.api.model.BloodCompatibility;
 import org.openmrs.module.bloodbank.api.model.BloodDonorPhysicalSuitability;
 import org.openmrs.module.bloodbank.api.model.BloodSerology;
 import org.openmrs.module.bloodbank.api.model.BloodStockTracing;
-
-import java.util.List;
 
 public interface BloodBankDao {
 	

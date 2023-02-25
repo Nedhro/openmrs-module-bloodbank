@@ -1,5 +1,7 @@
 package org.openmrs.module.bloodbank.web.controller;
 
+import java.util.List;
+import javax.validation.Valid;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.module.bloodbank.api.model.BloodCompatibility;
@@ -15,10 +17,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.util.List;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping(value = "/rest/" + RestConstants.VERSION_1 + "/bloodbank")
@@ -118,14 +121,14 @@ public class BloodBankController {
             log.warn("No valid user found");
             return new ResponseEntity<>("No User found to add new", HttpStatus.BAD_REQUEST);
         }
-        if (bloodStockTracing.getUpdatedBy() != null) {
-            bloodBankService.updateBloodStockTracing(bloodStockTracing);
-            log.info("Blood Stock Tracing info is updated successfully :: " + bloodStockTracing);
-            return new ResponseEntity<>(bloodStockTracing, HttpStatus.ACCEPTED);
-        }
-        log.warn("No valid user found");
-        return new ResponseEntity<>("No User found to update", HttpStatus.BAD_REQUEST);
-    }
+      if (bloodStockTracing.getUpdatedBy() != null) {
+          bloodBankService.updateBloodStockTracing(bloodStockTracing);
+          log.info("Blood Stock Tracing info is updated successfully :: " + bloodStockTracing);
+          return new ResponseEntity<>(bloodStockTracing, HttpStatus.ACCEPTED);
+      }
+      log.warn("No valid user found");
+      return new ResponseEntity<>("No User found to update", HttpStatus.BAD_REQUEST);
+  }
 
     @RequestMapping(method = RequestMethod.GET, value = "bloodStockTracing/list")
     @ResponseBody
@@ -149,7 +152,8 @@ public class BloodBankController {
         try {
             if (id != null) {
                 BloodStockTracing bloodStockTracing = bloodBankService.getBloodStockTracingById(id);
-                log.info("Blood Stock Tracing info is retrieved successfully :: " + bloodStockTracing);
+                log.info(
+                    "Blood Stock Tracing info is retrieved successfully :: " + bloodStockTracing);
                 return new ResponseEntity<>(bloodStockTracing, HttpStatus.OK);
             }
         } catch (Exception e) {
@@ -249,21 +253,22 @@ public class BloodBankController {
             if (bloodBagId != null) {
                 BloodCompatibility bloodCompatibility =
                         bloodBankService.getCompatibilityByBagId(bloodBagId);
-                log.info("Blood Compatibility info is retrieved successfully :: " + bloodCompatibility);
+                log.info(
+                    "Blood Compatibility info is retrieved successfully :: " + bloodCompatibility);
                 return new ResponseEntity<>(bloodCompatibility, HttpStatus.OK);
             }
         } catch (Exception e) {
             log.error("Runtime error while trying to find the Blood Compatibility", e);
             return new ResponseEntity<>(
-                    RestUtil.wrapErrorResponse(e, e.getMessage()), HttpStatus.BAD_REQUEST);
+                RestUtil.wrapErrorResponse(e, e.getMessage()), HttpStatus.BAD_REQUEST);
         }
-        return null;
-    }
+      return null;
+  }
 
     @RequestMapping(method = RequestMethod.POST, value = "bloodSerologyTest/add")
     @ResponseBody
     public ResponseEntity<Object> saveBloodSerology(
-            @Valid @RequestBody BloodSerology bloodSerology) {
+        @Valid @RequestBody BloodSerology bloodSerology) {
         if (bloodSerology.getBloodSerologyId() == null) {
             if (bloodSerology.getCreatedBy() != null) {
                 bloodBankService.saveBloodSerology(bloodSerology);
@@ -302,7 +307,7 @@ public class BloodBankController {
         } catch (Exception e) {
             log.error("Runtime error while trying to find the Blood Serology", e);
             return new ResponseEntity<>(
-                    RestUtil.wrapErrorResponse(e, e.getMessage()), HttpStatus.BAD_REQUEST);
+                RestUtil.wrapErrorResponse(e, e.getMessage()), HttpStatus.BAD_REQUEST);
         }
         return null;
     }
@@ -319,34 +324,36 @@ public class BloodBankController {
         } catch (Exception e) {
             log.error("Runtime error while trying to find the Blood Serology", e);
             return new ResponseEntity<>(
-                    RestUtil.wrapErrorResponse(e, e.getMessage()), HttpStatus.BAD_REQUEST);
+                RestUtil.wrapErrorResponse(e, e.getMessage()), HttpStatus.BAD_REQUEST);
         }
         return null;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "bloodSerologyTestByPatientIdentifier/{identifier}")
     @ResponseBody
-    public ResponseEntity<Object> getBloodSerologyByPatientIdentifier(@PathVariable String identifier) {
+    public ResponseEntity<Object> getBloodSerologyByPatientIdentifier(
+        @PathVariable String identifier) {
         try {
             if (identifier != null) {
-                List<BloodSerology> bloodSerology = bloodBankService.getBloodSerologyByPatientIdentifier(identifier);
+                List<BloodSerology> bloodSerology = bloodBankService.getBloodSerologyByPatientIdentifier(
+                    identifier);
                 log.info("Blood Serology is retrieved successfully :: " + bloodSerology);
                 return new ResponseEntity<>(bloodSerology, HttpStatus.OK);
             }
         } catch (Exception e) {
             log.error("Runtime error while trying to find the Blood Serology", e);
             return new ResponseEntity<>(
-                    RestUtil.wrapErrorResponse(e, e.getMessage()), HttpStatus.BAD_REQUEST);
+                RestUtil.wrapErrorResponse(e, e.getMessage()), HttpStatus.BAD_REQUEST);
         }
         return null;
     }
 
     @RequestMapping(
-            method = RequestMethod.PUT,
-            value = "bloodSerologyTest/delete/{id}/by/{user}")
+        method = RequestMethod.PUT,
+        value = "bloodSerologyTest/delete/{id}/by/{user}")
     @ResponseBody
     public ResponseEntity<Object> deleteBloodSerologyById(
-            @PathVariable Integer id, @PathVariable String user) {
+        @PathVariable Integer id, @PathVariable String user) {
         BloodSerology bloodSerology = bloodBankService.getBloodSerologyById(id);
         if (user != null && !user.equals("undefined")) {
             bloodSerology.setStatus(Status.DELETE.getValue());

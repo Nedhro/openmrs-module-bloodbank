@@ -10,47 +10,50 @@ public class BloodCompatibility extends BaseModel {
 	
 	private String bloodHivTest;
 
-	private String bloodHbvTest;
+  private String bloodHbvTest;
 
-	private String bloodHcvTest;
+  private String bloodHcvTest;
 
-	private String bloodSyphilisTest;
+  private String bloodSyphilisTest;
 
-	private String bloodMalariaTest;
+  private String bloodMalariaTest;
 
-	private String bloodBagId;
+  private String bloodBagId;
 
-	private Integer patientId;
+  private Integer patientId;
 
-	private String patient;
+  private String patient;
 
-	private String patientBloodGroup;
+  private String patientBloodGroup;
 
-	private String patientBloodGroupRhesus;
+  private String patientBloodGroupRhesus;
 
-	private String atRoomTemp;
+  private String atRoomTemp;
 
-	private String at37ByICT;
+  private String at37ByICT;
 	
 	private String coombsTest;
 	
 	public BloodCompatibility() {
 	}
 
-	public BloodCompatibility(Integer bloodCompatibilityId, String bloodScreening, String bloodGrouping,
-							  String bloodHivTest, String bloodHbvTest, String bloodHcvTest, String bloodSyphilisTest, String bloodMalariaTest,
-							  String bloodBagId, Integer patientId, String patient, String patientBloodGroup, String patientBloodGroupRhesus,
-							  String atRoomTemp, String at37ByICT, String coombsTest) {
-		this.bloodCompatibilityId = bloodCompatibilityId;
-		this.bloodScreening = bloodScreening;
-		this.bloodGrouping = bloodGrouping;
-		this.bloodHivTest = bloodHivTest;
-		this.bloodHbvTest = bloodHbvTest;
-		this.bloodHcvTest = bloodHcvTest;
-		this.bloodSyphilisTest = bloodSyphilisTest;
-		this.bloodMalariaTest = bloodMalariaTest;
-		this.bloodBagId = bloodBagId;
-		this.patientId = patientId;
+  public BloodCompatibility(Integer bloodCompatibilityId, String bloodScreening,
+      String bloodGrouping,
+      String bloodHivTest, String bloodHbvTest, String bloodHcvTest, String bloodSyphilisTest,
+      String bloodMalariaTest,
+      String bloodBagId, Integer patientId, String patient, String patientBloodGroup,
+      String patientBloodGroupRhesus,
+      String atRoomTemp, String at37ByICT, String coombsTest) {
+    this.bloodCompatibilityId = bloodCompatibilityId;
+    this.bloodScreening = bloodScreening;
+    this.bloodGrouping = bloodGrouping;
+    this.bloodHivTest = bloodHivTest;
+    this.bloodHbvTest = bloodHbvTest;
+    this.bloodHcvTest = bloodHcvTest;
+    this.bloodSyphilisTest = bloodSyphilisTest;
+    this.bloodMalariaTest = bloodMalariaTest;
+    this.bloodBagId = bloodBagId;
+    this.patientId = patientId;
 		this.patient = patient;
 		this.patientBloodGroup = patientBloodGroup;
 		this.patientBloodGroupRhesus = patientBloodGroupRhesus;
@@ -123,31 +126,31 @@ public class BloodCompatibility extends BaseModel {
 		this.bloodMalariaTest = bloodMalariaTest;
 	}
 
-	public String getBloodBagId() {
+  public String getBloodBagId() {
 		return bloodBagId;
 	}
 
-	public void setBloodBagId(String bloodBagId) {
+  public void setBloodBagId(String bloodBagId) {
 		this.bloodBagId = bloodBagId;
 	}
 
-	public Integer getPatientId() {
+  public Integer getPatientId() {
 		return patientId;
 	}
 
-	public void setPatientId(Integer patientId) {
+  public void setPatientId(Integer patientId) {
 		this.patientId = patientId;
 	}
 
-	public String getPatient() {
+  public String getPatient() {
 		return patient;
 	}
 
-	public void setPatient(String patient) {
+  public void setPatient(String patient) {
 		this.patient = patient;
 	}
 
-	public String getPatientBloodGroup() {
+  public String getPatientBloodGroup() {
 		return patientBloodGroup;
 	}
 	

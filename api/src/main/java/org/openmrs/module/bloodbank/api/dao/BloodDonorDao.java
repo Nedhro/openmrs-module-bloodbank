@@ -1,41 +1,42 @@
 package org.openmrs.module.bloodbank.api.dao;
 
+import java.util.List;
 import org.openmrs.module.bloodbank.api.model.BloodDonor;
 import org.openmrs.module.bloodbank.api.model.BloodDonorPhysicalSuitability;
 import org.openmrs.module.bloodbank.api.model.Questionnaire;
 import org.openmrs.module.bloodbank.api.model.dto.PatientDTO;
 
-import java.util.List;
-
 public interface BloodDonorDao {
 
-    List<BloodDonor> getAllBloodDonors();
+	List<BloodDonor> getAllBloodDonors();
 
-    BloodDonor saveDonorInfo(BloodDonor bloodDonor);
+	BloodDonor saveDonorInfo(BloodDonor bloodDonor);
 
-    boolean existsByQuestionnaireName(String question);
+	boolean existsByQuestionnaireName(String question);
 
-    Questionnaire saveQuestionnaire(Questionnaire questionnaire);
+	Questionnaire saveQuestionnaire(Questionnaire questionnaire);
 
-    List<Questionnaire> getAllQuestionnaires();
+	List<Questionnaire> getAllQuestionnaires();
 
-    BloodDonorPhysicalSuitability saveBloodDonorPhysicalSuitability(BloodDonorPhysicalSuitability donorPhysicalSuitability);
+	BloodDonorPhysicalSuitability saveBloodDonorPhysicalSuitability(
+			BloodDonorPhysicalSuitability donorPhysicalSuitability);
 
-    List<BloodDonorPhysicalSuitability> getAllBloodDonorPhysicalSuitability();
+	List<BloodDonorPhysicalSuitability> getAllBloodDonorPhysicalSuitability();
 
-    Questionnaire getQuestionnaireById(Integer qid);
+	Questionnaire getQuestionnaireById(Integer qid);
 
-    Questionnaire updateQuestionnaire(Questionnaire questionnaire);
+	Questionnaire updateQuestionnaire(Questionnaire questionnaire);
 
-    BloodDonor updateDonorInfo(BloodDonor bloodDonor);
+	BloodDonor updateDonorInfo(BloodDonor bloodDonor);
 
-    BloodDonorPhysicalSuitability updateBloodDonorPhysicalSuitability(BloodDonorPhysicalSuitability donorPhysicalSuitability);
+	BloodDonorPhysicalSuitability updateBloodDonorPhysicalSuitability(
+			BloodDonorPhysicalSuitability donorPhysicalSuitability);
 
-    BloodDonorPhysicalSuitability getBloodDonorPhysicalSuitabilityById(Integer id);
+	BloodDonorPhysicalSuitability getBloodDonorPhysicalSuitabilityById(Integer id);
 
-    BloodDonor getDonorById(Integer id);
+	BloodDonor getDonorById(Integer id);
 
-    List<PatientDTO> getAllPatients(Integer id);
+	List<PatientDTO> getAllPatients(Integer id);
 
-    List<PatientDTO> getPatientById(String identifier);
+	List<PatientDTO> getPatientById(String identifier);
 }
