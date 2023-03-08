@@ -11,43 +11,45 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface BloodDonorService extends OpenmrsService {
 
-  @Transactional
-  BloodDonor saveDonorInfo(BloodDonor bloodDonor) throws APIException;
+	@Transactional
+	BloodDonor saveDonorInfo(BloodDonor bloodDonor) throws APIException;
 
-  @Transactional(readOnly = true)
-  List<BloodDonor> getAllBloodDonors();
+	@Transactional(readOnly = true)
+	List<BloodDonor> getAllBloodDonors();
 
-  boolean existsByQuestionnaireName(String question);
+	boolean existsByQuestionnaireName(String question);
 
-  @Transactional
-  Questionnaire saveQuestionnaire(Questionnaire questionnaire) throws APIException;
+	@Transactional
+	Questionnaire saveQuestionnaire(Questionnaire questionnaire) throws APIException;
 
-  @Transactional(readOnly = true)
-  List<Questionnaire> getAllQuestionnaires();
+	@Transactional(readOnly = true)
+	List<Questionnaire> getAllQuestionnaires();
 
-  @Transactional
-  BloodDonorPhysicalSuitability saveBloodDonorPhysicalSuitability(
-      BloodDonorPhysicalSuitability donorPhysicalSuitability) throws APIException;
+	@Transactional
+	BloodDonorPhysicalSuitability saveBloodDonorPhysicalSuitability(
+			BloodDonorPhysicalSuitability donorPhysicalSuitability)
+			throws APIException;
 
-  @Transactional(readOnly = true)
-  List<BloodDonorPhysicalSuitability> getAllBloodDonorPhysicalSuitability();
+	@Transactional(readOnly = true)
+	List<BloodDonorPhysicalSuitability> getAllBloodDonorPhysicalSuitability();
 
-  @Transactional(readOnly = true)
-  Questionnaire getQuestionnaireById(Integer qid);
+	@Transactional(readOnly = true)
+	Questionnaire getQuestionnaireById(Integer qid);
 
-  BloodDonorPhysicalSuitability getBloodDonorPhysicalSuitabilityById(Integer id);
+	BloodDonorPhysicalSuitability getBloodDonorPhysicalSuitabilityById(Integer id);
 
-  BloodDonor getDonorById(Integer id);
+	BloodDonor getDonorById(Integer id);
 
-  @Transactional
-  Questionnaire updateQuestionnaire(Questionnaire questionnaire);
+	@Transactional
+	Questionnaire updateQuestionnaire(Questionnaire questionnaire);
 
-  @Transactional
-  BloodDonor updateDonorInfo(BloodDonor bloodDonor);
+	@Transactional
+	BloodDonor updateDonorInfo(BloodDonor bloodDonor);
 
-  @Transactional
-  BloodDonorPhysicalSuitability updateBloodDonorPhysicalSuitability(
-      BloodDonorPhysicalSuitability donorPhysicalSuitability);
+	@Transactional
+	BloodDonorPhysicalSuitability updateBloodDonorPhysicalSuitability(BloodDonorPhysicalSuitability donorPhysicalSuitability);
 
-  List<PatientDTO> getAllPatients();
+	List<PatientDTO> getAllPatients(Integer id);
+
+	List<PatientDTO> getPatientById(String identifier);
 }

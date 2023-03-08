@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="org.openmrs.module.bloodbank.api.model">
+    <class name="BloodSerology" table="bloodbank_blood_serology" lazy="false"
+           batch-size="50">
+        <id name="bloodSerologyId" type="java.lang.Integer" column="blood_serology_id">
+            <generator class="native">
+                <param name="sequence">blood_serology_id_seq</param>
+            </generator>
+        </id>
+        <property name="bloodScreening" column="blood_screening" type="java.lang.String" length="255"/>
+        <property name="bloodGrouping" column="blood_grouping" type="java.lang.String" length="255"/>
+        <property name="atRoomTemp" column="at_room_temp" type="java.lang.String" length="255"/>
+        <property name="at37ByICT" column="at_thirty_seven_by_ict" type="java.lang.String" length="255"/>
+        <property name="coombsTest" column="coombs_test" type="java.lang.String" length="255"/>
+        <property name="bloodHivTest" column="blood_hiv_test" type="java.lang.String" length="255"/>
+        <property name="bloodHbvTest" column="blood_hbv_test" type="java.lang.String" length="255"/>
+        <property name="bloodHcvTest" column="blood_hcv_test" type="java.lang.String" length="255"/>
+        <property name="bloodSyphilisTest" column="blood_syphilis_test" type="java.lang.String" length="255"/>
+        <property name="bloodMalariaTest" column="blood_malaria_test" type="java.lang.String" length="255"/>
+        <property name="patientId" type="java.lang.Integer" column="patient_id" length="25" not-null="true"/>
+        <property name="patientBloodGroup" type="java.lang.String" column="patient_blood_group" length="255"/>
+        <property name="patientName" type="java.lang.String" column="patient_name" length="255"/>
+        <property name="patientBloodGroupRhesus" type="java.lang.String" column="patient_blood_group_rhesus"
+                  length="255"/>
+
+        <property name="uuid" type="java.lang.String" column="uuid" length="38" unique="true"/>
+        <property name="dateCreated" type="java.util.Date" column="date_created" update="false"/>
+        <property name="createdBy" type="java.lang.String" column="created_by" length="255" update="false"/>
+        <property name="dateChanged" type="java.util.Date" column="date_changed"/>
+        <property name="updatedBy" type="java.lang.String" column="updated_by" length="255"/>
+        <property name="voided" type="java.lang.Boolean" column="voided" length="1" not-null="true"/>
+        <property name="status" type="java.lang.Integer" column="status" length="1" not-null="true"/>
+    </class>
+</hibernate-mapping>

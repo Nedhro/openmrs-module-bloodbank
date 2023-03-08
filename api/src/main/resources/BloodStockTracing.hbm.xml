@@ -14,22 +14,12 @@
     <many-to-one name="bloodDonor" class="org.openmrs.module.bloodbank.api.model.BloodDonor"
       column="blood_donor_id" cascade="merge" not-null="false" update="false"/>
     <property name="bloodStorage" type="java.lang.String" column="blood_storage" length="255"/>
-    <property name="sourceOfBlood" column="source_of_blood">
-      <type name="org.hibernate.type.EnumType">
-        <param name="enumClass">org.openmrs.module.bloodbank.api.model.enums.SourceOfBlood</param>
-        <param name="useNamed">true</param>
-      </type>
-    </property>
-    <property name="bloodGroup" type="java.lang.String" column="blood_group" length="255"
-      not-null="true"/>
-    <property name="stockStatus" column="stock_status">
-      <type name="org.hibernate.type.EnumType">
-        <param name="enumClass">org.openmrs.module.bloodbank.api.model.enums.StockStatus</param>
-        <param name="useNamed">true</param>
-      </type>
-    </property>
-    <property name="bloodBagId" type="java.lang.String" column="blood_bag_id" length="255"
-      not-null="true" unique="true"/>
+    <property name="sourceOfBlood" column="source_of_blood" type="java.lang.String" length="255"/>
+    <property name="bloodComponent" column="blood_component" type="java.lang.String" length="255"/>
+    <property name="bloodGroup" type="java.lang.String" column="blood_group" length="255" not-null="true"/>
+    <property name="bloodGroupRhesus" type="java.lang.String" column="blood_group_rhesus"/>
+    <property name="stockStatus" column="stock_status" type="java.lang.String" length="255"/>
+    <property name="bloodBagId" type="java.lang.String" column="blood_bag_id" length="255" not-null="true" unique="true"/>
 
     <property name="uuid" type="java.lang.String" column="uuid" length="38" unique="true"/>
     <property name="dateCreated" type="java.util.Date" column="date_created" update="false"/>
