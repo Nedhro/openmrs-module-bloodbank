@@ -10,60 +10,22 @@
         <param name="sequence">blood_compatibility_id_seq</param>
       </generator>
     </id>
-    <property name="bloodScreening" column="blood_screening">
-      <type name="org.hibernate.type.EnumType">
-        <param name="enumClass">org.openmrs.module.bloodbank.api.model.enums.Compatibility</param>
-        <param name="useNamed">true</param>
-      </type>
-    </property>
-    <property name="bloodGrouping" column="blood_grouping">
-      <type name="org.hibernate.type.EnumType">
-        <param name="enumClass">org.openmrs.module.bloodbank.api.model.enums.Compatibility</param>
-        <param name="useNamed">true</param>
-      </type>
-    </property>
-    <property name="bloodCrossMatching" column="blood_cross_matching">
-      <type name="org.hibernate.type.EnumType">
-        <param name="enumClass">org.openmrs.module.bloodbank.api.model.enums.Compatibility</param>
-        <param name="useNamed">true</param>
-      </type>
-    </property>
-    <property name="bloodHivTest" column="blood_hiv_test">
-      <type name="org.hibernate.type.EnumType">
-        <param name="enumClass">org.openmrs.module.bloodbank.api.model.enums.Result</param>
-        <param name="useNamed">true</param>
-      </type>
-    </property>
-    <property name="bloodHbvTest" column="blood_hbv_test">
-      <type name="org.hibernate.type.EnumType">
-        <param name="enumClass">org.openmrs.module.bloodbank.api.model.enums.Result</param>
-        <param name="useNamed">true</param>
-      </type>
-    </property>
-    <property name="bloodHcvTest" column="blood_hcv_test">
-      <type name="org.hibernate.type.EnumType">
-        <param name="enumClass">org.openmrs.module.bloodbank.api.model.enums.Result</param>
-        <param name="useNamed">true</param>
-      </type>
-    </property>
-    <property name="bloodSyphilisTest" column="blood_syphilis_test">
-      <type name="org.hibernate.type.EnumType">
-        <param name="enumClass">org.openmrs.module.bloodbank.api.model.enums.Result</param>
-        <param name="useNamed">true</param>
-      </type>
-    </property>
-    <property name="bloodMalariaTest" column="blood_malaria_test">
-      <type name="org.hibernate.type.EnumType">
-        <param name="enumClass">org.openmrs.module.bloodbank.api.model.enums.Result</param>
-        <param name="useNamed">true</param>
-      </type>
-    </property>
+    <property name="bloodScreening" column="blood_screening" type="java.lang.String" length="255"/>
+    <property name="bloodGrouping" column="blood_grouping" type="java.lang.String" length="255"/>
+    <property name="atRoomTemp" column="at_room_temp" type="java.lang.String" length="255"/>
+    <property name="at37ByICT" column="at_thirty_seven_by_ict" type="java.lang.String" length="255"/>
+    <property name="coombsTest" column="coombs_test" type="java.lang.String" length="255"/>
+    <property name="bloodHivTest" column="blood_hiv_test" type="java.lang.String" length="255"/>
+    <property name="bloodHbvTest" column="blood_hbv_test" type="java.lang.String" length="255"/>
+    <property name="bloodHcvTest" column="blood_hcv_test" type="java.lang.String" length="255"/>
+    <property name="bloodSyphilisTest" column="blood_syphilis_test" type="java.lang.String" length="255"/>
+    <property name="bloodMalariaTest" column="blood_malaria_test" type="java.lang.String" length="255"/>
     <property name="bloodBagId" type="java.lang.String" column="blood_bag_id" length="255"
       not-null="true"/>
     <property name="patient" type="java.lang.String" column="patient" length="255" not-null="true"/>
-    <property name="patientBloodGroup" type="java.lang.String" column="patient_blood_group"
-      length="255"/>
-
+    <property name="patientId" type="java.lang.Integer" column="patient_id" length="25" not-null="true"/>
+    <property name="patientBloodGroup" type="java.lang.String" column="patient_blood_group" length="255"/>
+    <property name="patientBloodGroupRhesus" type="java.lang.String" column="patient_blood_group_rhesus" length="255"/>
 
     <property name="uuid" type="java.lang.String" column="uuid" length="38" unique="true"/>
     <property name="dateCreated" type="java.util.Date" column="date_created" update="false"/>

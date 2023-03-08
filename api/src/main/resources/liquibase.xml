@@ -12,7 +12,7 @@
       See http://www.liquibase.org/manual/home#available_database_refactorings
       for a list of supported elements and attributes
   -->
-  <changeSet id="bloodbank-donor-V1.01" author="nidhro">
+  <changeSet id="bloodbank-donor-V2.13" author="nidhro">
     <preConditions onFail="MARK_RAN">
       <not>
         <tableExists tableName="bloodbank_donor"/>
@@ -37,6 +37,7 @@
       <column name="donor_last_donated_date" type="date"/>
       <column name="donor_last_donated_place" type="varchar(255)"/>
       <column name="type_of_donor" type="varchar(255)"/>
+      <column name="patient_id" type="int(25)"/>
       <column name="patient" type="varchar(255)"/>
 
       <column name="uuid" type="varchar(255)"/>
@@ -49,7 +50,7 @@
     </createTable>
   </changeSet>
 
-  <changeSet id="bloodbank-donor-concern-V1.01" author="nidhro">
+  <changeSet id="bloodbank-donor-concern-V2.13" author="nidhro">
     <preConditions onFail="MARK_RAN">
       <not>
         <tableExists tableName="bloodbank_donor_concern"/>
@@ -72,7 +73,7 @@
       referencedTableName="bloodbank_donor" referencedColumnNames="donor_id"/>
   </changeSet>
 
-  <changeSet id="bloodbank_questionnaire_V1.01" author="nidhro">
+  <changeSet id="bloodbank_questionnaire_V2.13" author="nidhro">
     <preConditions onFail="MARK_RAN">
       <not>
         <tableExists tableName="bloodbank_questionnaire"/>
@@ -98,7 +99,7 @@
     </createTable>
   </changeSet>
 
-  <changeSet id="bloodbank_blood_donor_physical_suitability_V1.01" author="nidhro, jarrin">
+  <changeSet id="bloodbank_blood_donor_physical_suitability_V2.13" author="nidhro, jarrin">
     <preConditions onFail="MARK_RAN">
       <not>
         <tableExists tableName="bloodbank_blood_donor_physical_suitability"/>
@@ -138,7 +139,7 @@
     />
   </changeSet>
 
-  <changeSet id="bloodbank_blood_compatibility_V1.01" author="kamrul">
+  <changeSet id="bloodbank_blood_compatibility_V2.13" author="kamrul">
     <preConditions onFail="MARK_RAN">
       <not>
         <tableExists tableName="bloodbank_blood_compatibility"/>
@@ -153,7 +154,9 @@
       </column>
       <column name="blood_screening" type="varchar(255)"/>
       <column name="blood_grouping" type="varchar(255)"/>
-      <column name="blood_cross_matching" type="varchar(255)"/>
+      <column name="at_room_temp" type="varchar(255)"/>
+      <column name="at_thirty_seven_by_ict" type="varchar(255)"/>
+      <column name="coombs_test" type="varchar(255)"/>
       <column name="blood_hiv_test" type="varchar(255)"/>
       <column name="blood_hbv_test" type="varchar(255)"/>
       <column name="blood_hcv_test" type="varchar(255)"/>
@@ -162,10 +165,14 @@
       <column name="blood_bag_id" type="varchar(255)">
         <constraints nullable="false"/>
       </column>
+      <column name="patient_id" type="int(25)">
+        <constraints nullable="false"/>
+      </column>
       <column name="patient" type="varchar(255)">
         <constraints nullable="false"/>
       </column>
       <column name="patient_blood_group" type="varchar(255)"/>
+      <column name="patient_blood_group_rhesus" type="varchar(255)"/>
 
       <column name="uuid" type="varchar(255)"/>
       <column name="date_created" type="datetime"/>
@@ -177,7 +184,7 @@
     </createTable>
   </changeSet>
 
-  <changeSet id="bloodbank_blood_stock_tracing_V1.01" author="kamrul">
+  <changeSet id="bloodbank_blood_stock_tracing_V2.13" author="kamrul">
     <preConditions onFail="MARK_RAN">
       <not>
         <tableExists tableName="bloodbank_blood_stock_tracing"/>
@@ -191,8 +198,12 @@
         <constraints primaryKey="true" nullable="false"/>
       </column>
       <column name="blood_storage" type="varchar(255)"/>
+      <column name="blood_component" type="varchar(255)"/>
       <column name="source_of_blood" type="varchar(255)"/>
       <column name="blood_group" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="blood_group_rhesus" type="varchar(255)">
         <constraints nullable="false"/>
       </column>
       <column name="stock_status" type="varchar(255)"/>
@@ -217,4 +228,118 @@
       referencedTableName="bloodbank_donor" referencedColumnNames="donor_id"
     />
   </changeSet>
+
+  <changeSet id="bloodbank_blood_serology_V2.13" author="kamrul">
+    <preConditions onFail="MARK_RAN">
+      <not>
+        <tableExists tableName="bloodbank_blood_serology"/>
+      </not>
+    </preConditions>
+    <comment>
+      Creating the bloodbank_blood_serology table
+    </comment>
+    <createTable tableName="bloodbank_blood_serology">
+      <column name="blood_serology_id" type="int" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="blood_screening" type="varchar(255)"/>
+      <column name="blood_grouping" type="varchar(255)"/>
+      <column name="at_room_temp" type="varchar(255)"/>
+      <column name="at_thirty_seven_by_ict" type="varchar(255)"/>
+      <column name="coombs_test" type="varchar(255)"/>
+      <column name="blood_hiv_test" type="varchar(255)"/>
+      <column name="blood_hbv_test" type="varchar(255)"/>
+      <column name="blood_hcv_test" type="varchar(255)"/>
+      <column name="blood_syphilis_test" type="varchar(255)"/>
+      <column name="blood_malaria_test" type="varchar(255)"/>
+      <column name="patient_id" type="int(25)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="patient_name" type="varchar(255)"/>
+      <column name="patient_blood_group" type="varchar(255)"/>
+      <column name="patient_blood_group_rhesus" type="varchar(255)"/>
+
+      <column name="uuid" type="varchar(255)"/>
+      <column name="date_created" type="datetime"/>
+      <column name="created_by" type="varchar(255)"/>
+      <column name="date_changed" type="datetime"/>
+      <column name="updated_by" type="varchar(255)"/>
+      <column name="voided" type="tinyint(3)"/>
+      <column name="status" type="int(3)"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="bloodbank_util_db_V2.13" author="kamrul">
+    <preConditions onFail="MARK_RAN">
+      <not>
+        <tableExists tableName="bloodbank_util_db"/>
+      </not>
+    </preConditions>
+    <comment>
+      Creating the bloodbank_util_db table
+    </comment>
+    <createTable tableName="bloodbank_util_db">
+      <column name="util_id" type="int" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="property" type="varchar(255)"/>
+      <column name="property_value" type="varchar(255)"/>
+      <column name="description" type="varchar(255)"/>
+
+      <column name="uuid" type="varchar(255)"/>
+      <column name="date_created" type="datetime"/>
+      <column name="created_by" type="varchar(255)"/>
+      <column name="date_changed" type="datetime"/>
+      <column name="updated_by" type="varchar(255)"/>
+      <column name="voided" type="tinyint(3)"/>
+      <column name="status" type="int(3)"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="bloodbank_util_db_year_query_V2.13" author="kamrul">
+    <preConditions onFail="MARK_RAN">
+      <sqlCheck expectedResult="0">select count(*) from bloodbank_util_db where property=
+        'bloodbag.year.prefix'
+      </sqlCheck>
+    </preConditions>
+    <comment>
+      Global property field for Blood Bag Identifier prefix
+    </comment>
+    <sql>insert into bloodbank_util_db (`property`, `property_value`, `description`, `uuid`)
+      values ('bloodbag.year.prefix', year(curdate()), 'Property for adding year dynamically in
+      blood-bag
+      prefix', uuid());
+    </sql>
+  </changeSet>
+
+  <changeSet id="bloodbank_util_db_nextid_query_V2.13" author="kamrul">
+    <preConditions onFail="MARK_RAN">
+      <sqlCheck expectedResult="0">select count(*) from bloodbank_util_db where property=
+        'bloodbag.nextid'
+      </sqlCheck>
+    </preConditions>
+    <comment>
+      Global property field for Blood Bag Identifier prefix
+    </comment>
+    <sql>insert into bloodbank_util_db (`property`, `property_value`, `description`, `uuid`)
+      values ('bloodbag.nextid', '001', 'Property for year wise dynamic increment of blood-bag
+      id', uuid());
+    </sql>
+  </changeSet>
+
+  <changeSet id="bloodbag_prefix_query_V2.13" author="kamrul">
+    <preConditions onFail="MARK_RAN">
+      <sqlCheck expectedResult="0">select count(*) from global_property where property=
+        'bloodbank.bloodbag.id.prefix'
+      </sqlCheck>
+    </preConditions>
+    <comment>
+      Global property field for Blood Bag Identifier prefix
+    </comment>
+    <sql>insert into global_property (`property`, `property_value`, `description`, `uuid`)
+      values ('bloodbank.bloodbag.id.prefix', 'NITOR', 'Global property field for Blood Bag
+      Identifier prefix', uuid());
+    </sql>
+  </changeSet>
+
 </databaseChangeLog>
