@@ -11,7 +11,7 @@ import org.openmrs.module.bloodbank.api.model.BloodStockTracing;
 import org.openmrs.module.bloodbank.api.service.BloodBankService;
 
 public class BloodBankServiceImpl extends BaseOpenmrsService implements BloodBankService {
-	
+
 	private BloodBankDao bloodBankDao;
 	
 	private UserService userService;
@@ -118,4 +118,5 @@ public class BloodBankServiceImpl extends BaseOpenmrsService implements BloodBan
 	public List<BloodSerology> getBloodSerologyByPatientIdentifier(String identifier) {
 		return bloodBankDao.getBloodSerologyByPatientIdentifier(identifier);
 	}
+
 }

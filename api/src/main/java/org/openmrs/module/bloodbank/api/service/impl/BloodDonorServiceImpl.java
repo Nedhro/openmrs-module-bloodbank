@@ -103,4 +103,5 @@ public class BloodDonorServiceImpl extends BaseOpenmrsService implements BloodDo
 	public List<PatientDTO> getPatientById(String identifier) {
 		return bloodDonorDao.getPatientById(identifier);
 	}
+
 }

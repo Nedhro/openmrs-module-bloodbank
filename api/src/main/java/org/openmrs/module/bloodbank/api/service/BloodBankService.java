@@ -10,7 +10,7 @@ import org.openmrs.module.bloodbank.api.model.BloodStockTracing;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface BloodBankService extends OpenmrsService {
-	
+
 	@Transactional(readOnly = true)
 	List<BloodDonorPhysicalSuitability> getAllDonorTestsResult();
 	
@@ -68,4 +68,5 @@ public interface BloodBankService extends OpenmrsService {
 	@Authorized(BloodBankConfig.MODULE_PRIVILEGE)
 	@Transactional
 	Item saveItem(Item item) throws APIException;*/
+
 }

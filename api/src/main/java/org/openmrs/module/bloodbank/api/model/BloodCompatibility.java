@@ -1,7 +1,7 @@
 package org.openmrs.module.bloodbank.api.model;
 
 public class BloodCompatibility extends BaseModel {
-	
+
 	private Integer bloodCompatibilityId;
 	
 	private String bloodScreening;

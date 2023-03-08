@@ -7,7 +7,7 @@ import org.openmrs.module.bloodbank.api.model.BloodSerology;
 import org.openmrs.module.bloodbank.api.model.BloodStockTracing;
 
 public interface BloodBankDao {
-	
+
 	List<BloodDonorPhysicalSuitability> getAllDonorTestsResult();
 	
 	BloodCompatibility saveBloodCompatibility(BloodCompatibility bloodCompatibility);

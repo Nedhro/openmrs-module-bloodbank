@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.ManyToOne;
 
 public class BloodStockTracing extends BaseModel {
-	
+
 	private Integer bloodStockTracingId;
 	
 	@ManyToOne

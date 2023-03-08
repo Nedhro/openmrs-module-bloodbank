@@ -1,6 +1,7 @@
 package org.openmrs.module.bloodbank.api.model.enums;
 
 public enum SourceOfBlood {
+
 	NITOR("NITOR"), OutdoorCampaign("Outdoor Campaign"), Outsource("Outsource");
 	
 	private final String value;
@@ -12,4 +13,5 @@ public enum SourceOfBlood {
 	public String getValue() {
 		return this.value;
 	}
+
 }

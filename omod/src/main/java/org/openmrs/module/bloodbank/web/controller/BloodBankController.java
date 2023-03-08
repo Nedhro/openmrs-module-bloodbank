@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping(value = "/rest/" + RestConstants.VERSION_1 + "/bloodbank")
 public class BloodBankController {
-	
+
 	private Log log = LogFactory.getLog(this.getClass());
 	
 	@Autowired
@@ -145,7 +145,7 @@ public class BloodBankController {
         log.info("Blood Stock Tracing Lists :: " + bloodStockTracings);
         return bloodStockTracings;
     }
-
+    
     @RequestMapping(method = RequestMethod.GET, value = "bloodStockTracing/{id}")
     @ResponseBody
     public ResponseEntity<Object> getBloodStockTracingById(@PathVariable Integer id) {
@@ -225,7 +225,7 @@ public class BloodBankController {
         log.warn("No valid user found to update the status the blood bag from the stock");
         return new ResponseEntity<>(user, HttpStatus.NOT_ACCEPTABLE);
     }
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = "bloodStockTracing/bloodBag/{bloodBagId}")
     @ResponseBody
     public ResponseEntity<Object> getBloodStockByBagId(@PathVariable String bloodBagId) {

@@ -1,6 +1,7 @@
 package org.openmrs.module.bloodbank.api.model.enums;
 
 public enum StockStatus {
+
 	Available("Available"), NotAvailable("Not Available");
 	
 	private final String value;
@@ -12,4 +13,5 @@ public enum StockStatus {
 	public String getValue() {
 		return this.value;
 	}
+
 }

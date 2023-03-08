@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 public class BloodDonorDaoImpl implements BloodDonorDao {
-	
+
 	protected final Logger log = LoggerFactory.getLogger(BloodDonorDaoImpl.class);
 	
 	private SessionFactory sessionFactory;
@@ -209,5 +209,4 @@ public class BloodDonorDaoImpl implements BloodDonorDao {
 		List<PatientDTO> patientList = sqlQuery.list();
 		return patientList;
 	}
-
 }

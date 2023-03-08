@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping(value = "/rest/" + RestConstants.VERSION_1 + "/bloodbank")
 public class BloodDonorController {
-	
+
 	private Log log = LogFactory.getLog(this.getClass());
 	
 	@Autowired
